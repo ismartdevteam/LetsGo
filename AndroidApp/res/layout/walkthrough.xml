@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <com.nvanbenschoten.motion.ParallaxImageView
+        android:id="@+id/walk_back"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/walk_back"
+        android:scaleType="centerCrop" />
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        />
-    <common.CirclePageIndicator
-        android:id="@+id/indicator"
-        android:padding="10dip"
+        android:id="@+id/walk_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent" />
+
+    <com.viewpagerindicator.CirclePageIndicator
+        android:id="@+id/walk_indicator"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        />
-</LinearLayout>
+        android:layout_alignParentBottom="true"
+        android:padding="10dip" />
+
+</RelativeLayout>
