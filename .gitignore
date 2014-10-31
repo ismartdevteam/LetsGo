@@ -42,5 +42,5 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-/LetsGoWeb/nbproject/private/
-/AndroidApp/bin/
+LetsGoWeb/nbproject/private/*
+AndroidApp/bin/*
