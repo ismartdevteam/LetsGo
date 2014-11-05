@@ -4,12 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.nvanbenschoten.motion.ParallaxImageView
+    <!-- <com.nvanbenschoten.motion.ParallaxImageView
         android:id="@+id/walk_back"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/walk_back"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop" /> -->
 
     <android.support.v4.view.ViewPager
         android:id="@+id/walk_pager"

@@ -5,4 +5,26 @@
     <color name="view_divider_color">#BABABA</color>
     <color name="view_divider_color_2">#DADADA</color>
     
+    <color name="light_blue">#0083ff</color>
+    <color name="dark_blue">#0564bd</color>
+    <color name="light_green">#61e92c</color>
+    <color name="dark_green">#3caf0f</color>
+    <color name="light_red">#e41a28</color>
+    <color name="dark_red">#9e040f</color>
+    <color name="light_yellow">#FFF222</color>
+    <color name="dark_yellow">#FFb801</color>
+    
+    
+    <!-- 10 Colors combination -->
+    <color name="user1">#aa141d</color>
+    <color name="user2">#db2126</color>
+    <color name="user3">#df8c2c</color>
+    <color name="user4">#f9de4f</color>
+    <color name="user5">#89c339</color>
+    <color name="user6">#219333</color>
+    <color name="user7">#018ad0</color>
+    <color name="user8">#0454ab</color>
+    <color name="user9">#672297</color>
+    <color name="user10">#961b8d</color>
+    
 </resources>

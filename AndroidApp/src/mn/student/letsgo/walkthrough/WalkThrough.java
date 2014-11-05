@@ -52,7 +52,7 @@ import com.viewpagerindicator.CirclePageIndicator;
 public class WalkThrough extends FragmentActivity {
 	ViewPager pager;
 	CirclePageIndicator indicator;
-	ParallaxImageView back;
+	//ParallaxImageView back;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +78,8 @@ public class WalkThrough extends FragmentActivity {
 	    }
 		
 		
-		back = (ParallaxImageView) findViewById(R.id.walk_back);
-		back.registerSensorManager();
+		//back = (ParallaxImageView) findViewById(R.id.walk_back);
+		//back.registerSensorManager();
 		pager = (ViewPager) findViewById(R.id.walk_pager);
 		pager.setAdapter(new WalkPageAdapter(getSupportFragmentManager()));
 		indicator = (CirclePageIndicator) findViewById(R.id.walk_indicator);
@@ -95,11 +95,11 @@ public class WalkThrough extends FragmentActivity {
 
 		@Override
 		public Fragment getItem(int position) {
-			if (position == 2) {
-				return new Login().newInstance();
-			} else {
+			//if (position == 2) {
+			//	return new Login().newInstance();
+			//} else {
 				return WalkItem.newInstance(position);
-			}
+			//}
 		}
 
 		@Override
@@ -112,7 +112,7 @@ public class WalkThrough extends FragmentActivity {
 	public static class WalkItem extends Fragment {
 		int mNum;
 		View v;
-		int images[] = { R.drawable.walk_one, R.drawable.walk_two };
+		int images[] = { R.drawable.walk_one, R.drawable.walk_two,R.drawable.walk_two };
 
 		public static WalkItem newInstance(int num) {
 			WalkItem f = new WalkItem();
@@ -146,6 +146,9 @@ public class WalkThrough extends FragmentActivity {
 				text.setText(getActivity().getString(R.string.walk_one));
 				break;
 			case 1:
+				text.setText(getActivity().getString(R.string.walk_two));
+				break;
+			case 2:
 				text.setText(getActivity().getString(R.string.walk_two));
 				break;
 			default:
