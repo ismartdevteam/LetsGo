@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:circle="http://schemas.android.com/apk/res/mn.student.letsgo"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical"
+    tools:context="mn.student.letsgo.whoisgonnapay" >
+    
+    <mn.student.letsgo.common.CircleLayout
+        android:id="@+id/main_circle_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:layout_gravity="center_horizontal"
+        circle:firstChildPosition="South" 
+        circle:rotateToCenter="true" 
+        circle:isRotating="true"
+        circle:speed="75">
+        
+        <mn.student.letsgo.common.CircleView
+            android:id="@+id/view1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/circle_view_1" />
+        <mn.student.letsgo.common.CircleView
+            android:id="@+id/view2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/circle_view_2" />
+
+	</mn.student.letsgo.common.CircleLayout>
+   <View
+       android:layout_width="wrap_content"
+       android:layout_height="0dp"
+       android:layout_weight="1"
+       android:layout_marginLeft="@dimen/abc_action_bar_default_height"
+       android:layout_marginRight="@dimen/abc_action_bar_default_height"
+       android:layout_marginBottom="@dimen/abc_action_bar_default_height"
+       android:background="@android:color/darker_gray"/>
+
+
+</LinearLayout>

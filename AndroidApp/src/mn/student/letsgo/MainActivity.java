@@ -1,6 +1,8 @@
 package mn.student.letsgo;
 
+import mn.student.letsgo.whoisgonnapay.WhoIsGonnaPay;
 import android.app.Activity;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,7 +22,7 @@ public class MainActivity extends ActionBarActivity
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
-    private NavigationDrawerFragment mNavigationDrawerFragment;
+    public static NavigationDrawerFragment mNavigationDrawerFragment;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -46,20 +48,43 @@ public class MainActivity extends ActionBarActivity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();
+        switch (position) {
+		case 0:
+			fragmentManager.beginTransaction()
+            .replace(R.id.container, PlaceholderFragment.newInstance(1))
+            .commit();
+			break;
+		case 1:
+			fragmentManager.beginTransaction()
+            .replace(R.id.container, PlaceholderFragment.newInstance(2))
+            .commit();
+			break;
+		case 2:
+			fragmentManager.beginTransaction()
+            .replace(R.id.container, WhoIsGonnaPay.newInstance(3))
+            .commit();
+			break;
+
+		default:
+			break;
+		}
     }
 
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
+            	getSupportActionBar().setIcon(getResources().getDrawable(R.drawable.ic_launcher));
+            	getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.dark_green)));
                 mTitle = getString(R.string.title_section1);
                 break;
             case 2:
+            	getSupportActionBar().setIcon(getResources().getDrawable(R.drawable.ic_compare));
+            	getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.light_red)));
                 mTitle = getString(R.string.title_section2);
                 break;
             case 3:
+            	getSupportActionBar().setIcon(getResources().getDrawable(R.drawable.who_is_gonna_pay));
+            	getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.light_blue)));
                 mTitle = getString(R.string.title_section3);
                 break;
         }

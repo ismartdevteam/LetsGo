@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@android:color/darker_gray">
+    
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/light_blue"
+        android:padding="@dimen/activity_horizontal_margin">
+        
+        <ImageView 
+            android:id="@+id/dialogIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_settings_white"
+            android:contentDescription="@string/settings"
+			android:layout_alignParentLeft="true"
+			android:layout_centerVertical="true"/>
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings"
+            android:textColor="@android:color/white"
+            android:layout_toRightOf="@+id/dialogIcon"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_centerVertical="true"
+            android:textStyle="bold"/>            
+        
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/btn_close_white"
+            android:id="@+id/btnDialogClose"/>
+        
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/layoutSeekBarSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_vertical_margin"
+        android:orientation="vertical"
+        android:background="@android:color/darker_gray">
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/user_number"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"/>
+    
+    	<SeekBar
+        	android:id="@+id/seekbar_who_is_gonna"
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:paddingLeft="5dp"
+        	android:paddingRight="5dp"
+        	android:max="8"
+        	android:progress="0"
+        	android:thumb="@drawable/who_is_gonna_pay"
+        	android:progressDrawable="@drawable/seekbar_whoisgonna" />
+    	<LinearLayout
+			android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:background="@android:color/transparent"
+        	android:paddingLeft="5dp"
+        	android:paddingRight="5dp"
+        	android:orientation="horizontal"
+        	android:visibility="visible"
+        	android:weightSum="9" >
+	 
+			<TextView
+	        	android:layout_width="0dp"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1"
+            	android:gravity="center_horizontal"
+            	android:text="2"
+            	android:textColor="@android:color/white"/>
+			<TextView
+	        	android:layout_width="0dp"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1"
+            	android:gravity="center_horizontal"
+            	android:text="3"
+            	android:textColor="@android:color/white"/>
+        	<TextView
+	        	android:layout_width="0dp"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1"
+            	android:gravity="center_horizontal"
+            	android:text="4"
+            	android:textColor="@android:color/white"/>
+        	<TextView
+	        	android:layout_width="0dp"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1"
+            	android:gravity="center_horizontal"
+            	android:text="5"
+            	android:textColor="@android:color/white"/>
+        	<TextView
+	        	android:layout_width="0dp"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1"
+            	android:gravity="center_horizontal"
+            	android:text="6"
+            	android:textColor="@android:color/white"/>
+        	<TextView
+	        	android:layout_width="0dp"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1"
+            	android:gravity="center_horizontal"
+            	android:text="7"
+            	android:textColor="@android:color/white"/>  
+			<TextView
+	        	android:layout_width="0dp"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1"
+            	android:gravity="center_horizontal"
+            	android:text="8"
+            	android:textColor="@android:color/white"/>  
+        	<TextView
+	        	android:layout_width="0dp"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1"
+            	android:gravity="center_horizontal"
+            	android:text="9"
+            	android:textColor="@android:color/white"/>  
+			<TextView
+	        	android:layout_width="0dp"
+            	android:layout_height="wrap_content"
+            	android:layout_weight="1"
+            	android:gravity="center_horizontal"
+            	android:text="10"
+            	android:textColor="@android:color/white"/>  
+		</LinearLayout>
+		
+    	<View
+        	android:layout_width="fill_parent"
+        	android:layout_height="2dp"
+        	android:layout_marginTop="@dimen/activity_vertical_margin"
+        	android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        	android:layout_marginRight="@dimen/activity_horizontal_margin"
+        	android:background="@android:color/white"/>
+    	
+    	<Button
+	    android:id="@+id/btnNext"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center_horizontal"
+	    android:layout_margin="@dimen/activity_horizontal_margin"
+	    android:paddingLeft= "@dimen/activity_horizontal_margin"
+	    android:paddingRight= "@dimen/activity_horizontal_margin"
+	    android:paddingTop="5dp"
+	    android:paddingBottom="5dp"
+	    android:text="@string/dialog_continue"
+	    android:textColor="@android:color/white"
+	    android:background="@drawable/btn_light_blue_background"
+	    android:drawableRight="@drawable/btn_action_forward"/> 
+    	
+	</LinearLayout>
+
+	
+	<LinearLayout 
+	    android:id="@+id/layoutSaveSection"
+	    android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/light_blue"
+		android:visibility="gone">
+    	
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal">
+    	
+	    <Button
+	        android:id="@+id/btnBack"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:layout_gravity="center_horizontal"
+	    	android:padding= "5dp"
+	    	android:text="@string/dialog_back"
+	    	android:textColor="@android:color/white"
+	    	android:background="@drawable/btn_light_blue_background"
+	    	android:drawableLeft="@drawable/btn_action_back"/>
+	    
+	    <View
+	        android:layout_width="1dp"
+	        android:layout_height="fill_parent"
+	        android:layout_marginTop="5dp"
+	        android:layout_marginBottom="5dp"
+	        android:background="@android:color/white"/>
+	    
+		<Button
+	    	android:id="@+id/btnSave"
+	    	android:layout_width="0dp"
+	    	android:layout_height="wrap_content"
+	    	android:layout_weight="1"
+	    	android:layout_gravity="center_horizontal"
+	    	android:padding= "5dp"
+	    	android:text="@string/dialog_save"
+	    	android:textColor="@android:color/white"
+	    	android:background="@drawable/btn_light_blue_background"
+	    	android:drawableRight="@drawable/btn_action_accept"/>  
+	    	</LinearLayout>  
+	    	
+	    <ListView
+        android:id="@+id/listUsers"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:divider="@android:color/background_light"
+		android:dividerHeight="1dp"/>
+	    
+	</LinearLayout>
+	
+	
+      
+</LinearLayout>
