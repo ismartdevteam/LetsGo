@@ -14,12 +14,12 @@
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
-       <item name="android:homeAsUpIndicator">@drawable/ic_action_back</item>
+       <item name="homeAsUpIndicator">@drawable/ic_action_back</item>
     </style>
     
     <style name="pay_dialog" parent="@android:style/Theme.Dialog">
     	<item name="android:windowBackground">@color/light_blue</item>
-    	<item name="android:animateFirstView">true</item>
+    	<item name="animateFirstView">true</item>
   	</style>
   	
     <declare-styleable name="Circle">
