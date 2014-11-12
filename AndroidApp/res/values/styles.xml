@@ -19,7 +19,6 @@
     
     <style name="pay_dialog" parent="@android:style/Theme.Dialog">
     	<item name="android:windowBackground">@color/light_blue</item>
-    	<item name="animateFirstView">true</item>
   	</style>
   	
     <declare-styleable name="Circle">

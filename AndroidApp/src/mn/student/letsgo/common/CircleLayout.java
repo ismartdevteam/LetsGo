@@ -12,7 +12,6 @@ import android.graphics.Matrix;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.MeasureSpec;
 
 public class CircleLayout extends ViewGroup {
 	// Event listeners

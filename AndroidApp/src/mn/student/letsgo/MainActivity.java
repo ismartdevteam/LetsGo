@@ -42,6 +42,7 @@ public class MainActivity extends ActionBarActivity implements
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
+
 	}
 
 	@Override
@@ -50,23 +51,19 @@ public class MainActivity extends ActionBarActivity implements
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		switch (position) {
 		case 0:
-			fragmentManager
-					.beginTransaction()
-					.replace(R.id.container, ShakeFrag.newInstance(1))
-					.commit();
-			break;
-		case 1:
-			fragmentManager
-					.beginTransaction()
-					.replace(R.id.container, PlaceholderFragment.newInstance(2))
-					.commit();
-			break;
-		case 2:
 			fragmentManager.beginTransaction()
-					.replace(R.id.container, WhoIsGonnaPay.newInstance(3))
-					.commit();
+					.replace(R.id.container, ShakeFrag.newInstance(1)).commit();
 			break;
 
+		case 2:
+			fragmentManager.beginTransaction()
+					.replace(R.id.container, WhoIsGonnaPay.newInstance(2))
+					.commit();
+			break;
+		case 3:
+			fragmentManager.beginTransaction()
+					.replace(R.id.container, MapFrag.newInstance(4)).commit();
+			break;
 		default:
 			break;
 		}
@@ -97,6 +94,15 @@ public class MainActivity extends ActionBarActivity implements
 					new ColorDrawable(getResources().getColor(
 							R.color.light_blue)));
 			mTitle = getString(R.string.title_section3);
+			break;
+		case 4:
+
+			getSupportActionBar().setIcon(
+					getResources().getDrawable(R.drawable.ic_launcher));
+			getSupportActionBar().setBackgroundDrawable(
+					new ColorDrawable(getResources().getColor(
+							R.color.light_blue)));
+			mTitle = getString(R.string.title_section4);
 			break;
 		}
 	}

@@ -31,7 +31,9 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -182,10 +184,11 @@ public class WalkThrough extends FragmentActivity {
 		}
 	}
 
-	public class Login extends Fragment {
+	public class Login extends Fragment implements OnClickListener{
 
 		int mNum;
 		View v;
+		private Button skip;
 		private ProgressDialog progress;
 		private LoginButton loginButton;
 		private GraphUser user;
@@ -238,7 +241,10 @@ public class WalkThrough extends FragmentActivity {
 
 			v = inflater.inflate(R.layout.walk_login, container, false);
 			loginButton = (LoginButton) v.findViewById(R.id.facebookLogin);
+			
 			loginButton.setFragment(this);
+			skip=(Button)v.findViewById(R.id.skip);
+			skip.setOnClickListener(this);
 			return v;
 		}
 
@@ -364,6 +370,16 @@ public class WalkThrough extends FragmentActivity {
 				progress = ProgressDialog.show(getActivity(), "",
 						getString(R.string.loading));
 				makeReq();
+			}
+		}
+
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			if(v==skip){
+				finish();
+				startActivity(new Intent(getActivity(),
+						MainActivity.class));
 			}
 		}
 
