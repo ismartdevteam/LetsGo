@@ -1,5 +1,7 @@
 package mn.student.letsgo.walkthrough;
 
+import static mn.student.letsgo.walkthrough.CommonUtil.SENDER_ID;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,14 +30,17 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
@@ -48,12 +53,14 @@ import com.facebook.widget.LoginButton;
 import com.google.android.gcm.GCMRegistrar;
 import com.nvanbenschoten.motion.ParallaxImageView;
 import com.viewpagerindicator.CirclePageIndicator;
-import static mn.student.letsgo.walkthrough.CommonUtil.SENDER_ID;
 
 public class WalkThrough extends FragmentActivity {
+	ImageSwitcher switcher;
 	ViewPager pager;
 	CirclePageIndicator indicator;
-	ParallaxImageView back;
+	ParallaxImageView back1;
+	ParallaxImageView back2;
+	ParallaxImageView back3;
 	private SharedPreferences GCMsp;
 	private static boolean mReceiverSet = false;
 
@@ -106,13 +113,46 @@ public class WalkThrough extends FragmentActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.walkthrough);
-		back = (ParallaxImageView) findViewById(R.id.walk_back);
-		back.registerSensorManager();
+		ParalaxxImages();
+
 		pager = (ViewPager) findViewById(R.id.walk_pager);
 		pager.setAdapter(new WalkPageAdapter(getSupportFragmentManager()));
 		indicator = (CirclePageIndicator) findViewById(R.id.walk_indicator);
 		indicator.setViewPager(pager);
+		indicator.setOnPageChangeListener(new OnPageChangeListener() {
+
+			@Override
+			public void onPageSelected(int arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+				// TODO Auto-generated method stub
+				if (arg0 < arg2)
+					switcher.showNext();
+				else
+					switcher.showPrevious();
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 		pushReg();
+	}
+
+	private void ParalaxxImages() {
+		switcher = (ImageSwitcher) findViewById(R.id.switcher);
+		back1 = (ParallaxImageView) findViewById(R.id.walk_back1);
+		back1.registerSensorManager();
+		back2 = (ParallaxImageView) findViewById(R.id.walk_back2);
+		back2.registerSensorManager();
+//		back3 = (ParallaxImageView) findViewById(R.id.walk_back3);
+//		back3.registerSensorManager();
 	}
 
 	public class WalkPageAdapter extends FragmentStatePagerAdapter {
@@ -141,7 +181,7 @@ public class WalkThrough extends FragmentActivity {
 	public static class WalkItem extends Fragment {
 		int mNum;
 		View v;
-		int images[] = { R.drawable.walk_one, R.drawable.walk_two };
+		int images[] = { R.drawable.ic_launcher, R.drawable.ic_compare };
 
 		public static WalkItem newInstance(int num) {
 			WalkItem f = new WalkItem();
@@ -184,7 +224,7 @@ public class WalkThrough extends FragmentActivity {
 		}
 	}
 
-	public class Login extends Fragment implements OnClickListener{
+	public class Login extends Fragment implements OnClickListener {
 
 		int mNum;
 		View v;
@@ -241,9 +281,9 @@ public class WalkThrough extends FragmentActivity {
 
 			v = inflater.inflate(R.layout.walk_login, container, false);
 			loginButton = (LoginButton) v.findViewById(R.id.facebookLogin);
-			
+
 			loginButton.setFragment(this);
-			skip=(Button)v.findViewById(R.id.skip);
+			skip = (Button) v.findViewById(R.id.skip);
 			skip.setOnClickListener(this);
 			return v;
 		}
@@ -314,7 +354,7 @@ public class WalkThrough extends FragmentActivity {
 										|| response.getInt("response") == 2) {
 									Editor edit = preferences.edit();
 									edit.putString("username", user.getName());
-						
+
 									edit.putString("my_id",
 											response.getString("user_id"));
 									edit.putString("pro_img",
@@ -376,10 +416,9 @@ public class WalkThrough extends FragmentActivity {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			if(v==skip){
+			if (v == skip) {
 				finish();
-				startActivity(new Intent(getActivity(),
-						MainActivity.class));
+				startActivity(new Intent(getActivity(), MainActivity.class));
 			}
 		}
 

@@ -50,17 +50,17 @@ public class MainActivity extends ActionBarActivity implements
 		// update the main content by replacing fragments
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		switch (position) {
-		case 0:
+		case 1:
 			fragmentManager.beginTransaction()
 					.replace(R.id.container, ShakeFrag.newInstance(1)).commit();
 			break;
 
-		case 2:
+		case 3:
 			fragmentManager.beginTransaction()
-					.replace(R.id.container, WhoIsGonnaPay.newInstance(2))
+					.replace(R.id.container, WhoIsGonnaPay.newInstance(3))
 					.commit();
 			break;
-		case 3:
+		case 4:
 			fragmentManager.beginTransaction()
 					.replace(R.id.container, MapFrag.newInstance(4)).commit();
 			break;

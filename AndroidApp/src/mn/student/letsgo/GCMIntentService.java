@@ -40,12 +40,10 @@ public class GCMIntentService extends GCMBaseIntentService {
 	 * */
 	@Override
 	protected void onMessage(final Context context, Intent intent) {
-
+		Log.i("message GCM", "yes");
 		final String message = intent.getExtras().getString("message");
 
-		final int comment_id = intent.getExtras().getInt("comment_id");
-
-		generateNotification(context, message, comment_id);
+		generateNotification(context, message);
 
 	}
 
@@ -57,7 +55,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 
 		String message = "deleted";
 		// notifies user
-		generateNotification(context, message, 0);
+		generateNotification(context, message);
 	}
 
 	/**
@@ -82,8 +80,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 	 * Issues a notification to inform the user that server has sent a message.
 	 */
 	@SuppressWarnings("deprecation")
-	private static void generateNotification(Context context, String message,
-			int com_id) {
+	private static void generateNotification(Context context, String message) {
 		long when = System.currentTimeMillis();
 		NotificationManager notificationManager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -97,7 +94,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 				| Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		PendingIntent intent = PendingIntent.getActivity(context, 0,
 				notificationIntent, 0);
-		notification.setLatestEventInfo(context, "YouGo", message, intent);
+		notification.setLatestEventInfo(context, "LetsGo", message, intent);
 
 		notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
