@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import mn.student.letsgo.common.ShakeListener;
 import mn.student.letsgo.common.ShakeListener.OnShakeListener;
 import mn.student.letsgo.model.Mood;
 import mn.student.letsgo.text.Bold;
@@ -37,15 +36,17 @@ import android.os.Vibrator;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Request.Method;
@@ -59,18 +60,18 @@ import com.google.android.gms.location.LocationListener;
 
 public class ShakeFrag extends Fragment implements OnShakeListener,
 		GooglePlayServicesClient.ConnectionCallbacks,
-		GooglePlayServicesClient.OnConnectionFailedListener, LocationListener,
-		ActionBar.OnNavigationListener {
+		GooglePlayServicesClient.OnConnectionFailedListener, LocationListener {
 	private static final String ARG_SECTION_NUMBER = "section_number";
 	private ProgressDialog progress;
 	/**
 	 * Returns a new instance of this fragment for the given section number.
 	 */
-	private ShakeListener shake;
+	// private ShakeListener shake;
 	LocationClient mLocationClient;
 	private LocationManager lm;
 	// private MyLocationListener locationListener;
 	private String lat;
+	private ImageView shake;
 	private String lng;
 	private int radius = 1000;
 	private int mood = 0;
@@ -91,15 +92,22 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 
 	@Override
 	public void onPause() {
-		shake.pause();
+		// shake.pause();
 		super.onPause();
 	}
 
 	@Override
 	public void onResume() {
-		shake.resume();
-		shake.setOnShakeListener(this);
+		// shake.resume();
+		// shake.setOnShakeListener(this);
 		super.onResume();
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
 	}
 
 	@Override
@@ -109,7 +117,16 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 		vibrator = (Vibrator) getActivity().getSystemService(
 				Context.VIBRATOR_SERVICE);
 		v = inflater.inflate(R.layout.shake, container, false);
-		shake = new ShakeListener(getActivity());
+		shake = (ImageView) v.findViewById(R.id.shake_img);
+		shake.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				onShake();
+			}
+		});
+		// shake = new ShakeListener(getActivity());
 		return v;
 	}
 
@@ -180,7 +197,7 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 		// locationListener);
 	}
 
-	public void turnGPSOn() {
+	private void turnGPSOn() {
 		Intent intent = new Intent("android.location.GPS_ENABLED_CHANGE");
 		intent.putExtra("enabled", true);
 		getActivity().sendBroadcast(intent);
@@ -202,7 +219,7 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 	@Override
 	public void onShake() {
 		// TODO Auto-generated method stub
-		setupLoc();
+		// setupLoc();
 		vibrator.vibrate(500);
 		progress = ProgressDialog.show(getActivity(), "",
 				getString(R.string.loading));
@@ -217,7 +234,8 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 						try {
 							if (response.getInt("response") == 1
 									&& !response.getBoolean("google_place")) {
-								final JSONObject obj = response.getJSONObject("data");
+								final JSONObject obj = response
+										.getJSONObject("data");
 								Dialog dialog = new Dialog(
 										getActivity(),
 										android.R.style.Theme_DeviceDefault_Dialog);
@@ -266,8 +284,13 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 			@Override
 			protected Map<String, String> getParams() {
 				Map<String, String> params = new HashMap<String, String>();
-				params.put("lat", lat + "");
-				params.put("lng", lng + "");
+				if (lat != null && lng != null) {
+					params.put("lat", lat + "");
+					params.put("lng", lng + "");
+				} else {
+					params.put("lat", "47.9200516");
+					params.put("lng", "106.8830923");
+				}
 				params.put("range", radius + "");
 				if (mood != 0)
 					params.put("mood", mood + "");
@@ -330,14 +353,8 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 				Toast.LENGTH_SHORT).show();
 		if (arg0.hasResolution()) {
 			try {
-				// Start an Activity that tries to resolve the error
 				arg0.startResolutionForResult(getActivity(), 0);
-				/*
-				 * Thrown if Google Play services canceled the original
-				 * PendingIntent
-				 */
 			} catch (IntentSender.SendIntentException e) {
-				// Log the error
 				e.printStackTrace();
 			}
 		}
@@ -345,14 +362,12 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 
 	@Override
 	public void onConnected(Bundle connectionHint) {
-		// TODO Auto-generated method stub
 		Log.i("location", "connected");
 
 	}
 
 	@Override
 	public void onDisconnected() {
-		// TODO Auto-generated method stub
 		Log.i("location", "disconnected");
 
 	}
@@ -380,10 +395,10 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 			mood.name = obj.getString("name");
 			moodList.add(mood);
 		}
-		ActionBar bar = ((ActionBarActivity) getActivity())
-				.getSupportActionBar();
-		bar.setListNavigationCallbacks(
-				new MoodAdapter(getActivity(), moodList), this);
+		// ActionBar bar = ((ActionBarActivity) getActivity())
+		// .getSupportActionBar();
+		// bar.setListNavigationCallbacks(
+		// new MoodAdapter(getActivity(), moodList), this);
 
 	}
 
@@ -410,7 +425,7 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 			ViewHolder hol;
 			if (v == null) {
 				v = ((Activity) mContext).getLayoutInflater().inflate(
-						R.layout.navi_menu_item, null);
+						R.layout.navi_menu_item, parent, false);
 				hol = new ViewHolder();
 				hol.name = (Bold) v.findViewById(R.id.list_item);
 				v.setTag(hol);
@@ -465,8 +480,23 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 	}
 
 	@Override
-	public boolean onNavigationItemSelected(int arg0, long arg1) {
-		// TODO Auto-generated method stub
-		return false;
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		if (!MainActivity.mNavigationDrawerFragment.isDrawerOpen()) {
+			inflater.inflate(R.menu.shake, menu);
+		}
+		super.onCreateOptionsMenu(menu, inflater);
 	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_mood:
+			
+			break;
+		}
+
+		return true;
+
+	}
+
 }

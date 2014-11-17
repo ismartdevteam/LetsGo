@@ -1,15 +1,13 @@
 package mn.student.letsgo.whoisgonnapay;
 
-import java.util.ArrayList;
-
-import mn.student.letsgo.common.ShakeListener;
-import mn.student.letsgo.common.ShakeListener.OnShakeListener;
 import mn.student.letsgo.MainActivity;
 import mn.student.letsgo.R;
 import mn.student.letsgo.common.CircleLayout;
-import mn.student.letsgo.common.CircleView;
 import mn.student.letsgo.common.CircleLayout.OnItemSelectedListener;
 import mn.student.letsgo.common.CircleLayout.OnRotationFinishedListener;
+import mn.student.letsgo.common.CircleView;
+import mn.student.letsgo.common.ShakeListener;
+import mn.student.letsgo.common.ShakeListener.OnShakeListener;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -26,10 +24,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;

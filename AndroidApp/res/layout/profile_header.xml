@@ -1,33 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res/mn.student.letsgo"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="130dp"
     android:background="@android:color/white"
-    android:orientation="horizontal"
-    android:padding="5dp" >
+    android:gravity="center"
+    android:orientation="horizontal" >
 
-    <mn.student.letsgo.utils.CircleImageView
+    <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/navi_pro_img"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:border_color="@color/dark_red"
-        app:border_width="1dp" />
-
-    <mn.student.letsgo.text.Bold
-        android:id="@+id/navi_pro_name"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:gravity="center_vertical"
-        android:padding="10dp"
-        android:singleLine="true"
-        android:textSize="14sp" />
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:scaleType="centerCrop" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/dark_red" />
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/gradient_trans_inverse" />
 
-</LinearLayout>
+</RelativeLayout>

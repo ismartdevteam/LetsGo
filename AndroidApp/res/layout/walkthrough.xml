@@ -5,33 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <ImageSwitcher
-        android:id="@+id/switcher"
+    <com.nvanbenschoten.motion.ParallaxImageView
+        android:id="@+id/walk_back1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:inAnimation="@anim/fadein"
-        android:outAnimation="@anim/fadeout" >
-
-        <com.nvanbenschoten.motion.ParallaxImageView
-            android:id="@+id/walk_back1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/walk_back"
-            app:tiltSensitivity="1" />
-
-        <com.nvanbenschoten.motion.ParallaxImageView
-            android:id="@+id/walk_back2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/walk_back"
-            app:tiltSensitivity="1" />
-
-  
-    </ImageSwitcher>
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/walk_back"
+        app:tiltSensitivity="1" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/walk_pager"

@@ -1,8 +1,8 @@
 package mn.student.letsgo;
 
-import mn.student.letsgo.text.Bold;
-import mn.student.letsgo.utils.CircleImageView;
+import mn.student.letsgo.user.UserAc;
 import mn.student.letsgo.utils.MySingleton;
+import mn.student.letsgo.walkthrough.Login;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -27,6 +28,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation
@@ -66,8 +68,7 @@ public class NavigationDrawerFragment extends Fragment implements
 	private int mCurrentSelectedPosition = 1;
 	private boolean mFromSavedInstanceState;
 	private boolean mUserLearnedDrawer;
-	private CircleImageView pro_img;
-	private Bold pro_name;
+	private NetworkImageView pro_img;
 	private SharedPreferences proSp;
 	private ImageLoader mImageLoader;
 
@@ -110,13 +111,22 @@ public class NavigationDrawerFragment extends Fragment implements
 			Bundle savedInstanceState) {
 		mDrawerListView = (ListView) inflater.inflate(
 				R.layout.fragment_navigation_drawer, container, false);
-		profileView = inflater.inflate(R.layout.profile_header,
-				mDrawerListView, false);
-		pro_img = (CircleImageView) profileView.findViewById(R.id.navi_pro_img);
-		pro_name = (Bold) profileView.findViewById(R.id.navi_pro_name);
-		pro_img.setImageUrl(proSp.getString("pro_img", ""), mImageLoader);
-		pro_name.setText(proSp.getString("username", "user"));
 
+		if (proSp.getBoolean("login", false)) {
+			profileView = inflater.inflate(R.layout.profile_header,
+					mDrawerListView, false);
+			pro_img = (NetworkImageView) profileView
+					.findViewById(R.id.navi_pro_img);
+			pro_img.setImageUrl(proSp.getString("pro_img", ""), mImageLoader);
+			profileView.setTag(1);
+		} else {
+
+			profileView = inflater.inflate(R.layout.no_profile,
+					mDrawerListView, false);
+			profileView.setTag(0);
+
+		}
+		profileView.setOnClickListener(this);
 		mDrawerListView.addHeaderView(profileView);
 		profileView.setOnClickListener(this);
 		mDrawerListView
@@ -327,8 +337,18 @@ public class NavigationDrawerFragment extends Fragment implements
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-//		if (v == profileView) {
-//			startActivity(new Intent(getActivity(), UserAc.class));
-//		}
+		if (v == profileView) {
+			int tag = (Integer) profileView.getTag();
+			if (tag == 1)
+				startActivity(new Intent(getActivity(), UserAc.class));
+			else {
+				mDrawerLayout.closeDrawers();
+				FragmentManager fragmentManager = getActivity()
+						.getSupportFragmentManager();
+				fragmentManager.beginTransaction()
+						.replace(R.id.container, new Login().newInstance())
+						.commit();
+			}
+		}
 	}
 }

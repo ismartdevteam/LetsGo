@@ -25,7 +25,7 @@ public class Splash extends Activity {
 			public void run() {
 				// TODO Auto-generated method stub
 				finish();
-				if (!sp.getBoolean("login", false))
+				if (!sp.getBoolean("isSeen", false))
 					startActivity(new Intent(Splash.this, WalkThrough.class));
 				else {
 					startActivity(new Intent(Splash.this, MainActivity.class));

@@ -2,6 +2,7 @@ package mn.student.letsgo;
 
 import mn.student.letsgo.whoisgonnapay.WhoIsGonnaPay;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -133,6 +134,11 @@ public class MainActivity extends ActionBarActivity implements
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
+		if (id == R.id.action_add) {
+			startActivity(new Intent(MainActivity.this, AddPlaceAc.class));
+
+			return true;
+		}
 		if (id == R.id.action_settings) {
 			return true;
 		}

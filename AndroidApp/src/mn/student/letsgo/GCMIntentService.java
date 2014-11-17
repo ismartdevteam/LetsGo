@@ -1,7 +1,7 @@
 package mn.student.letsgo;
 
-import com.google.android.gcm.GCMBaseIntentService;
-
+import static mn.student.letsgo.walkthrough.CommonUtil.SENDER_ID;
+import static mn.student.letsgo.walkthrough.CommonUtil.displayMessage;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -9,8 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
-import static mn.student.letsgo.walkthrough.CommonUtil.SENDER_ID;
-import static mn.student.letsgo.walkthrough.CommonUtil.displayMessage;
+
+import com.google.android.gcm.GCMBaseIntentService;
 
 public class GCMIntentService extends GCMBaseIntentService {
 
