@@ -33,7 +33,9 @@ import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapFrag extends Fragment implements OnInfoWindowClickListener {
 	private GoogleMap mMap;
@@ -65,7 +67,7 @@ public class MapFrag extends Fragment implements OnInfoWindowClickListener {
 
 	}
 
-	public void getMapdata() {
+	private void getMapdata() {
 		CustomRequest loginReq = new CustomRequest(Method.POST, getActivity()
 				.getString(R.string.mainIp) + "nearby", null,
 				new Response.Listener<JSONObject>() {
@@ -113,8 +115,7 @@ public class MapFrag extends Fragment implements OnInfoWindowClickListener {
 		return fragment;
 	}
 
-	public MapFrag() {
-	}
+
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -198,8 +199,7 @@ public class MapFrag extends Fragment implements OnInfoWindowClickListener {
 		mUiSettings = mMap.getUiSettings();
 		mMap.setMyLocationEnabled(true);
 
-		// mMap.setLocationSource(this);
-		// Log.i("my", mMap.getMyLocation().getLatitude()+"");
+
 		mUiSettings.setMyLocationButtonEnabled(true);
 
 		// mark
@@ -221,6 +221,12 @@ public class MapFrag extends Fragment implements OnInfoWindowClickListener {
 		// // TODO Auto-generated catch block
 		// e.printStackTrace();
 		// }
+		 LatLng lng = new LatLng(213, 231);
+		 mMap.addMarker(new MarkerOptions()
+		 // .icon(BitmapDescriptorFactory
+		 // .fromResource(R.drawable.logo))
+		 .title("tile").position(lng)
+		 .snippet("d"));
 		mMap.setOnInfoWindowClickListener(this);
 		mMap.setOnMarkerClickListener(new OnMarkerClickListener() {
 

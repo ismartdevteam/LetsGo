@@ -16,6 +16,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
@@ -45,7 +48,6 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.facebook.Session;
-import com.facebook.android.Facebook;
 
 public class UserAc extends ActionBarActivity {
 	private SharedPreferences preferences;
@@ -99,11 +101,32 @@ public class UserAc extends ActionBarActivity {
 		// mPagerAdapter.filterCar();
 		// }
 		if (id == R.id.action_logout) {
-			Session book = Session.getActiveSession();
-			book.closeAndClearTokenInformation();
-			preferences.edit().clear().commit();
-			finish();
-			startActivity(new Intent(UserAc.this, WalkThrough.class));
+			AlertDialog.Builder build = new AlertDialog.Builder(UserAc.this);
+			build.setTitle(R.string.logout_title);
+			build.setMessage(R.string.logout_not);
+			build.setNegativeButton(R.string.no, new OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					dialog.dismiss();
+				}
+			});
+			build.setPositiveButton(R.string.yes, new OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					finish();
+					Session book = Session.getActiveSession();
+					book.closeAndClearTokenInformation();
+					preferences.edit().clear().commit();
+					Intent intent = new Intent(UserAc.this, WalkThrough.class);
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					startActivity(intent);
+				}
+			});
+			build.create().show();
 		}
 		if (id == android.R.id.home)
 			onBackPressed();

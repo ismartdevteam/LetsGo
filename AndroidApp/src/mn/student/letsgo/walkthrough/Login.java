@@ -167,6 +167,7 @@ public class Login extends Fragment implements OnClickListener {
 								Editor edit = preferences.edit();
 								edit.putString("username", user.getName());
 								edit.putInt("visits", response.getInt("visit"));
+								edit.putBoolean("isSeen", true);
 								edit.putString("my_id",
 										response.getString("user_id"));
 								edit.putString(

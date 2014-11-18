@@ -7,7 +7,9 @@ import java.util.Map;
 
 import mn.student.letsgo.common.ShakeListener.OnShakeListener;
 import mn.student.letsgo.model.Mood;
+import mn.student.letsgo.model.Places;
 import mn.student.letsgo.text.Bold;
+import mn.student.letsgo.text.Light;
 import mn.student.letsgo.text.Regular;
 import mn.student.letsgo.utils.CircleImageView;
 import mn.student.letsgo.utils.CustomRequest;
@@ -30,7 +32,6 @@ import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.provider.Settings;
@@ -44,9 +45,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.Request.Method;
@@ -78,6 +81,7 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 	private View v;
 	private Vibrator vibrator;
 	private List<Mood> moodList;
+	private Dialog placeDialog;
 
 	public static ShakeFrag newInstance(int sectionNumber) {
 		ShakeFrag fragment = new ShakeFrag();
@@ -192,28 +196,6 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 			dialog.show();
 
 		}
-		// locationListener = new MyLocationListener();
-		// lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10,
-		// locationListener);
-	}
-
-	private void turnGPSOn() {
-		Intent intent = new Intent("android.location.GPS_ENABLED_CHANGE");
-		intent.putExtra("enabled", true);
-		getActivity().sendBroadcast(intent);
-
-		String provider = Settings.Secure.getString(getActivity()
-				.getContentResolver(),
-				Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-		if (!provider.contains("gps")) { // if gps is disabled
-			final Intent poke = new Intent();
-			poke.setClassName("com.android.settings",
-					"com.android.settings.widget.SettingsAppWidgetProvider");
-			poke.addCategory(Intent.CATEGORY_ALTERNATIVE);
-			poke.setData(Uri.parse("3"));
-			getActivity().sendBroadcast(poke);
-
-		}
 	}
 
 	@Override
@@ -232,40 +214,41 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 						Log.e("place responce", response.toString());
 						progress.dismiss();
 						try {
-							if (response.getInt("response") == 1
-									&& !response.getBoolean("google_place")) {
-								final JSONObject obj = response
-										.getJSONObject("data");
-								Dialog dialog = new Dialog(
+							if (response.getInt("response") == 1) {
+								Places place = new Places();
+								if (!response.getBoolean("google_place")) {
+									final JSONObject obj = response
+											.getJSONObject("data");
+
+									place.id = obj.getInt("id");
+									place.name = obj.getString("name");
+									place.desc = obj.getString("desc");
+									place.image = obj.getString("image");
+									place.address = obj.getString("address");
+									place.phone = obj.getString("phone");
+									place.service = obj.getString("service");
+									place.lat = obj.getDouble("lat");
+									place.lng = obj.getDouble("lng");
+									place.time_schedule = obj
+											.getString("time_schedule");
+									place.visits = obj.getInt("visits");
+									place.category = obj
+											.getString("category_name");
+									place.mood = obj.getString("mood_name");
+									place.distance = obj.getDouble("distance");
+									place.user_id = obj.getInt("user_id");
+									place.username = obj.getString("username");
+									place.user_img = obj.getString("user_img");
+
+								}
+
+								showPlace(place);
+							} else {
+								Toast.makeText(
 										getActivity(),
-										android.R.style.Theme_DeviceDefault_Dialog);
-								dialog.setContentView(R.layout.choosenplace);
-								CircleImageView image = (CircleImageView) dialog
-										.findViewById(R.id.place_img);
-								Button go = (Button) dialog
-										.findViewById(R.id.place_letsgo);
-								go.setOnClickListener(new OnClickListener() {
-
-									@Override
-									public void onClick(View v) {
-										// TODO Auto-generated method stub
-										try {
-											sendLetGo(obj.getInt("id"));
-										} catch (JSONException e) {
-											// TODO Auto-generated catch block
-											e.printStackTrace();
-										}
-									}
-								});
-								Regular name = (Regular) dialog
-										.findViewById(R.id.place_name);
-								ImageLoader loader = MySingleton.getInstance(
-										getActivity()).getImageLoader();
-								image.setImageUrl(obj.getString("image"),
-										loader);
-								name.setText(obj.getString("name"));
-								dialog.show();
-
+										getActivity()
+												.getString(R.string.noData),
+										Toast.LENGTH_SHORT).show();
 							}
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
@@ -292,8 +275,10 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 					params.put("lng", "106.8830923");
 				}
 				params.put("range", radius + "");
-				if (mood != 0)
+				if (mood != 0) {
+					Log.i("selMood id", mood + "");
 					params.put("mood", mood + "");
+				}
 				return params;
 			}
 		};
@@ -301,7 +286,48 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 
 	}
 
-	private void sendLetGo(final int place_id) {
+	private void showPlace(final Places place) {
+		placeDialog = new Dialog(getActivity(), R.style.CustomDialogTheme);
+		placeDialog.setContentView(R.layout.choosenplace);
+		CircleImageView image = (CircleImageView) placeDialog
+				.findViewById(R.id.place_img);
+		Button go = (Button) placeDialog.findViewById(R.id.place_letsgo);
+		go.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				placeDialog.dismiss();
+				sendLetGo(place);
+			}
+		});
+		ImageLoader loader = MySingleton.getInstance(getActivity())
+				.getImageLoader();
+		Regular name = (Regular) placeDialog.findViewById(R.id.place_name);
+		Regular cat = (Regular) placeDialog.findViewById(R.id.place_cat);
+		Bold distance = (Bold) placeDialog.findViewById(R.id.place_distance);
+		Light mood = (Light) placeDialog.findViewById(R.id.place_mood);
+		CircleImageView user_image = (CircleImageView) placeDialog
+				.findViewById(R.id.place_user_img);
+		Light username = (Light) placeDialog.findViewById(R.id.place_username);
+		cat.setText(place.category.replace("_", " ").toUpperCase());
+		distance.setText(Utils.numberToFormat((int) (place.distance * 1000))
+				+ "m");
+
+		mood.setText(place.mood);
+
+		user_image.setImageUrl(place.user_img, loader);
+
+		username.setText(place.username);
+
+		image.setImageUrl(getActivity().getString(R.string.mainIpImage)
+				+ place.image.replace("/public", ""), loader);
+
+		name.setText(place.name);
+		placeDialog.show();
+	}
+
+	private void sendLetGo(final Places place) {
 		final SharedPreferences proSp = getActivity().getSharedPreferences(
 				"user", 0);
 		if (proSp.getBoolean("login", false)) {
@@ -326,12 +352,19 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 				protected Map<String, String> getParams() {
 					Map<String, String> params = new HashMap<String, String>();
 					params.put("user_id", proSp.getString("my_id", "0") + "");
-					params.put("place_id", place_id + "");
+					params.put("place_id", place.id + "");
 					return params;
 				}
 			};
 			MySingleton.getInstance(getActivity()).addToRequestQueue(letgoReq);
 		}
+		getActivity()
+				.getSupportFragmentManager()
+				.beginTransaction()
+				.replace(R.id.container,
+						ShowMap.newInstance(place.lat, place.lng))
+				.addToBackStack(place.name).commit();
+
 	}
 
 	public void setupLoc() {
@@ -348,9 +381,6 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 	@Override
 	public void onConnectionFailed(ConnectionResult arg0) {
 		// TODO Auto-generated method stub
-		Toast.makeText(getActivity(),
-				"Connection Failure : " + arg0.getErrorCode(),
-				Toast.LENGTH_SHORT).show();
 		if (arg0.hasResolution()) {
 			try {
 				arg0.startResolutionForResult(getActivity(), 0);
@@ -388,6 +418,10 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 
 	private void moodData(JSONArray data) throws JSONException {
 		moodList = new ArrayList<Mood>();
+		Mood all = new Mood();
+		all.id = 0;
+		all.name = getString(R.string.all);
+		moodList.add(all);
 		for (int i = 0; i < data.length(); i++) {
 			Mood mood = new Mood();
 			JSONObject obj = data.getJSONObject(i);
@@ -448,7 +482,7 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 
 					@Override
 					public void onResponse(JSONObject response) {
-						Log.i("mood", response + "");
+
 						try {
 							if (response.getInt("response") == 1) {
 								moodData(response.getJSONArray("data"));
@@ -457,7 +491,6 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-
 					}
 				}, new Response.ErrorListener() {
 
@@ -491,12 +524,32 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_mood:
-			
+			final Dialog moodDialog = new Dialog(getActivity(),
+					R.style.CustomDialogTheme);
+			moodDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+			moodDialog.setContentView(R.layout.mood_spinner_dialog);
+			final Spinner spin = (Spinner) moodDialog
+					.findViewById(R.id.mood_spinner);
+			spin.setAdapter(new MoodAdapter(getActivity(), moodList));
+			spin.setSelection(mood);
+			Button done = (Button) moodDialog.findViewById(R.id.mood_done);
+			done.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					moodDialog.dismiss();
+					Mood selMood = (Mood) spin.getSelectedItem();
+					mood = selMood.id;
+					// onShake();
+
+				}
+			});
+			moodDialog.show();
 			break;
 		}
 
 		return true;
 
 	}
-
 }

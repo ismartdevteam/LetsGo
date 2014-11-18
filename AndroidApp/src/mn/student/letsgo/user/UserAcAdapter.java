@@ -56,7 +56,7 @@ public class UserAcAdapter extends ArrayAdapter<UserActivity> {
 			hol = (Holder) v.getTag();
 		String imageIp = mContext.getResources()
 				.getString(R.string.mainIpImage);
-		hol.place_img.setImageUrl(imageIp + item.place_img.split(",")[0],
+		hol.place_img.setImageUrl(imageIp + item.place_img.split(",")[0].replace("/public", ""),
 				mImageLoader);
 		hol.place_name.setText(item.place_name);
 		if (item.rating > 2)
@@ -74,7 +74,7 @@ public class UserAcAdapter extends ArrayAdapter<UserActivity> {
 				+ "");
 		hol.image.setImageUrl(imageIp
 
-		+ item.image, mImageLoader);
+		+ item.image.replace("/public", ""), mImageLoader);
 
 		return v;
 	}

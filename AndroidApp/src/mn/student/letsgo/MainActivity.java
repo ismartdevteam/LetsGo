@@ -105,6 +105,13 @@ public class MainActivity extends ActionBarActivity implements
 							R.color.light_blue)));
 			mTitle = getString(R.string.title_section4);
 			break;
+		case 8:
+
+			getSupportActionBar().setBackgroundDrawable(
+					new ColorDrawable(getResources().getColor(
+							R.color.light_blue)));
+			mTitle = getString(R.string.title_section4);
+			break;
 		}
 	}
 
