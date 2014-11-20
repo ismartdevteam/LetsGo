@@ -63,7 +63,7 @@ public class MainActivity extends ActionBarActivity implements
 			break;
 		case 4:
 			fragmentManager.beginTransaction()
-					.replace(R.id.container, MapFrag.newInstance(4)).commit();
+					.replace(R.id.container, MapsFrag.newInstance(4)).commit();
 			break;
 		default:
 			break;
@@ -73,43 +73,20 @@ public class MainActivity extends ActionBarActivity implements
 	public void onSectionAttached(int number) {
 		switch (number) {
 		case 1:
-			getSupportActionBar().setIcon(
-					getResources().getDrawable(R.drawable.ic_launcher));
-			getSupportActionBar().setBackgroundDrawable(
-					new ColorDrawable(getResources().getColor(
-							R.color.dark_green)));
 			mTitle = getString(R.string.title_section1);
 			break;
 		case 2:
-			getSupportActionBar().setIcon(
-					getResources().getDrawable(R.drawable.ic_compare));
-			getSupportActionBar().setBackgroundDrawable(
-					new ColorDrawable(getResources()
-							.getColor(R.color.light_red)));
 			mTitle = getString(R.string.title_section2);
 			break;
 		case 3:
-			getSupportActionBar().setIcon(
-					getResources().getDrawable(R.drawable.who_is_gonna_pay));
-			getSupportActionBar().setBackgroundDrawable(
-					new ColorDrawable(getResources().getColor(
-							R.color.light_blue)));
 			mTitle = getString(R.string.title_section3);
 			break;
 		case 4:
 
-			getSupportActionBar().setIcon(
-					getResources().getDrawable(R.drawable.ic_launcher));
-			getSupportActionBar().setBackgroundDrawable(
-					new ColorDrawable(getResources().getColor(
-							R.color.light_blue)));
 			mTitle = getString(R.string.title_section4);
 			break;
 		case 8:
 
-			getSupportActionBar().setBackgroundDrawable(
-					new ColorDrawable(getResources().getColor(
-							R.color.light_blue)));
 			mTitle = getString(R.string.title_section4);
 			break;
 		}
@@ -119,6 +96,8 @@ public class MainActivity extends ActionBarActivity implements
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		actionBar.setDisplayShowTitleEnabled(true);
+		actionBar.setBackgroundDrawable(new ColorDrawable(getResources()
+				.getColor(R.color.light_blue)));
 		actionBar.setTitle(mTitle);
 	}
 
@@ -146,9 +125,9 @@ public class MainActivity extends ActionBarActivity implements
 
 			return true;
 		}
-		if (id == R.id.action_settings) {
-			return true;
-		}
+		// if (id == R.id.action_settings) {
+		// return true;
+		// }
 		return super.onOptionsItemSelected(item);
 	}
 

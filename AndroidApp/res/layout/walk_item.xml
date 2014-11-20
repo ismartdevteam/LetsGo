@@ -12,9 +12,11 @@
 
     <mn.student.letsgo.text.Regular
         android:id="@+id/walk_item_text"
-     android:textSize="12sp"
-        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="15dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>

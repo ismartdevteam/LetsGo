@@ -1,6 +1,7 @@
 package mn.student.letsgo;
 
 import mn.student.letsgo.user.UserAc;
+import mn.student.letsgo.utils.CircleImageView;
 import mn.student.letsgo.utils.MySingleton;
 import mn.student.letsgo.walkthrough.Login;
 import android.app.Activity;
@@ -16,6 +17,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -68,7 +70,7 @@ public class NavigationDrawerFragment extends Fragment implements
 	private int mCurrentSelectedPosition = 1;
 	private boolean mFromSavedInstanceState;
 	private boolean mUserLearnedDrawer;
-	private NetworkImageView pro_img;
+	private CircleImageView pro_img;
 	private SharedPreferences proSp;
 	private ImageLoader mImageLoader;
 
@@ -115,7 +117,7 @@ public class NavigationDrawerFragment extends Fragment implements
 		if (proSp.getBoolean("login", false)) {
 			profileView = inflater.inflate(R.layout.profile_header,
 					mDrawerListView, false);
-			pro_img = (NetworkImageView) profileView
+			pro_img = (CircleImageView) profileView
 					.findViewById(R.id.navi_pro_img);
 			pro_img.setImageUrl(proSp.getString("pro_img", ""), mImageLoader);
 			profileView.setTag(1);
@@ -338,15 +340,18 @@ public class NavigationDrawerFragment extends Fragment implements
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		if (v == profileView) {
+
 			int tag = (Integer) profileView.getTag();
+			Log.e("sdad", "asda-" + tag);
 			if (tag == 1)
 				startActivity(new Intent(getActivity(), UserAc.class));
 			else {
 				mDrawerLayout.closeDrawers();
 				FragmentManager fragmentManager = getActivity()
 						.getSupportFragmentManager();
-				fragmentManager.beginTransaction()
-						.replace(R.id.container, new Login().newInstance())
+				fragmentManager
+						.beginTransaction()
+						.replace(R.id.container, new Login().newInstance(false))
 						.commit();
 			}
 		}

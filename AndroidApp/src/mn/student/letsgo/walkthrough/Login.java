@@ -38,7 +38,7 @@ import com.facebook.widget.LoginButton;
 
 public class Login extends Fragment implements OnClickListener {
 
-	int mNum;
+	boolean mNum;
 	View v;
 	private Button skip;
 	private ProgressDialog progress;
@@ -65,12 +65,12 @@ public class Login extends Fragment implements OnClickListener {
 		}
 	}
 
-	public Login newInstance() {
+	public Login newInstance( boolean fromWalk) {
 
 		Login f = new Login();
 		// Supply num input as an argument.
 		Bundle args = new Bundle();
-		args.putInt("num", 3);
+		args.putBoolean("num", fromWalk);
 
 		f.setArguments(args);
 
@@ -81,7 +81,7 @@ public class Login extends Fragment implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Log.d("title", "onCreate");
-		mNum = getArguments() != null ? getArguments().getInt("num") : 1;
+		mNum = getArguments().getBoolean("num");
 		uiHelper = new UiLifecycleHelper(getActivity(), callback);
 		uiHelper.onCreate(savedInstanceState);
 		preferences = getActivity().getSharedPreferences("user", 0);
@@ -94,10 +94,13 @@ public class Login extends Fragment implements OnClickListener {
 
 		v = inflater.inflate(R.layout.walk_login, container, false);
 		loginButton = (LoginButton) v.findViewById(R.id.facebookLogin);
-
+		
 		loginButton.setFragment(this);
+		
 		skip = (Button) v.findViewById(R.id.skip);
 		skip.setOnClickListener(this);
+		if(!mNum)
+			skip.setVisibility(View.GONE);
 		return v;
 	}
 
@@ -166,7 +169,7 @@ public class Login extends Fragment implements OnClickListener {
 									|| response.getInt("response") == 2) {
 								Editor edit = preferences.edit();
 								edit.putString("username", user.getName());
-								edit.putInt("visits", response.getInt("visit"));
+				
 								edit.putBoolean("isSeen", true);
 								edit.putString("my_id",
 										response.getString("user_id"));

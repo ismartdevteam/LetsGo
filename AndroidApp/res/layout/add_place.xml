@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <FrameLayout
+            android:id="@+id/add_map"
+            android:layout_width="match_parent"
+            android:layout_height="250dp" >
+        </FrameLayout>
+
+        <EditText
+            android:id="@+id/add_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/name" />
+
+        <EditText
+            android:id="@+id/add_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/desc" />
+
+        <EditText
+            android:id="@+id/add_service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/service" />
+
+        <EditText
+            android:id="@+id/add_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/address" />
+
+        <EditText
+            android:id="@+id/add_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/phone"
+            android:inputType="phone" />
+
+        <EditText
+            android:id="@+id/add_schedule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/timetable" />
+
+        <ImageView
+            android:id="@+id/add_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:src="@drawable/add_item" />
+
+        <Button
+            android:id="@+id/add_place"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/red_but"
+            android:padding="10dp"
+            android:text="@string/addPlace"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+</ScrollView>

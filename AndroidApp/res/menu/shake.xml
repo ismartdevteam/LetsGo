@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" >
 
-    <item
+<!--    <item
         android:id="@+id/action_mood"
         android:title="@string/mood"
         app:showAsAction="always"/>
-
+-->  
 </menu>

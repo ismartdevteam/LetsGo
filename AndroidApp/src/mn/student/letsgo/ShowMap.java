@@ -14,6 +14,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -26,6 +28,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -36,13 +40,18 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-public class ShowMap extends Fragment implements OnInfoWindowClickListener {
+public class ShowMap extends Fragment implements OnInfoWindowClickListener,
+		LocationListener {
 	private GoogleMap mMap;
 	private static View view;
 	private UiSettings mUiSettings;
 
 	private Double lat;
 	private Double lng;
+	private LocationManager locationManager;
+	private static final long MIN_TIME = 400;
+	private static final float MIN_DISTANCE = 1000;
+	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -56,7 +65,7 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener {
 		}
 		try {
 
-			view = inflater.inflate(R.layout.search_place, container, false);
+			view = inflater.inflate(R.layout.show_place, container, false);
 
 		} catch (InflateException e) {
 		}
@@ -95,6 +104,7 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener {
 		setUpMapIfNeeded();
 	}
 
+
 	private void setUpMapIfNeeded() {
 		// Do a null check to confirm that we have not already instantiated the
 		// map.
@@ -128,8 +138,8 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener {
 
 		if (!gps_enabled && !network_enabled) {
 			Builder dialog = new AlertDialog.Builder(getActivity());
-			dialog.setMessage("GPS унтраастай байна");
-			dialog.setPositiveButton("Нээх",
+			dialog.setMessage(R.string.onGPS);
+			dialog.setPositiveButton(R.string.yes,
 					new DialogInterface.OnClickListener() {
 
 						@Override
@@ -142,7 +152,7 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener {
 							startActivity(myIntent);
 						}
 					});
-			dialog.setNegativeButton("Болих",
+			dialog.setNegativeButton(R.string.no,
 					new DialogInterface.OnClickListener() {
 
 						@Override
@@ -166,12 +176,11 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener {
 
 		mUiSettings.setMyLocationButtonEnabled(true);
 
-		LatLng loc = new LatLng(lat, lng);
-		mMap.addMarker(new MarkerOptions()
+		locationManager = (LocationManager) getActivity().getSystemService(
+				Context.LOCATION_SERVICE);
+		locationManager.requestLocationUpdates(
+				LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this);
 
-		.position(loc));
-		findDirections(mMap.getMyLocation().getLatitude(), mMap.getMyLocation()
-				.getLongitude(), loc.latitude, loc.longitude, "driving");
 	}
 
 	@Override
@@ -281,6 +290,42 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener {
 		private void processException() {
 			Toast.makeText(activity, "error", Toast.LENGTH_LONG).show();
 		}
+
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		// TODO Auto-generated method stub
+		LatLng latLng = new LatLng(location.getLatitude(),
+				location.getLongitude());
+		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng,
+				12);
+		mMap.animateCamera(cameraUpdate);
+		LatLng loc = new LatLng(lat, lng);
+		mMap.addMarker(new MarkerOptions()
+
+		.position(loc));
+		findDirections(location.getLatitude(), location.getLongitude(),
+				loc.latitude, loc.longitude, "driving");
+		locationManager.removeUpdates(this);
+
+	}
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		// TODO Auto-generated method stub
 
 	}
 

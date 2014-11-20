@@ -64,9 +64,19 @@
         </LinearLayout>
     </LinearLayout>
 
-    <fragment
+    <android.support.v4.view.ViewPager
+        android:id="@+id/user_pager"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        class="mn.student.letsgo.user.UserAc$UserTabFrag" />
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent" >
+
+        <android.support.v4.view.PagerTabStrip
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:textColor="@color/light_blue" />
+    </android.support.v4.view.ViewPager>
 
 </LinearLayout>

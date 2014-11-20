@@ -133,7 +133,7 @@ public class WalkThrough extends FragmentActivity {
 		@Override
 		public Fragment getItem(int position) {
 			if (position == 2) {
-				return new Login().newInstance();
+				return new Login().newInstance(true);
 			} else {
 				return WalkItem.newInstance(position);
 			}

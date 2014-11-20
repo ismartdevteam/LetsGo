@@ -8,6 +8,7 @@ import mn.student.letsgo.text.Regular;
 import mn.student.letsgo.utils.CircleImageView;
 import mn.student.letsgo.utils.MySingleton;
 import net.danlew.android.joda.DateUtils;
+import net.danlew.android.joda.JodaTimeAndroid;
 
 import org.joda.time.DateTime;
 
@@ -31,7 +32,7 @@ public class UserAcAdapter extends ArrayAdapter<UserActivity> {
 		super(context, 0, 0, objects);
 		this.mContext = context;
 		// TODO Auto-generated constructor stub
-
+		JodaTimeAndroid.init(mContext);
 		mImageLoader = MySingleton.getInstance(context).getImageLoader();
 	}
 
@@ -65,6 +66,7 @@ public class UserAcAdapter extends ArrayAdapter<UserActivity> {
 			hol.rate.setImageResource(R.drawable.rate_two);
 		hol.title.setText(item.title);
 		String dates[] = item.created_date.split("-");
+	
 		DateTime time = new DateTime(Integer.parseInt(dates[0]),
 				Integer.parseInt(dates[1]), Integer.parseInt(dates[2]),
 				Integer.parseInt(dates[3]), Integer.parseInt(dates[4]),

@@ -14,6 +14,7 @@
         <mn.student.letsgo.utils.CircleImageView
             android:id="@+id/user_ac_place_img"
             android:layout_width="50dp"
+              android:padding="5dp"
             android:layout_height="50dp" />
 
         <mn.student.letsgo.text.Regular
@@ -27,7 +28,6 @@
     </LinearLayout>
 
     <mn.student.letsgo.text.Light
-        
         android:id="@+id/user_ac_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,12 +37,15 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
+        android:layout_margin="5dp"
         android:background="@color/dark_blue" />
 
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/user_ac_image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop" />
 
     <mn.student.letsgo.text.Regular
         android:id="@+id/user_ac_title"
@@ -58,5 +61,11 @@
         android:layout_height="wrap_content"
         android:background="@color/title_trans"
         android:src="@drawable/rate_one" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_margin="5dp"
+        android:background="@color/dark_red" />
 
 </LinearLayout>

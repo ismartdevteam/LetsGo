@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <mn.student.letsgo.utils.CircleImageView
+            android:id="@+id/user_place_place_img"
+            android:layout_width="50dp"
+            android:padding="5dp"
+            android:layout_height="50dp" />
+
+        <mn.student.letsgo.text.Regular
+            android:id="@+id/user_place_placeName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="2dp"
+            android:singleLine="true"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"   android:layout_margin="5dp" 
+        android:background="@color/dark_blue" />
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/user_place_image"
+    android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+
+ />
+
+    <mn.student.letsgo.text.Regular
+        android:id="@+id/user_place_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="4"
+        android:padding="10dp"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <ImageView
+        android:id="@+id/user_place_rating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/title_trans"
+        android:src="@drawable/rate_one" />
+
+    <mn.student.letsgo.text.Light
+        android:id="@+id/user_place_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="55dp"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_margin="5dp"
+        android:background="@color/dark_red" />
+</LinearLayout>

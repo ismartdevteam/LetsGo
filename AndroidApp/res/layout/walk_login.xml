@@ -2,15 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:gravity="center"
     android:orientation="vertical" >
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher" />
-
-    
 
     <com.facebook.widget.LoginButton
         android:id="@+id/facebookLogin"
@@ -19,11 +13,16 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp" />
-<Button
+
+    <Button
         android:id="@+id/skip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/card_view"
+        android:padding="10dp"
         android:text="@string/skip"
-        android:layout_marginRight="20dp" />
+        android:textColor="@android:color/black" />
+
 </LinearLayout>

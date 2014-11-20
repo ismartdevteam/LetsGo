@@ -18,6 +18,29 @@
         android:padding="10dp"
         android:text="@string/shakeToStart"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/dark_red" />
+        android:textColor="@color/light_blue" />
+
+    <mn.student.letsgo.text.Bold
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/selectYourMood"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/dark_blue" />
+
+    <Spinner
+        android:id="@+id/mood_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@android:color/white" />
 
 </LinearLayout>
