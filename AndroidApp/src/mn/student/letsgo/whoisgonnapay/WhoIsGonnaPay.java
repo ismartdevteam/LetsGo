@@ -1,7 +1,10 @@
 package mn.student.letsgo.whoisgonnapay;
 
+import java.util.ArrayList;
+
 import mn.student.letsgo.MainActivity;
 import mn.student.letsgo.R;
+import mn.student.letsgo.ShakeFrag;
 import mn.student.letsgo.common.CircleLayout;
 import mn.student.letsgo.common.CircleLayout.OnItemSelectedListener;
 import mn.student.letsgo.common.CircleLayout.OnRotationFinishedListener;
@@ -17,6 +20,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,6 +31,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -36,31 +41,47 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
 
 public class WhoIsGonnaPay extends Fragment implements OnClickListener,
-		OnShakeListener, OnSeekBarChangeListener, OnItemSelectedListener,
-		OnRotationFinishedListener {
+	OnSeekBarChangeListener, OnItemSelectedListener,
+	OnRotationFinishedListener {
 
 	private static final String ARG_SECTION_NUMBER = "section_number";
 	View v;
-	private ShakeListener shake;
-	private Vibrator vibrator;
-
+	public static ShakeListener shake;
+	public static Vibrator vibrator;
+	
+	private CircleLayout circle;
+	
+	FragmentManager frManager;
+	
 	/** Dialog heseg */
 	private Dialog dialog;
 	private SeekBar userCounterSeekBar;
 	private int users;
 	private Button btnContinue, btnDialogClose, btnSave, btnBack;
 	private LinearLayout dialogSeekBarSection, dialogUsersSaveSection;
-
+	
 	/** Dialog usersList heseg */
-	private ListView usersList;
+	private ListView listUsers;
+	private UserListAdapter adapter;
 
-	/** SharedPreferences heseg */
-	SharedPreferences spUsers;
-	SharedPreferences.Editor editor;
+	public static UserListModel userModel;
+	public static ArrayList<UserListModel> listItem;
+	
+	public static WhoIsGonnaPay newInstance(int sectionNumber) {
+		WhoIsGonnaPay fragment = new WhoIsGonnaPay();
+		Bundle args = new Bundle();
+		args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+		fragment.setArguments(args);
+		return fragment;
+	}
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		setHasOptionsMenu(true);
+		super.onCreate(savedInstanceState);
+	}
 
-	/** CircleLayout heseg */
-	private CircleLayout circleLayout;
-	private CircleView circleView;
+
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,64 +89,16 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 		shake = new ShakeListener(getActivity());
 		vibrator = (Vibrator) getActivity().getSystemService(
 				Context.VIBRATOR_SERVICE);
-		v = inflater.inflate(R.layout.who_is_gonna_pay, container, false);
-		setHasOptionsMenu(true);
-		spUsers = getActivity().getSharedPreferences(ARG_SECTION_NUMBER, 0);
-		users = spUsers.getInt("user_counter", 0);
 
-		circleLayout = (CircleLayout) v.findViewById(R.id.main_circle_layout);
-		circleLayout.setOnItemSelectedListener(this);
-		circleLayout.setOnRotationFinishedListener(this);
+		frManager = getFragmentManager();
+		v = inflater.inflate(R.layout.who_is_gonna_pay, container, false);
+		circle = (CircleLayout)v.findViewById(R.id.main_view_layout);
+//		circle.startAnimation( 
+//			    AnimationUtils.loadAnimation(getActivity(), R.anim.rotation) );
+		//showDialog();
 		return v;
 	}
-
-	@Override
-	public void onPause() {
-		shake.pause();
-		super.onPause();
-	}
-
-	@Override
-	public void onResume() {
-		shake.resume();
-		shake.setOnShakeListener(this);
-		super.onResume();
-	}
-
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		if (!MainActivity.mNavigationDrawerFragment.isDrawerOpen()) {
-			inflater.inflate(R.menu.who_is_gonna_pay, menu);
-			super.onCreateOptionsMenu(menu, inflater);
-		}
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.who_is_gonna_settings:
-			showDialog();
-
-			break;
-
-		default:
-			break;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	public static WhoIsGonnaPay newInstance(int section) {
-
-		WhoIsGonnaPay f = new WhoIsGonnaPay();
-		Bundle b = new Bundle();
-		b.putInt(ARG_SECTION_NUMBER, section);
-		f.setArguments(b);
-
-		return f;
-	}
-
-	public WhoIsGonnaPay() {
-	}
+	
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -135,48 +108,83 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 	}
 
 	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.btnDialogClose:
-			dialog.dismiss();
-			break;
-		case R.id.btnNext:
-			dialogSeekBarSection.setVisibility(View.GONE);
-			dialogUsersSaveSection.setVisibility(View.VISIBLE);
-
-			/*
-			 * listItem = new ArrayList<UserListModel>(); for(int i = 1; i <=
-			 * users+2; i++){ listItem.add(new
-			 * UserListModel("player: "+String.valueOf(i),
-			 * R.drawable.ic_action_back)); } adapter = new
-			 * UserListAdapter(getActivity(), listItem);
-			 * usersList.setAdapter(adapter);
-			 */
-
-			break;
-		case R.id.btnBack:
-			dialogSeekBarSection.setVisibility(View.VISIBLE);
-			dialogUsersSaveSection.setVisibility(View.GONE);
-			break;
-		case R.id.btnSave:
-
-			addUsers();
-			editor = spUsers.edit();
-			editor.putInt("user_counter", users);
-			editor.commit();
-			dialog.dismiss();
-
+	public void onDetach() {
+		super.onDetach();
+		((MainActivity) getActivity()).onSectionAttached(getArguments().getInt(
+				ARG_SECTION_NUMBER));
+	}
+	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		if (!MainActivity.mNavigationDrawerFragment.isDrawerOpen()) {
+		    inflater.inflate(R.menu.who_is_gonna_pay, menu);
+		    super.onCreateOptionsMenu(menu,inflater);
+	    }    
+	}
+		
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.who_is_gonna_settings:
+			showDialog();
 			break;
 
 		default:
 			break;
 		}
-	}
+		return super.onOptionsItemSelected(item);
+	}	
+	
+	@Override
+	public void onClick(View v) {
+	switch (v.getId()) {
+	case R.id.btnDialogClose:
+		dialog.dismiss();
+		break;
+	case R.id.btnNext:
+		dialogSeekBarSection.setVisibility(View.GONE);
+		dialogUsersSaveSection.setVisibility(View.VISIBLE);
 
+        userList(6);
+		break;
+	case R.id.btnBack:
+		dialogSeekBarSection.setVisibility(View.VISIBLE);
+		dialogUsersSaveSection.setVisibility(View.GONE);
+		break;
+	case R.id.btnSave:
+		switch (users) {
+		case 2:
+			frManager.beginTransaction().replace(R.id.whoIsGonnaMain, User2.newInstance(2)).commit();
+			break;
+		case 3:
+			frManager.beginTransaction().replace(R.id.whoIsGonnaMain, User3.newInstance(3)).commit();
+			break;
+		case 4:
+			frManager.beginTransaction().replace(R.id.whoIsGonnaMain, User4.newInstance(4)).commit();
+			break;
+		case 5:
+			frManager.beginTransaction().replace(R.id.whoIsGonnaMain, User5.newInstance(5)).commit();
+			break;
+		case 6:
+			frManager.beginTransaction().replace(R.id.whoIsGonnaMain, User6.newInstance(6)).commit();
+			break;
+		default:
+			break;
+		}
+		//Toast.makeText(getApplicationContext(), listItem.get(4).getNickname(), Toast.LENGTH_SHORT).show();
+		dialog.dismiss();
+
+		break;
+
+	default:
+		break;
+	}
+	}
+	
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress,
-			boolean fromUser) {
-		users = progress;
+		boolean fromUser) {
+		users = progress+2;
 	}
 
 	@Override
@@ -185,14 +193,14 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
-		Toast.makeText(getActivity(), String.valueOf(users + 2),
+		Toast.makeText(getActivity(), String.valueOf(users),
 				Toast.LENGTH_SHORT).show();
 	}
-
+	
 	@Override
 	public void onRotationFinished(View view, String name) {
 		Animation animation = new RotateAnimation(0, 360, view.getWidth() / 2,
-				view.getHeight() / 2);
+			view.getHeight() / 2);
 		animation.setDuration(250);
 		view.startAnimation(animation);
 	}
@@ -201,13 +209,17 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 	public void onItemSelected(View view, String name) {
 		Toast.makeText(getActivity(), name, Toast.LENGTH_SHORT).show();
 	}
-
-	@Override
-	public void onShake() {
-		vibrator.vibrate(500);
-		circleLayout.rotateView();
+	
+	private void userList(int userCounter){
+		listItem = new ArrayList<UserListModel>();
+		listUsers.setItemsCanFocus(true);
+		for(int i = 0; i <users; i++){
+			listItem.add(new UserListModel("Player: "+String.valueOf(i+1), android.R.drawable.alert_dark_frame));
+		}
+		adapter = new UserListAdapter(getActivity(), listItem);
+		listUsers.setAdapter(adapter);	
 	}
-
+	
 	private void showDialog() {
 		dialog = new Dialog(getActivity(), R.style.pay_dialog);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -237,7 +249,7 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 		dialogUsersSaveSection = (LinearLayout) dialog
 				.findViewById(R.id.layoutSaveSection);
 
-		usersList = (ListView) dialog.findViewById(R.id.listUsers);
+		listUsers = (ListView) dialog.findViewById(R.id.listUsers);
 
 		btnContinue = (Button) dialog.findViewById(R.id.btnNext);
 		btnDialogClose = (Button) dialog.findViewById(R.id.btnDialogClose);
@@ -253,55 +265,329 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 				.findViewById(R.id.seekbar_who_is_gonna);
 		userCounterSeekBar.setOnSeekBarChangeListener(this);
 
-		userCounterSeekBar.setProgress(users);
+		userCounterSeekBar.setProgress(2);
 
 		dialog.setCancelable(false);
 		dialog.show();
 	}
 
-	@SuppressWarnings("deprecation")
-	private void addUsers() {
-		for (int i = users; i <= users + 2; i++) {
-			circleView = new CircleView(getActivity());
-			circleLayout.addView(circleView);
+	public static class User2 extends Fragment implements OnRotationFinishedListener,
+		OnItemSelectedListener, OnShakeListener{
+		private CircleView view, view1;
+		private CircleLayout circleLayout;
+		public static User2 newInstance(int section) {
+			User2 f = new User2();
+			Bundle b = new Bundle();
+			b.putInt(ARG_SECTION_NUMBER, section);
+			f.setArguments(b);
+			return f;
+		}
 
-			switch (i) {
-			case 1:
-				circleView.setBackgroundDrawable(getResources().getDrawable(
-						R.drawable.circle_view_3));
-				break;
-			case 2:
-				circleView.setBackgroundDrawable(getResources().getDrawable(
-						R.drawable.circle_view_4));
-				break;
-			case 3:
-				circleView.setBackgroundDrawable(getResources().getDrawable(
-						R.drawable.circle_view_5));
-				break;
-			case 4:
-				circleView.setBackgroundDrawable(getResources().getDrawable(
-						R.drawable.circle_view_6));
-				break;
-			case 5:
-				circleView.setBackgroundDrawable(getResources().getDrawable(
-						R.drawable.circle_view_7));
-				break;
-			case 6:
-				circleView.setBackgroundDrawable(getResources().getDrawable(
-						R.drawable.circle_view_8));
-				break;
-			case 7:
-				circleView.setBackgroundDrawable(getResources().getDrawable(
-						R.drawable.circle_view_9));
-				break;
-			case 8:
-				circleView.setBackgroundDrawable(getResources().getDrawable(
-						R.drawable.circle_view_10));
-				break;
+		public User2() {
+		}
 
-			default:
-				break;
-			}
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View v = inflater.inflate(R.layout.who_is_gonna_user2, container, false);
+			
+			circleLayout = (CircleLayout)v.findViewById(R.id.user2_layout);
+		
+			circleLayout.setOnItemSelectedListener(this);
+			circleLayout.setOnRotationFinishedListener(this);
+		
+			view = (CircleView)v.findViewById(R.id.view1);
+			view1 = (CircleView)v.findViewById(R.id.view2);
+			view.setName(listItem.get(0).getNickname().toString());
+			view1.setName(listItem.get(1).getNickname().toString());
+			
+			return v;
+		}
+		@Override
+		public void onShake() {
+			circleLayout.rotateView();
+		}
+		
+		@Override
+		public void onItemSelected(View view, String name) {
+		}
+		
+		@Override
+		public void onRotationFinished(View view, String name) {	
+			Toast.makeText(getActivity(), name, Toast.LENGTH_SHORT).show();
+		}
+		
+		@Override
+		public void onPause() {
+			shake.pause();
+			super.onPause();
+		}
+		
+		@Override
+		public void onResume() {
+			shake.resume();
+			shake.setOnShakeListener(this);
+			super.onResume();
 		}
 	}
+	public static class User3 extends Fragment implements OnRotationFinishedListener,
+		OnItemSelectedListener, OnShakeListener{
+		private CircleView view, view1, view2;
+		private CircleLayout circleLayout;
+		public static User3 newInstance(int section) {
+			User3 f = new User3();
+			Bundle b = new Bundle();
+			b.putInt(ARG_SECTION_NUMBER, section);
+			f.setArguments(b);
+			return f;
+		}
+
+		public User3() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View v = inflater.inflate(R.layout.who_is_gonna_user3, container, false);
+
+			circleLayout = (CircleLayout)v.findViewById(R.id.user3_layout);
+
+			circleLayout.setOnItemSelectedListener(this);
+			circleLayout.setOnRotationFinishedListener(this);
+
+			view = (CircleView)v.findViewById(R.id.view1);
+			view1 = (CircleView)v.findViewById(R.id.view2);
+			view2 = (CircleView)v.findViewById(R.id.view3);
+			view.setName(listItem.get(0).getNickname().toString());
+			view1.setName(listItem.get(1).getNickname().toString());
+			view2.setName(listItem.get(2).getNickname().toString());
+
+			return v;
+		}
+		@Override
+		public void onShake() {
+			circleLayout.rotateView();
+		}
+
+		@Override
+		public void onItemSelected(View view, String name) {
+		}
+
+		@Override
+		public void onRotationFinished(View view, String name) {	
+			Toast.makeText(getActivity(), name, Toast.LENGTH_SHORT).show();
+		}
+
+		@Override
+		public void onPause() {
+			shake.pause();
+			super.onPause();
+		}
+
+		@Override
+		public void onResume() {
+			shake.resume();
+			shake.setOnShakeListener(this);
+			super.onResume();
+		}
+	}
+	public static class User4 extends Fragment implements OnRotationFinishedListener,
+	OnItemSelectedListener, OnShakeListener{
+		private CircleView view, view1, view2, view3;
+		private CircleLayout circleLayout;
+		public static User4 newInstance(int section) {
+			User4 f = new User4();
+			Bundle b = new Bundle();
+			b.putInt(ARG_SECTION_NUMBER, section);
+			f.setArguments(b);
+			return f;
+		}
+
+		public User4() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View v = inflater.inflate(R.layout.who_is_gonna_user4, container, false);
+
+			circleLayout = (CircleLayout)v.findViewById(R.id.user4_layout);
+
+			circleLayout.setOnItemSelectedListener(this);
+			circleLayout.setOnRotationFinishedListener(this);
+
+			view = (CircleView)v.findViewById(R.id.view1);
+			view1 = (CircleView)v.findViewById(R.id.view2);
+			view2 = (CircleView)v.findViewById(R.id.view3);
+			view3 = (CircleView)v.findViewById(R.id.view4);
+			view.setName(listItem.get(0).getNickname().toString());
+			view1.setName(listItem.get(1).getNickname().toString());
+			view2.setName(listItem.get(2).getNickname().toString());
+			view3.setName(listItem.get(3).getNickname().toString());
+
+			return v;
+		}
+		@Override
+		public void onShake() {
+			circleLayout.rotateView();
+		}
+
+		@Override
+		public void onItemSelected(View view, String name) {
+		}
+
+		@Override
+		public void onRotationFinished(View view, String name) {	
+			Toast.makeText(getActivity(), name, Toast.LENGTH_SHORT).show();
+		}
+
+		@Override
+		public void onPause() {
+			shake.pause();
+			super.onPause();
+		}
+
+		@Override
+		public void onResume() {
+			shake.resume();
+			shake.setOnShakeListener(this);
+			super.onResume();
+		}
+	}
+	public static class User5 extends Fragment implements OnRotationFinishedListener,
+	OnItemSelectedListener, OnShakeListener{
+		private CircleView view, view1, view2, view3, view4;
+		private CircleLayout circleLayout;
+		public static User5 newInstance(int section) {
+			User5 f = new User5();
+			Bundle b = new Bundle();
+			b.putInt(ARG_SECTION_NUMBER, section);
+			f.setArguments(b);
+			return f;
+		}
+
+		public User5() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View v = inflater.inflate(R.layout.who_is_gonna_user5, container, false);
+
+			circleLayout = (CircleLayout)v.findViewById(R.id.user5_layout);
+
+			circleLayout.setOnItemSelectedListener(this);
+			circleLayout.setOnRotationFinishedListener(this);
+
+			view = (CircleView)v.findViewById(R.id.view1);
+			view1 = (CircleView)v.findViewById(R.id.view2);
+			view2 = (CircleView)v.findViewById(R.id.view3);
+			view3 = (CircleView)v.findViewById(R.id.view4);
+			view4 = (CircleView)v.findViewById(R.id.view5);
+			//view5 = (CircleView)v.findViewById(R.id.view6);
+			view.setName(listItem.get(0).getNickname().toString());
+			view1.setName(listItem.get(1).getNickname().toString());
+			view2.setName(listItem.get(2).getNickname().toString());
+			view3.setName(listItem.get(3).getNickname().toString());
+			view4.setName(listItem.get(4).getNickname().toString());
+			//view5.setName(listItem.get(5).getNickname().toString());
+
+			return v;
+		}
+		@Override
+		public void onShake() {
+			circleLayout.rotateView();
+		}
+
+		@Override
+		public void onItemSelected(View view, String name) {
+		}
+
+		@Override
+		public void onRotationFinished(View view, String name) {	
+			Toast.makeText(getActivity(), name, Toast.LENGTH_SHORT).show();
+		}
+
+		@Override
+		public void onPause() {
+			shake.pause();
+			super.onPause();
+		}
+
+		@Override
+		public void onResume() {
+			shake.resume();
+			shake.setOnShakeListener(this);
+			super.onResume();
+		}
+	}
+	public static class User6 extends Fragment implements OnRotationFinishedListener,
+	OnItemSelectedListener, OnShakeListener{
+		private CircleView view, view1, view2, view3, view4, view5;
+		private CircleLayout circleLayout;
+		public static User6 newInstance(int section) {
+			User6 f = new User6();
+			Bundle b = new Bundle();
+			b.putInt(ARG_SECTION_NUMBER, section);
+			f.setArguments(b);
+			return f;
+		}
+
+		public User6() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View v = inflater.inflate(R.layout.who_is_gonna_user6, container, false);
+
+			circleLayout = (CircleLayout)v.findViewById(R.id.user6_layout);
+
+			circleLayout.setOnItemSelectedListener(this);
+			circleLayout.setOnRotationFinishedListener(this);
+
+			view = (CircleView)v.findViewById(R.id.view1);
+			view1 = (CircleView)v.findViewById(R.id.view2);
+			view2 = (CircleView)v.findViewById(R.id.view3);
+			view3 = (CircleView)v.findViewById(R.id.view4);
+			view4 = (CircleView)v.findViewById(R.id.view5);
+			view5 = (CircleView)v.findViewById(R.id.view6);
+			view.setName(listItem.get(0).getNickname().toString());
+			view1.setName(listItem.get(1).getNickname().toString());
+			view2.setName(listItem.get(2).getNickname().toString());
+			view3.setName(listItem.get(3).getNickname().toString());
+			view4.setName(listItem.get(4).getNickname().toString());
+			view5.setName(listItem.get(5).getNickname().toString());
+			
+			return v;
+		}
+		@Override
+		public void onShake() {
+			circleLayout.rotateView();
+		}
+
+		@Override
+		public void onItemSelected(View view, String name) {
+		}
+
+		@Override
+		public void onRotationFinished(View view, String name) {	
+			Toast.makeText(getActivity(), name, Toast.LENGTH_SHORT).show();
+		}
+
+		@Override
+		public void onPause() {
+			shake.pause();
+			super.onPause();
+		}
+
+		@Override
+		public void onResume() {
+			shake.resume();
+			shake.setOnShakeListener(this);
+			super.onResume();
+		}
+	}
+
+
 }

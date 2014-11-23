@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="fb_appId">708810742542592</string>
+    <!-- <string name="fb_appId">708810742542592</string> -->
+    <string name="fb_appId">1528422227406217</string>
     <string name="app_name">LETS GO</string>
     <string name="letgoAndMap">Lets go and show map</string>
     <string name="showDetPlace">Show Detail</string>
@@ -24,6 +25,7 @@
     <string name="all">All</string>
     <string name="shakeToStart">Shake 3 times to Start</string>
     <string name="selectYourMood">Select your mood</string>
+    <string name="selectDistance"><b>Select distance to place</b> (kilometer)</string>
     <string name="action_add">Add place</string>
     <string name="no">No</string>
     <string name="mood">Mood</string>
@@ -39,7 +41,7 @@
     <string name="mainIp">http://50.31.138.168:3003/mobile/</string>
     <!--
           <string name="mainIp">http://192.168.1.2:3000/mobile/</string>
-         <string name="mainIpImage">http://192.168.1.2:3000</string>
+         <string name="mainIpImage">http://192.168.1.2:3000</string>
     -->
     <string name="mainIpImage">http://50.31.138.168:3003</string>
     <string name="loading">Loading...</string>

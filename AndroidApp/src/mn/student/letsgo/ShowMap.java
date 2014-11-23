@@ -34,6 +34,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -299,12 +301,14 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener,
 		LatLng latLng = new LatLng(location.getLatitude(),
 				location.getLongitude());
 		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng,
-				12);
+				17);
 		mMap.animateCamera(cameraUpdate);
 		LatLng loc = new LatLng(lat, lng);
+		BitmapDescriptor bitmapDescriptor 
+		   = BitmapDescriptorFactory.defaultMarker(
+		     BitmapDescriptorFactory.HUE_AZURE);
 		mMap.addMarker(new MarkerOptions()
-
-		.position(loc));
+		.position(loc).icon(bitmapDescriptor));
 		findDirections(location.getLatitude(), location.getLongitude(),
 				loc.latitude, loc.longitude, "driving");
 		locationManager.removeUpdates(this);

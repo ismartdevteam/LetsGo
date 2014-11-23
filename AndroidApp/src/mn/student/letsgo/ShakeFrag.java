@@ -49,6 +49,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -63,7 +65,8 @@ import com.google.android.gms.location.LocationListener;
 
 public class ShakeFrag extends Fragment implements OnShakeListener,
 		GooglePlayServicesClient.ConnectionCallbacks,
-		GooglePlayServicesClient.OnConnectionFailedListener, LocationListener {
+		GooglePlayServicesClient.OnConnectionFailedListener, LocationListener,
+		OnSeekBarChangeListener{
 	private static final String ARG_SECTION_NUMBER = "section_number";
 	private ProgressDialog progress;
 	/**
@@ -84,6 +87,7 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 	private Dialog placeDialog;
 	private SharedPreferences proSp;
 	private Spinner spin;
+	private SeekBar seekDistance;
 
 	public static ShakeFrag newInstance(int sectionNumber) {
 		ShakeFrag fragment = new ShakeFrag();
@@ -125,6 +129,7 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 				Context.VIBRATOR_SERVICE);
 		v = inflater.inflate(R.layout.shake, container, false);
 		spin = (Spinner) v.findViewById(R.id.mood_spinner);
+		seekDistance = (SeekBar)v.findViewById(R.id.seekDistance);
 		// shake = (ImageView) v.findViewById(R.id.shake_img);
 		// shake.setOnClickListener(new OnClickListener() {
 		//
@@ -135,6 +140,8 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 		// }
 		// });
 		shake = new ShakeListener(getActivity());
+		seekDistance.setOnSeekBarChangeListener(this);
+		
 		return v;
 	}
 
@@ -632,4 +639,16 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 		return true;
 
 	}
+
+	@Override
+	public void onProgressChanged(SeekBar seekBar, int progress,
+			boolean fromUser) {
+		radius = progress + 1;
+	}
+
+	@Override
+	public void onStartTrackingTouch(SeekBar seekBar) {}
+
+	@Override
+	public void onStopTrackingTouch(SeekBar seekBar) {}
 }

@@ -91,8 +91,10 @@ public class WalkThrough extends FragmentActivity {
 
 			@Override
 			public void onPageSelected(int arg0) {
-				// TODO Auto-generated method stub
-
+				if(arg0==2)
+					indicator.setVisibility(View.GONE);
+				else 
+					indicator.setVisibility(View.VISIBLE);
 			}
 
 			@Override
