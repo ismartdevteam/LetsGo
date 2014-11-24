@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+    
+    <ImageView
+        android:id="@+id/imgId"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="5dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/circle_view_1"
+        android:contentDescription="color"/>
+    <EditText
+        android:id="@+id/getUserNickName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/imgId"
+        android:layout_toLeftOf="@+id/btnSaveUser"
+        android:hint="Player: "
+        android:singleLine="true"
+        android:maxLength="20"
+        android:inputType="text"
+        android:imeOptions="actionNext"/>
+    <TextView
+        android:id="@+id/testId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/imgId"
+        android:textColor="#000"
+		android:visibility="gone"/>
+    <Button
+        android:id="@+id/btnSaveUser"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toLeftOf="@+id/btnDeleteUser"
+        android:layout_centerVertical="true"
+        android:background="@drawable/ic_launcher"/>
+    <Button
+        android:id="@+id/btnDeleteUser"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/ic_launcher"/>
+
+</RelativeLayout>
