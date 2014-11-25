@@ -17,7 +17,7 @@
         android:contentDescription="color"/>
     <EditText
         android:id="@+id/getUserNickName"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/imgId"
@@ -35,7 +35,7 @@
         android:layout_toRightOf="@+id/imgId"
         android:textColor="#000"
 		android:visibility="gone"/>
-    <Button
+    <!-- <Button
         android:id="@+id/btnSaveUser"
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -48,6 +48,6 @@
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/ic_launcher"/>
+        android:background="@drawable/ic_launcher"/> -->
 
 </RelativeLayout>

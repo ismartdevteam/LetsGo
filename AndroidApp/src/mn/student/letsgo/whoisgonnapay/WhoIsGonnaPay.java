@@ -11,13 +11,16 @@ import mn.student.letsgo.common.CircleLayout.OnRotationFinishedListener;
 import mn.student.letsgo.common.CircleView;
 import mn.student.letsgo.common.ShakeListener;
 import mn.student.letsgo.common.ShakeListener.OnShakeListener;
+import mn.student.letsgo.whoisgonnapay.UserListAdapter.ViewHolder;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnKeyListener;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -41,8 +44,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
 
 public class WhoIsGonnaPay extends Fragment implements OnClickListener,
-	OnSeekBarChangeListener, OnItemSelectedListener,
-	OnRotationFinishedListener {
+	OnSeekBarChangeListener	 {
 
 	private static final String ARG_SECTION_NUMBER = "section_number";
 	View v;
@@ -56,7 +58,7 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 	/** Dialog heseg */
 	private Dialog dialog;
 	private SeekBar userCounterSeekBar;
-	private int users;
+	private int users=0;
 	private Button btnContinue, btnDialogClose, btnSave, btnBack;
 	private LinearLayout dialogSeekBarSection, dialogUsersSaveSection;
 	
@@ -65,8 +67,8 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 	private UserListAdapter adapter;
 
 	public static UserListModel userModel;
-	public static ArrayList<UserListModel> listItem;
-	
+	public static ArrayList<UserListModel> listItem = new ArrayList<UserListModel>();
+		
 	public static WhoIsGonnaPay newInstance(int sectionNumber) {
 		WhoIsGonnaPay fragment = new WhoIsGonnaPay();
 		Bundle args = new Bundle();
@@ -89,13 +91,18 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 		shake = new ShakeListener(getActivity());
 		vibrator = (Vibrator) getActivity().getSystemService(
 				Context.VIBRATOR_SERVICE);
-
+		
 		frManager = getFragmentManager();
 		v = inflater.inflate(R.layout.who_is_gonna_pay, container, false);
 		circle = (CircleLayout)v.findViewById(R.id.main_view_layout);
-//		circle.startAnimation( 
-//			    AnimationUtils.loadAnimation(getActivity(), R.anim.rotation) );
-		//showDialog();
+		
+		final Handler handler = new Handler();
+		handler.postDelayed(new Runnable() {
+		    @Override
+		    public void run() {
+		        showDialog();
+		    }
+		}, 500);
 		return v;
 	}
 	
@@ -145,7 +152,7 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 		dialogSeekBarSection.setVisibility(View.GONE);
 		dialogUsersSaveSection.setVisibility(View.VISIBLE);
 
-        userList(6);
+		setListData(users);
 		break;
 	case R.id.btnBack:
 		dialogSeekBarSection.setVisibility(View.VISIBLE);
@@ -192,33 +199,20 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 	}
 
 	@Override
-	public void onStopTrackingTouch(SeekBar seekBar) {
-		Toast.makeText(getActivity(), String.valueOf(users),
-				Toast.LENGTH_SHORT).show();
-	}
+	public void onStopTrackingTouch(SeekBar seekBar) {}
 	
-	@Override
-	public void onRotationFinished(View view, String name) {
-		Animation animation = new RotateAnimation(0, 360, view.getWidth() / 2,
-			view.getHeight() / 2);
-		animation.setDuration(250);
-		view.startAnimation(animation);
-	}
-
-	@Override
-	public void onItemSelected(View view, String name) {
-		Toast.makeText(getActivity(), name, Toast.LENGTH_SHORT).show();
-	}
-	
-	private void userList(int userCounter){
-		listItem = new ArrayList<UserListModel>();
-		listUsers.setItemsCanFocus(true);
-		for(int i = 0; i <users; i++){
-			listItem.add(new UserListModel("Player: "+String.valueOf(i+1), android.R.drawable.alert_dark_frame));
+	public void setListData(int userCounter){
+		listItem.clear();
+    	for (int i = 1; i <= userCounter; i++) {
+    		UserListModel uList = new UserListModel();
+			uList.setNickname("Player: " + i);
+			uList.setId("circle_view_"+i);
+			   
+			listItem.add(uList);
 		}
-		adapter = new UserListAdapter(getActivity(), listItem);
+    	adapter = new UserListAdapter(getActivity(), listItem, getResources());
 		listUsers.setAdapter(adapter);	
-	}
+    }
 	
 	private void showDialog() {
 		dialog = new Dialog(getActivity(), R.style.pay_dialog);
@@ -275,6 +269,7 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 		OnItemSelectedListener, OnShakeListener{
 		private CircleView view, view1;
 		private CircleLayout circleLayout;
+		//private UserListModel listmodel;
 		public static User2 newInstance(int section) {
 			User2 f = new User2();
 			Bundle b = new Bundle();
@@ -289,17 +284,16 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View v = inflater.inflate(R.layout.who_is_gonna_user2, container, false);
-			
+			View v = inflater.inflate(R.layout.who_is_gonna_user2, null);
 			circleLayout = (CircleLayout)v.findViewById(R.id.user2_layout);
 		
 			circleLayout.setOnItemSelectedListener(this);
 			circleLayout.setOnRotationFinishedListener(this);
-		
+			UserListModel tempValues = (UserListModel) listItem.get(0);
 			view = (CircleView)v.findViewById(R.id.view1);
 			view1 = (CircleView)v.findViewById(R.id.view2);
-			view.setName(listItem.get(0).getNickname().toString());
-			view1.setName(listItem.get(1).getNickname().toString());
+			view.setName(tempValues.getNickname());
+			view1.setName(listItem.get(1).getNickname());
 			
 			return v;
 		}
@@ -314,7 +308,20 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 		
 		@Override
 		public void onRotationFinished(View view, String name) {	
-			Toast.makeText(getActivity(), name, Toast.LENGTH_SHORT).show();
+			//Toast.makeText(getActivity(), name, Toast.LENGTH_SHORT).show();
+			AlertDialog.Builder builder = 
+		            new AlertDialog.Builder( getActivity(), R.style.MyCustomTheme );
+			
+		    builder  
+		        .setTitle(getResources().getString(R.string.title_section3))
+		        .setMessage(name)
+		        .setPositiveButton( "OK" , new DialogInterface.OnClickListener() {      
+		              @Override
+		              public void onClick(DialogInterface dialog, int which) {
+		            	  dialog.dismiss();
+		            }
+		        });
+		    builder.show();
 		}
 		
 		@Override
@@ -375,7 +382,19 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 
 		@Override
 		public void onRotationFinished(View view, String name) {	
-			Toast.makeText(getActivity(), name, Toast.LENGTH_SHORT).show();
+			AlertDialog.Builder builder = 
+		            new AlertDialog.Builder( getActivity(), R.style.MyCustomTheme );
+			
+		    builder  
+		        .setTitle(getResources().getString(R.string.title_section3))
+		        .setMessage(name)
+		        .setPositiveButton( "OK" , new DialogInterface.OnClickListener() {      
+		              @Override
+		              public void onClick(DialogInterface dialog, int which) {
+		            	  dialog.dismiss();
+		            }
+		        });
+		    builder.show();
 		}
 
 		@Override
@@ -438,7 +457,19 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 
 		@Override
 		public void onRotationFinished(View view, String name) {	
-			Toast.makeText(getActivity(), name, Toast.LENGTH_SHORT).show();
+			AlertDialog.Builder builder = 
+		            new AlertDialog.Builder( getActivity(), R.style.MyCustomTheme );
+			
+		    builder  
+		        .setTitle(getResources().getString(R.string.title_section3))
+		        .setMessage(name)
+		        .setPositiveButton( "OK" , new DialogInterface.OnClickListener() {      
+		              @Override
+		              public void onClick(DialogInterface dialog, int which) {
+		            	  dialog.dismiss();
+		            }
+		        });
+		    builder.show();
 		}
 
 		@Override
@@ -505,7 +536,19 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 
 		@Override
 		public void onRotationFinished(View view, String name) {	
-			Toast.makeText(getActivity(), name, Toast.LENGTH_SHORT).show();
+			AlertDialog.Builder builder = 
+		            new AlertDialog.Builder( getActivity(), R.style.MyCustomTheme );
+			
+		    builder  
+		        .setTitle(getResources().getString(R.string.title_section3))
+		        .setMessage(name)
+		        .setPositiveButton( "OK" , new DialogInterface.OnClickListener() {      
+		              @Override
+		              public void onClick(DialogInterface dialog, int which) {
+		            	  dialog.dismiss();
+		            }
+		        });
+		    builder.show();
 		}
 
 		@Override
@@ -572,7 +615,19 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 
 		@Override
 		public void onRotationFinished(View view, String name) {	
-			Toast.makeText(getActivity(), name, Toast.LENGTH_SHORT).show();
+			AlertDialog.Builder builder = 
+		            new AlertDialog.Builder( getActivity(), R.style.MyCustomTheme );
+			
+		    builder  
+		        .setTitle(getResources().getString(R.string.title_section3))
+		        .setMessage(name)
+		        .setPositiveButton( "OK" , new DialogInterface.OnClickListener() {      
+		              @Override
+		              public void onClick(DialogInterface dialog, int which) {
+		            	  dialog.dismiss();
+		            }
+		        });
+		    builder.show();
 		}
 
 		@Override

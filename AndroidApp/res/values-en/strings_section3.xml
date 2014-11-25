@@ -9,5 +9,6 @@
 	<string name="dialog_save">Save</string>
 	<string name="dialog_insert_nickname">Insert nickname</string>
 	<string name="dialog_users_color">colors of users</string>
+	<string name="pay_description">Who is going to pay?</string>
 
 </resources>

@@ -1,20 +1,36 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <item name="homeAsUpIndicator">@drawable/ic_action_back</item>
+    </style>
+    
+    <style name="CustomActionBarTheme"
+           parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+
+        <!-- Support library compatibility -->
+        <item name="actionBarStyle">@style/MyActionBar</item>
+    </style>
+    
+    <style name="MyActionBar"
+           parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@color/light_blue</item>
+
+        <!-- Support library compatibility -->
+        <item name="background">@color/light_blue</item>
     </style>
 
     <style name="pay_dialog" parent="@android:style/Theme.Dialog">
@@ -43,5 +59,14 @@
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowNoTitle">true</item>
     </style>
+    
+    <style name="MyCustomTheme" parent="@android:style/Theme.Panel">
+    	<item name="android:windowAnimationStyle">@style/MyAnimation.Window</item>
+	</style>
+
+	<style name="MyAnimation.Window" parent="@android:style/Animation.Activity"> 
+    	<item name="android:windowEnterAnimation">@anim/scale_up</item>
+    	<item name="android:windowExitAnimation">@anim/scale_down</item>
+	</style> 
 
 </resources>

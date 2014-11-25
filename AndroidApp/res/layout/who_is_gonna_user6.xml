@@ -50,14 +50,13 @@
             android:background="@drawable/circle_view_6"  />
 
 	</mn.student.letsgo.common.CircleLayout>
-   <View
-       android:layout_width="wrap_content"
-       android:layout_height="0dp"
-       android:layout_weight="1"
-       android:layout_marginLeft="@dimen/abc_action_bar_default_height"
-       android:layout_marginRight="@dimen/abc_action_bar_default_height"
-       android:layout_marginBottom="@dimen/abc_action_bar_default_height"
-       android:background="@android:color/darker_gray"/>
+   <mn.student.letsgo.text.Bold
+   	    android:layout_width="wrap_content"
+   	    android:layout_height="0dp"
+   	    android:layout_weight="1"
+   	    android:text="@string/pay_description"
+   	    android:textColor="@color/dark_blue"
+   	    android:layout_gravity="center"/>
 
 
 </LinearLayout>
