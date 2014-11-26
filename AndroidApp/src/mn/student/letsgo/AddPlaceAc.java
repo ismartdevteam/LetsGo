@@ -25,6 +25,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
@@ -33,6 +34,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -246,8 +248,8 @@ public class AddPlaceAc extends ActionBarActivity implements OnClickListener {
 
 				String requestURL = getString(R.string.mainIp) + "addPlace";
 				try {
-					multipartRequest(requestURL, "post",
-							Utils.getPath(AddPlaceAc.this, imageUri), "file");
+					multipartRequest(requestURL, "name=name", getPath(imageUri),
+							"file");
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -255,73 +257,7 @@ public class AddPlaceAc extends ActionBarActivity implements OnClickListener {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				// try {
-				// MultipartUtility multipart = new MultipartUtility(
-				// requestURL, charset);
-				//
-				// multipart.addHeaderField("User-Agent", "CodeJava");
-				// multipart.addHeaderField("Test-Header", "Header-Value");
-				//
-				// multipart.addFormField("name", "name");
-				// multipart.addFormField("desc", "desc");
-				//
-				// multipart.addFilePart("file", file);
-				//
-				// List<String> response = multipart.finish();
-				//
-				// System.out.println("SERVER REPLIED:");
-				//
-				// for (String line : response) {
-				// System.out.println(line);
-				// }
-				// } catch (IOException ex) {
-				// System.err.println(ex);
-				// }
 
-				// progress = ProgressDialog.show(AddPlaceAc.this, "",
-				// getString(R.string.loading));
-				//
-				// MultipartRequest addReq = new MultipartRequest(
-				// getString(R.string.mainIp) + "addPlace",
-				// new Response.ErrorListener() {
-				//
-				// @Override
-				// public void onErrorResponse(VolleyError error) {
-				// Log.e("error", error.getMessage());
-				// progress.dismiss();
-				// }
-				// }, new Response.Listener<JSONObject>() {
-				//
-				// @Override
-				// public void onResponse(JSONObject response) {
-				// Log.e("place responce", response.toString());
-				// progress.dismiss();
-				// }
-				// }) {
-				// @Override
-				// public void addFileUpload(File file) {
-				// // TODO Auto-generated method stub
-				// super.addFileUpload(new File(imageUri + ""));
-				// }
-				//
-				// };
-				// // addReq.addFileUpload("file", new File(imageUri + ""));
-				// //
-				// // addReq.addStringUpload("user_id", proSp.getString("my_id",
-				// // "0"));
-				//
-				// // addReq.addStringUpload("desc", "yes");
-				// //
-				// // addReq.addStringUpload("service", "yes");
-				// //
-				// // addReq.addStringUpload("lat", loc.latitude + "");
-				// // addReq.addStringUpload("lng", loc.longitude + "");
-				// // addReq.addStringUpload("address", "yes");
-				// // addReq.addStringUpload("phone", "yes");
-				// // addReq.addStringUpload("time_schedule", "yes");
-				// // addReq.addStringUpload("category_id", "1");
-				// MySingleton.getInstance(AddPlaceAc.this).addToRequestQueue(
-				// addReq);
 			} else {
 				Toast.makeText(AddPlaceAc.this,
 						R.string.no_internet_connection, Toast.LENGTH_SHORT)
@@ -330,6 +266,31 @@ public class AddPlaceAc extends ActionBarActivity implements OnClickListener {
 		}
 	}
 
+	public String getPath(Uri uri) {
+		String[] projection = { MediaStore.Images.Media.DATA };
+		Cursor cursor = managedQuery(uri, projection, null, null, null);
+		int column_index = cursor
+				.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+		cursor.moveToFirst();
+		return cursor.getString(column_index);
+	}
+	public String getRealPathFromURI(Context context, Uri contentUri) {
+		Cursor cursor = null;
+		try {
+			String[] proj = { MediaStore.Images.Media.DATA };
+			cursor = context.getContentResolver().query(contentUri, proj, null,
+					null, null);
+			int column_index = cursor
+					.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+			cursor.moveToFirst();
+			Log.i("image path", cursor.getString(column_index));
+			return cursor.getString(column_index);
+		} finally {
+			if (cursor != null) {
+				cursor.close();
+			}
+		}
+	}
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -426,8 +387,6 @@ public class AddPlaceAc extends ActionBarActivity implements OnClickListener {
 		byte[] buffer;
 		int maxBufferSize = 1 * 1024 * 1024;
 
-		String[] q = file.getPath().split("/");
-		int idx = q.length - 1;
 
 		try {
 			File file = new File(filepath);
@@ -450,7 +409,7 @@ public class AddPlaceAc extends ActionBarActivity implements OnClickListener {
 			outputStream = new DataOutputStream(connection.getOutputStream());
 			outputStream.writeBytes(twoHyphens + boundary + lineEnd);
 			outputStream.writeBytes("Content-Disposition: form-data; name=\""
-					+ filefield + "\"; filename=\"" + q[idx] + "\"" + lineEnd);
+					+ filefield + "\"; filename=\"" +file.getName() + "\"" + lineEnd);
 			outputStream.writeBytes("Content-Type: image/jpeg" + lineEnd);
 			outputStream.writeBytes("Content-Transfer-Encoding: binary"
 					+ lineEnd);
