@@ -4,21 +4,18 @@ import java.util.ArrayList;
 
 import mn.student.letsgo.MainActivity;
 import mn.student.letsgo.R;
-import mn.student.letsgo.ShakeFrag;
 import mn.student.letsgo.common.CircleLayout;
 import mn.student.letsgo.common.CircleLayout.OnItemSelectedListener;
 import mn.student.letsgo.common.CircleLayout.OnRotationFinishedListener;
 import mn.student.letsgo.common.CircleView;
 import mn.student.letsgo.common.ShakeListener;
 import mn.student.letsgo.common.ShakeListener.OnShakeListener;
-import mn.student.letsgo.whoisgonnapay.UserListAdapter.ViewHolder;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnKeyListener;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
@@ -33,15 +30,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.Toast;
 
 public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 	OnSeekBarChangeListener	 {

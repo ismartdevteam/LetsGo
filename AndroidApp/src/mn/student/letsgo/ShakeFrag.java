@@ -47,6 +47,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -66,7 +68,7 @@ import com.google.android.gms.location.LocationListener;
 public class ShakeFrag extends Fragment implements OnShakeListener,
 		GooglePlayServicesClient.ConnectionCallbacks,
 		GooglePlayServicesClient.OnConnectionFailedListener, LocationListener,
-		OnSeekBarChangeListener{
+		OnSeekBarChangeListener {
 	private static final String ARG_SECTION_NUMBER = "section_number";
 	private ProgressDialog progress;
 	/**
@@ -129,7 +131,7 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 				Context.VIBRATOR_SERVICE);
 		v = inflater.inflate(R.layout.shake, container, false);
 		spin = (Spinner) v.findViewById(R.id.mood_spinner);
-		seekDistance = (SeekBar)v.findViewById(R.id.seekDistance);
+		seekDistance = (SeekBar) v.findViewById(R.id.seekDistance);
 		// shake = (ImageView) v.findViewById(R.id.shake_img);
 		// shake.setOnClickListener(new OnClickListener() {
 		//
@@ -141,7 +143,7 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 		// });
 		shake = new ShakeListener(getActivity());
 		seekDistance.setOnSeekBarChangeListener(this);
-		
+
 		return v;
 	}
 
@@ -251,39 +253,61 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 									place.user_id = obj.getInt("user_id");
 									place.username = obj.getString("username");
 									place.user_img = obj.getString("user_img");
+									place.mood_id = obj.getInt("mood_id");
 									showPlace(place);
 								} else {
 									PlaceGoogle goo = new PlaceGoogle();
 									goo.name = obj.getString("name");
-									goo.address = obj
-											.getString("formatted_address");
-									goo.phone = obj
-											.getString("international_phone_number");
+									try {
+										goo.address = obj
+												.getString("formatted_address");
+									} catch (JSONException e) {
+									}
+									try {
+										goo.phone = obj
+												.getString("international_phone_number");
+									} catch (JSONException e) {
+									}
 									goo.icon = obj.getString("icon");
 									JSONObject loc = obj.getJSONObject(
 											"geometry").getJSONObject(
 											"location");
 									goo.lat = loc.getDouble("lat");
 									goo.lng = loc.getDouble("lng");
-									JSONArray weektext = obj.getJSONObject(
-											"opening_hours").getJSONArray(
-											"weekday_text");
-									goo.schedule = "";
-									for (int i = 0; i < weektext.length(); i++) {
-										goo.schedule = goo.schedule.concat(" "
-												+ weektext.getString(i));
+									try {
+										JSONArray weektext = obj.getJSONObject(
+												"opening_hours").getJSONArray(
+												"weekday_text");
+										goo.schedule = "";
+										for (int i = 0; i < weektext.length(); i++) {
+											goo.schedule = goo.schedule.concat(" "
+													+ weektext.getString(i));
+										}
+									} catch (JSONException e) {
 									}
-									goo.rating = obj.getDouble("rating");
-									goo.ratedPeople = obj
-											.getInt("user_ratings_total");
-									goo.website = obj.getString("website");
-									goo.image = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference="
-											+ obj.getJSONArray("photos")
-													.getJSONObject(0)
-													.getString(
-															"photo_reference")
-											+ "&key=AIzaSyCco2DtZ2Zgr16tJTfeqZCBTcDjIF0NGsQ";
-									goo.url = obj.getString("url");
+									try {
+										goo.rating = obj.getDouble("rating");
+										goo.ratedPeople = obj
+												.getInt("user_ratings_total");
+									} catch (JSONException e) {
+									}
+									try {
+										goo.website = obj.getString("website");
+									} catch (JSONException e) {
+									}
+									try {
+										goo.image = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference="
+												+ obj.getJSONArray("photos")
+														.getJSONObject(0)
+														.getString(
+																"photo_reference")
+												+ "&key=AIzaSyCco2DtZ2Zgr16tJTfeqZCBTcDjIF0NGsQ";
+									} catch (JSONException e) {
+									}
+									try {
+										goo.url = obj.getString("url");
+									} catch (JSONException e) {
+									}
 									JSONArray type = obj.getJSONArray("types");
 									goo.category = "";
 									for (int k = 0; k < type.length(); k++) {
@@ -298,8 +322,8 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 							} else {
 								Toast.makeText(
 										getActivity(),
-										getActivity()
-												.getString(R.string.noData),
+										getActivity().getString(
+												R.string.noData_Mood),
 										Toast.LENGTH_SHORT).show();
 							}
 						} catch (JSONException e) {
@@ -354,6 +378,19 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 				sendLetGo(place);
 			}
 		});
+		Button det = (Button) placeDialog.findViewById(R.id.place_detail);
+		det.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Bundle b = new Bundle();
+				b.putString("id", place.id + "");
+				Intent det = new Intent(getActivity(), PlaceDet.class);
+				det.putExtras(b);
+				getActivity().startActivity(det);
+			}
+		});
 		ImageLoader loader = MySingleton.getInstance(getActivity())
 				.getImageLoader();
 		Regular name = (Regular) placeDialog.findViewById(R.id.place_name);
@@ -387,6 +424,8 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 		CircleImageView image = (CircleImageView) placeDialog
 				.findViewById(R.id.place_img);
 		Button go = (Button) placeDialog.findViewById(R.id.place_letsgo);
+		Button det = (Button) placeDialog.findViewById(R.id.place_detail);
+
 		go.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -397,7 +436,7 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 						.getSupportFragmentManager()
 						.beginTransaction()
 						.replace(R.id.container,
-								ShowMap.newInstance(place.lat, place.lng))
+								ShowMap.newInstance(place.lat, place.lng, 0))
 						.addToBackStack(place.name).commit();
 
 			}
@@ -412,8 +451,8 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 				.findViewById(R.id.place_user_img);
 		Light username = (Light) placeDialog.findViewById(R.id.place_username);
 		cat.setText(place.name);
-		distance.setText("rating:" + place.rating + " by " + place.ratedPeople
-				+ " people");
+		distance.setText(place.rating + place.ratedPeople
+				+ getActivity().getString(R.string.rated));
 
 		mood.setText(place.category.replace("_", " "));
 
@@ -422,7 +461,20 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 		username.setText(" Google Places API");
 
 		image.setImageUrl(place.image, loader);
+		if (place.website != null && place.website.length() > 1) {
+			det.setText(getActivity().getString(R.string.showWebSite));
+			det.setOnClickListener(new OnClickListener() {
 
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					Utils.openWebIntent(getActivity(), place.website);
+				}
+			});
+
+		} else {
+			det.setVisibility(View.GONE);
+		}
 		name.setText(place.name);
 		placeDialog.show();
 	}
@@ -468,8 +520,9 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 		getActivity()
 				.getSupportFragmentManager()
 				.beginTransaction()
-				.replace(R.id.container,
-						ShowMap.newInstance(place.lat, place.lng))
+				.replace(
+						R.id.container,
+						ShowMap.newInstance(place.lat, place.lng, place.mood_id))
 				.addToBackStack(place.name).commit();
 
 	}
@@ -527,7 +580,7 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 		moodList = new ArrayList<Mood>();
 		Mood all = new Mood();
 		all.id = 0;
-		all.name = getString(R.string.all);
+		all.name = getActivity().getString(R.string.all);
 		moodList.add(all);
 		for (int i = 0; i < data.length(); i++) {
 			Mood mood = new Mood();
@@ -539,6 +592,22 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 
 		spin.setAdapter(new MoodAdapter(getActivity(), moodList));
 		spin.setSelection(mood);
+		spin.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				Mood sel = (Mood) spin.getAdapter().getItem(position);
+				mood = sel.id;
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				mood = 0;
+			}
+		});
 		// ActionBar bar = ((ActionBarActivity) getActivity())
 		// .getSupportActionBar();
 		// bar.setListNavigationCallbacks(
@@ -647,8 +716,10 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 	}
 
 	@Override
-	public void onStartTrackingTouch(SeekBar seekBar) {}
+	public void onStartTrackingTouch(SeekBar seekBar) {
+	}
 
 	@Override
-	public void onStopTrackingTouch(SeekBar seekBar) {}
+	public void onStopTrackingTouch(SeekBar seekBar) {
+	}
 }

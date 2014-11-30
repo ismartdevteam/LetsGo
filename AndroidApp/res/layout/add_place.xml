@@ -19,38 +19,58 @@
             android:id="@+id/add_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/name" />
+            android:hint="@string/name"
+            android:padding="10dp" />
 
         <EditText
             android:id="@+id/add_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/desc" />
+            android:gravity="left|top"
+            android:hint="@string/desc"
+            android:lines="3"
+            android:maxLines="3"
+            android:padding="10dp" />
 
         <EditText
             android:id="@+id/add_service"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/service" />
+            android:gravity="left|top"
+            android:hint="@string/service"
+            android:lines="2"
+            android:maxLines="2"
+            android:padding="10dp" />
 
         <EditText
             android:id="@+id/add_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/address" />
+            android:gravity="left|top"
+            android:hint="@string/address"
+            android:lines="2"
+            android:maxLines="2"
+            android:padding="10dp" />
 
         <EditText
             android:id="@+id/add_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="left|top"
             android:hint="@string/phone"
-            android:inputType="phone" />
+            android:inputType="phone"
+            android:maxLines="1"
+            android:padding="10dp" />
 
         <EditText
             android:id="@+id/add_schedule"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/timetable" />
+            android:gravity="left|top"
+            android:hint="@string/timetable"
+            android:lines="2"
+            android:maxLines="2"
+            android:padding="10dp" />
 
         <ImageView
             android:id="@+id/add_image"
@@ -58,6 +78,11 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:src="@drawable/add_item" />
+
+        <Spinner
+            android:id="@+id/add_cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/add_place"

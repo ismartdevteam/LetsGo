@@ -1,8 +1,10 @@
 package mn.student.letsgo;
 
+import mn.student.letsgo.utils.Utils;
 import mn.student.letsgo.whoisgonnapay.WhoIsGonnaPay;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -24,7 +27,7 @@ public class MainActivity extends ActionBarActivity implements
 	 * navigation drawer.
 	 */
 	public static NavigationDrawerFragment mNavigationDrawerFragment;
-
+	private SharedPreferences proSp;
 	/**
 	 * Used to store the last screen title. For use in
 	 * {@link #restoreActionBar()}.
@@ -35,11 +38,15 @@ public class MainActivity extends ActionBarActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		if (!Utils.isNetworkAvailable(this)) {
+			Toast.makeText(this, getString(R.string.no_internet_connection),
+					Toast.LENGTH_SHORT).show();
+			finish();
+		}
 		mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager()
 				.findFragmentById(R.id.navigation_drawer);
 		mTitle = getTitle();
-
+		proSp = getSharedPreferences("user", 0);
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer,
 				(DrawerLayout) findViewById(R.id.drawer_layout));
@@ -56,14 +63,14 @@ public class MainActivity extends ActionBarActivity implements
 					.replace(R.id.container, ShakeFrag.newInstance(1)).commit();
 			break;
 
-		case 3:
+		case 2:
 			fragmentManager.beginTransaction()
-					.replace(R.id.container, WhoIsGonnaPay.newInstance(3))
+					.replace(R.id.container, WhoIsGonnaPay.newInstance(2))
 					.commit();
 			break;
-		case 4:
+		case 3:
 			fragmentManager.beginTransaction()
-					.replace(R.id.container, MapsFrag.newInstance(4)).commit();
+					.replace(R.id.container, MapsFrag.newInstance(3)).commit();
 			break;
 		default:
 			break;
@@ -75,13 +82,13 @@ public class MainActivity extends ActionBarActivity implements
 		case 1:
 			mTitle = getString(R.string.title_section1);
 			break;
+//		case 2:
+//			mTitle = getString(R.string.title_section2);
+//			break;
 		case 2:
-			mTitle = getString(R.string.title_section2);
-			break;
-		case 3:
 			mTitle = getString(R.string.title_section3);
 			break;
-		case 4:
+		case 3:
 
 			mTitle = getString(R.string.title_section4);
 			break;
@@ -121,8 +128,13 @@ public class MainActivity extends ActionBarActivity implements
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_add) {
-			startActivity(new Intent(MainActivity.this, AddPlaceAc.class));
-
+			if (!proSp.getString("my_id", "0").equals("0"))
+				startActivity(new Intent(MainActivity.this, AddPlaceAc.class));
+			else {
+				Toast.makeText(MainActivity.this,
+						getString(R.string.pleaseLogin), Toast.LENGTH_SHORT)
+						.show();
+			}
 			return true;
 		}
 		// if (id == R.id.action_settings) {

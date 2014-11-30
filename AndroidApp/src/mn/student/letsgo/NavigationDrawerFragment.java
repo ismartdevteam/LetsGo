@@ -30,7 +30,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation
@@ -142,7 +141,7 @@ public class NavigationDrawerFragment extends Fragment implements
 		mDrawerListView.setAdapter(new ArrayAdapter<String>(getActionBar()
 				.getThemedContext(), R.layout.navi_menu_item, R.id.list_item,
 				new String[] { getString(R.string.title_section1),
-						getString(R.string.title_section2),
+//						getString(R.string.title_section2),
 						getString(R.string.title_section3),
 						getString(R.string.title_section4), }));
 		mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);

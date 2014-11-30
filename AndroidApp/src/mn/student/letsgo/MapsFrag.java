@@ -38,6 +38,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -49,7 +50,12 @@ public class MapsFrag extends Fragment implements OnInfoWindowClickListener,
 	private static final String ARG_SECTION_NUMBER = "section_number";
 	private UiSettings mUiSettings;
 	private int radius = 10;
-
+	private int[] markers = { R.drawable.marker_mood_2,
+			R.drawable.marker_mood_3, R.drawable.marker_mood_4,
+			R.drawable.marker_mood_5, R.drawable.marker_mood_6,
+			R.drawable.marker_mood_7, R.drawable.marker_mood_8,
+			R.drawable.marker_mood_9, R.drawable.marker_mood_10,
+			R.drawable.marker_mood_11 };
 	private LocationManager locationManager;
 	private static final long MIN_TIME = 400;
 	private static final float MIN_DISTANCE = 1000;
@@ -87,11 +93,16 @@ public class MapsFrag extends Fragment implements OnInfoWindowClickListener,
 								JSONArray data = response.getJSONArray("data");
 								for (int i = 0; i < data.length(); i++) {
 									JSONObject item = data.getJSONObject(i);
+
 									LatLng loc = new LatLng(item
 											.getDouble("lat"), item
 											.getDouble("lng"));
+									int markerIcon = markers[item
+											.getInt("mood_id")-1];
 									mMap.addMarker(new MarkerOptions()
 											.title(item.getString("name"))
+											.icon(BitmapDescriptorFactory
+													.fromResource(markerIcon))
 											.snippet(
 													item.getString("address")
 															+ " "
@@ -170,53 +181,7 @@ public class MapsFrag extends Fragment implements OnInfoWindowClickListener,
 				setUpMap();
 			}
 		}
-		// if (!fromBranch) {
 
-		LocationManager lm = null;
-		boolean gps_enabled = false, network_enabled = false;
-		if (lm == null)
-			lm = (LocationManager) getActivity().getSystemService(
-					Context.LOCATION_SERVICE);
-		try {
-			gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
-		} catch (Exception ex) {
-		}
-		try {
-			network_enabled = lm
-					.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-		} catch (Exception ex) {
-		}
-
-		if (!gps_enabled && !network_enabled) {
-			Builder dialog = new AlertDialog.Builder(getActivity());
-			dialog.setMessage("GPS унтраастай байна");
-			dialog.setPositiveButton("Нээх",
-					new DialogInterface.OnClickListener() {
-
-						@Override
-						public void onClick(
-								DialogInterface paramDialogInterface,
-								int paramInt) {
-							// TODO Auto-generated method stub
-							Intent myIntent = new Intent(
-									Settings.ACTION_SECURITY_SETTINGS);
-							startActivity(myIntent);
-						}
-					});
-			dialog.setNegativeButton("Болих",
-					new DialogInterface.OnClickListener() {
-
-						@Override
-						public void onClick(
-								DialogInterface paramDialogInterface,
-								int paramInt) {
-							// TODO Auto-generated method stub
-
-						}
-					});
-			dialog.show();
-
-		}
 
 	}
 

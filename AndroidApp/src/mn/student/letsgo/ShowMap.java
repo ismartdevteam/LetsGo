@@ -7,19 +7,14 @@ import java.util.Map;
 import org.w3c.dom.Document;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.InflateException;
@@ -47,13 +42,18 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener,
 	private GoogleMap mMap;
 	private static View view;
 	private UiSettings mUiSettings;
-
+	private int[] markers = { R.drawable.marker_mood_2,
+			R.drawable.marker_mood_3, R.drawable.marker_mood_4,
+			R.drawable.marker_mood_5, R.drawable.marker_mood_6,
+			R.drawable.marker_mood_7, R.drawable.marker_mood_8,
+			R.drawable.marker_mood_9, R.drawable.marker_mood_10,
+			R.drawable.marker_mood_11 };
 	private Double lat;
+	private int mood;
 	private Double lng;
 	private LocationManager locationManager;
 	private static final long MIN_TIME = 400;
 	private static final float MIN_DISTANCE = 1000;
-	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -85,10 +85,11 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener,
 
 	}
 
-	public static ShowMap newInstance(double lat, double lng) {
+	public static ShowMap newInstance(double lat, double lng, int mood) {
 		ShowMap fragment = new ShowMap();
 		Bundle args = new Bundle();
 		args.putDouble("lat", lat);
+		args.putInt("mood", mood);
 		args.putDouble("lng", lng);
 		fragment.setArguments(args);
 		return fragment;
@@ -106,7 +107,6 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener,
 		setUpMapIfNeeded();
 	}
 
-
 	private void setUpMapIfNeeded() {
 		// Do a null check to confirm that we have not already instantiated the
 		// map.
@@ -120,53 +120,6 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener,
 			if (mMap != null) {
 				setUpMap();
 			}
-		}
-		// if (!fromBranch) {
-
-		LocationManager lm = null;
-		boolean gps_enabled = false, network_enabled = false;
-		if (lm == null)
-			lm = (LocationManager) getActivity().getSystemService(
-					Context.LOCATION_SERVICE);
-		try {
-			gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
-		} catch (Exception ex) {
-		}
-		try {
-			network_enabled = lm
-					.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-		} catch (Exception ex) {
-		}
-
-		if (!gps_enabled && !network_enabled) {
-			Builder dialog = new AlertDialog.Builder(getActivity());
-			dialog.setMessage(R.string.onGPS);
-			dialog.setPositiveButton(R.string.yes,
-					new DialogInterface.OnClickListener() {
-
-						@Override
-						public void onClick(
-								DialogInterface paramDialogInterface,
-								int paramInt) {
-							// TODO Auto-generated method stub
-							Intent myIntent = new Intent(
-									Settings.ACTION_SECURITY_SETTINGS);
-							startActivity(myIntent);
-						}
-					});
-			dialog.setNegativeButton(R.string.no,
-					new DialogInterface.OnClickListener() {
-
-						@Override
-						public void onClick(
-								DialogInterface paramDialogInterface,
-								int paramInt) {
-							// TODO Auto-generated method stub
-
-						}
-					});
-			dialog.show();
-
 		}
 
 	}
@@ -196,6 +149,7 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener,
 		super.onCreate(savedInstanceState);
 		// mPosition = getArguments().getInt(ARG_POSITION);
 		lat = getArguments().getDouble("lat");
+		mood = getArguments().getInt("mood");
 		lng = getArguments().getDouble("lng");
 
 	}
@@ -304,11 +258,13 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener,
 				17);
 		mMap.animateCamera(cameraUpdate);
 		LatLng loc = new LatLng(lat, lng);
-		BitmapDescriptor bitmapDescriptor 
-		   = BitmapDescriptorFactory.defaultMarker(
-		     BitmapDescriptorFactory.HUE_AZURE);
-		mMap.addMarker(new MarkerOptions()
-		.position(loc).icon(bitmapDescriptor));
+		BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory
+				.defaultMarker(BitmapDescriptorFactory.HUE_AZURE);
+		if (mood > 0)
+			bitmapDescriptor = BitmapDescriptorFactory
+					.fromResource(markers[mood-1]);
+
+		mMap.addMarker(new MarkerOptions().position(loc).icon(bitmapDescriptor));
 		findDirections(location.getLatitude(), location.getLongitude(),
 				loc.latitude, loc.longitude, "driving");
 		locationManager.removeUpdates(this);

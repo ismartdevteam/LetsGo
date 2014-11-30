@@ -5,16 +5,22 @@
     <string name="fb_appId">1528422227406217</string>
     <string name="app_name">LETS GO</string>
     <string name="letgoAndMap">Lets go and show map</string>
+    <string name="showReview">Show Review</string>
     <string name="showDetPlace">Show Detail</string>
     <string name="title_section1">Shake</string>
     <string name="title_section3">Who Is Gonna Pay</string>
+    <string name="showWebSite">Show Website</string>
+    <string name="writeReview">Write a review</string>
     <string name="title_section2">Compare</string>
     <string name="title_section4">Map</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_example">Example action</string>
+    <string name="addComment">Add Comment</string>
     <string name="logout_title">Logout</string>
+    <string name="addPhoto">Add Photo</string>
+    <string name="send">Send</string>
     <string name="logout_not">Do you really wanna logout?</string>
+    <string name="pleaseLogin">Please login first</string>
     <string name="onGPS">Please on GPS</string>
     <string name="skip">skip</string>
     <string name="profile">Profile</string>
@@ -23,12 +29,15 @@
     <string name="yes">Yes</string>
     <string name="done">Done</string>
     <string name="all">All</string>
+    <string name="selectMood">Select  mood</string>
     <string name="shakeToStart">Shake 3 times to Start</string>
     <string name="selectYourMood">Select your mood</string>
     <string name="selectDistance"><b>Select distance to place</b> (kilometer)</string>
     <string name="action_add">Add place</string>
     <string name="no">No</string>
     <string name="mood">Mood</string>
+    <string name="chooseLoc">Click on map</string>
+    <string name="chooseImage">Choose image from gallery</string>
     <string name="noNet">No network connection</string>
     <string name="visitedPlace">Lets gone</string>
     <string name="myActivity">My Activity</string>
@@ -37,18 +46,25 @@
     <string name="action_settings">Settings</string>
     <string name="walk_one">Do you want advertise your company or service free for all our users</string>
     <string name="walk_two">If you lonely just shake it</string>
-    <string name="noData">No result Please Try again on other mood</string>
-    <string name="mainIp">http://50.31.138.168:3003/mobile/</string>
-    <!--
-          <string name="mainIp">http://192.168.1.2:3000/mobile/</string>
-         <string name="mainIpImage">http://192.168.1.2:3000</string>
+    <string name="add_fill">Please fill this field:</string>
+    <string name="noData_Mood">No result Please Try again on other mood</string>
+    <string name="noData">No result</string>
+    <string name="noReview">No Reviews</string>
+    <string name="addErr">Error adding new place Please try again</string>
+    <string name="addSuc">Successfully added your place</string>
+  <!--   <string name="mainIp">http://192.168.1.4:3000/mobile/</string>
+    <string name="mainIpImage">http://192.168.1.4:3000</string>
+
     -->
-    <string name="mainIpImage">http://50.31.138.168:3003</string>
+      <string name="mainIp">http://50.31.138.168:3000/mobile/</string>
+    <string name="mainIpImage">http://50.31.138.168:3000</string>
+   
     <string name="loading">Loading...</string>
     <string name="name">Name</string>
     <string name="desc">Indroduction</string>
     <string name="address">Address</string>
     <string name="service">Services</string>
+    <string name="rated">  people rated</string>
     <string name="phone">Phone</string>
     <string name="timetable">Timetable</string>
     <string name="addPlace">Add place</string>

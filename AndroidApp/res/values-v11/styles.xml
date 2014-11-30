@@ -6,6 +6,7 @@
     -->
        <style name="AppTheme" parent="AppBaseTheme">
        <item name="android:homeAsUpIndicator">@drawable/ic_action_back</item>
+ 
     </style>
     
     <style name="pay_dialog" parent="@android:style/Theme.Dialog">

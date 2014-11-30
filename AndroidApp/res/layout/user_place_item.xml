@@ -14,8 +14,8 @@
         <mn.student.letsgo.utils.CircleImageView
             android:id="@+id/user_place_place_img"
             android:layout_width="50dp"
-            android:padding="5dp"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            android:padding="5dp" />
 
         <mn.student.letsgo.text.Regular
             android:id="@+id/user_place_placeName"
@@ -29,17 +29,32 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1px"   android:layout_margin="5dp" 
+        android:layout_height="1px"
+        android:layout_margin="5dp"
         android:background="@color/dark_blue" />
 
-    <com.android.volley.toolbox.NetworkImageView
-        android:id="@+id/user_place_image"
-    android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
- />
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/user_place_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop" />
+
+        <mn.student.letsgo.text.Regular
+            android:id="@+id/user_place_rated"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/gradient_trans_inverse"
+            android:maxLines="4"
+            android:padding="10dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
 
     <mn.student.letsgo.text.Regular
         android:id="@+id/user_place_title"
@@ -68,4 +83,5 @@
         android:layout_height="2dp"
         android:layout_margin="5dp"
         android:background="@color/dark_red" />
+
 </LinearLayout>

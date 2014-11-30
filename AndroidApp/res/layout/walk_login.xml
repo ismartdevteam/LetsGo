@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/card_view"
+        android:background="@drawable/blue_but"
         android:padding="10dp"
         android:text="@string/skip"
         android:textColor="@android:color/black" />

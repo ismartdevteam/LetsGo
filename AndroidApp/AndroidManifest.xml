@@ -67,6 +67,11 @@
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:name="mn.student.letsgo.PlaceDet"
+            android:label="@string/app_name"
+          >
+        </activity>
+        <activity
             android:name="com.facebook.LoginActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />

@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <!-- Алдааны мэссэжүүд -->
     <string name="not_saved">Information changes are not saved</string>
-    <string name="no_internet_connection">Internet connection error</string>
+    <string name="no_internet_connection">Internet connection Please try again</string>
     <string name="parse_error">Error for LetsGo request</string>
     <string name="network_error">Network error</string>
     <string name="server_timed_out">Network error to connect</string>
     <string name="server_unknown">System server error. Please try again.</string>
-    
-    
+
     <!-- Facebook error -->
     <string name="login_error">Login error. Please try again.</string>
-    
+
     <!-- Google map error -->
     <string name="connection_error">Connection error</string>
+
 </resources>

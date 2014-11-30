@@ -53,6 +53,7 @@ public class UserPlaceAdapter extends ArrayAdapter<Places> {
 			hol.place_name = (Regular) v
 					.findViewById(R.id.user_place_placeName);
 			hol.title = (Regular) v.findViewById(R.id.user_place_title);
+			hol.rated = (Regular) v.findViewById(R.id.user_place_rated);
 			hol.date = (Light) v.findViewById(R.id.user_place_time);
 			hol.rate = (ImageView) v.findViewById(R.id.user_place_rating);
 			v.setTag(hol);
@@ -74,7 +75,8 @@ public class UserPlaceAdapter extends ArrayAdapter<Places> {
 				Integer.parseInt(dates[1]), Integer.parseInt(dates[2]),
 				Integer.parseInt(dates[3]), Integer.parseInt(dates[4]),
 				Integer.parseInt(dates[5]));
-
+		hol.rated
+				.setText(item.ratedPeople + mContext.getString(R.string.rated));
 		hol.date.setText(DateUtils.getRelativeTimeSpanString(mContext, time)
 				+ "");
 		hol.image.setImageUrl(imageIp
@@ -85,6 +87,7 @@ public class UserPlaceAdapter extends ArrayAdapter<Places> {
 	}
 
 	class Holder {
+		Regular rated;
 		NetworkImageView image;
 		CircleImageView place_img;
 		ImageView rate;

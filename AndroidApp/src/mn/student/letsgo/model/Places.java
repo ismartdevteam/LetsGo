@@ -3,12 +3,7 @@ package mn.student.letsgo.model;
 public class Places {
 	public int id;
 	public String name;
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+
 	public String desc;
 	public String service;
 	public String address;
@@ -22,6 +17,7 @@ public class Places {
 	public int ratedPeople;
 	public int visits;
 	public int user_id;
+	public int mood_id;
 	public String category;
 	public String mood;
 	public String username;

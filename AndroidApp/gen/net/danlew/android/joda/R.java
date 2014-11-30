@@ -8,25 +8,25 @@ package net.danlew.android.joda;
 
 public final class R {
 	public static final class plurals {
-		public static final int abbrev_in_num_days = 0x7f07000f;
-		public static final int abbrev_in_num_hours = 0x7f07000e;
-		public static final int abbrev_in_num_minutes = 0x7f07000d;
-		public static final int abbrev_in_num_seconds = 0x7f07000c;
-		public static final int abbrev_num_days_ago = 0x7f07000b;
-		public static final int abbrev_num_hours_ago = 0x7f07000a;
-		public static final int abbrev_num_minutes_ago = 0x7f070009;
-		public static final int abbrev_num_seconds_ago = 0x7f070008;
-		public static final int duration_hours = 0x7f070012;
-		public static final int duration_minutes = 0x7f070011;
-		public static final int duration_seconds = 0x7f070010;
-		public static final int in_num_days = 0x7f070007;
-		public static final int in_num_hours = 0x7f070006;
-		public static final int in_num_minutes = 0x7f070005;
-		public static final int in_num_seconds = 0x7f070004;
-		public static final int num_days_ago = 0x7f070003;
-		public static final int num_hours_ago = 0x7f070002;
-		public static final int num_minutes_ago = 0x7f070001;
-		public static final int num_seconds_ago = 0x7f070000;
+		public static final int abbrev_in_num_days = 0x7f0d000f;
+		public static final int abbrev_in_num_hours = 0x7f0d000e;
+		public static final int abbrev_in_num_minutes = 0x7f0d000d;
+		public static final int abbrev_in_num_seconds = 0x7f0d000c;
+		public static final int abbrev_num_days_ago = 0x7f0d000b;
+		public static final int abbrev_num_hours_ago = 0x7f0d000a;
+		public static final int abbrev_num_minutes_ago = 0x7f0d0009;
+		public static final int abbrev_num_seconds_ago = 0x7f0d0008;
+		public static final int duration_hours = 0x7f0d0012;
+		public static final int duration_minutes = 0x7f0d0011;
+		public static final int duration_seconds = 0x7f0d0010;
+		public static final int in_num_days = 0x7f0d0007;
+		public static final int in_num_hours = 0x7f0d0006;
+		public static final int in_num_minutes = 0x7f0d0005;
+		public static final int in_num_seconds = 0x7f0d0004;
+		public static final int num_days_ago = 0x7f0d0003;
+		public static final int num_hours_ago = 0x7f0d0002;
+		public static final int num_minutes_ago = 0x7f0d0001;
+		public static final int num_seconds_ago = 0x7f0d0000;
 	}
 	public static final class raw {
 		public static final int __tzdata_africa_abidjan = 0x7f050000;
@@ -474,9 +474,9 @@ public final class R {
 		public static final int __tzdata_zoneinfomap = 0x7f0501ba;
 	}
 	public static final class string {
-		public static final int date_time = 0x7f060000;
-		public static final int preposition_for_date = 0x7f060001;
-		public static final int preposition_for_time = 0x7f060002;
-		public static final int relative_time = 0x7f060003;
+		public static final int date_time = 0x7f0b000d;
+		public static final int preposition_for_date = 0x7f0b000e;
+		public static final int preposition_for_time = 0x7f0b000f;
+		public static final int relative_time = 0x7f0b0010;
 	}
 }
