@@ -140,7 +140,7 @@ public class NavigationDrawerFragment extends Fragment implements
 				});
 		mDrawerListView.setAdapter(new ArrayAdapter<String>(getActionBar()
 				.getThemedContext(), R.layout.navi_menu_item, R.id.list_item,
-				new String[] { getString(R.string.title_section1),
+				new String[] { getString(R.string.app_name),
 //						getString(R.string.title_section2),
 						getString(R.string.title_section3),
 						getString(R.string.title_section4), }));

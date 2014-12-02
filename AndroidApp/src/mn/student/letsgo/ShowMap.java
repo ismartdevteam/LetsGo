@@ -255,7 +255,7 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener,
 		LatLng latLng = new LatLng(location.getLatitude(),
 				location.getLongitude());
 		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng,
-				17);
+				14);
 		mMap.animateCamera(cameraUpdate);
 		LatLng loc = new LatLng(lat, lng);
 		BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory

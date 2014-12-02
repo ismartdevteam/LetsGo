@@ -44,7 +44,7 @@
    	    android:layout_width="wrap_content"
    	    android:layout_height="0dp"
    	    android:layout_weight="1"
-   	    android:text="@string/pay_description"
+   	    android:text="@string/shakeToStart"
    	    android:textColor="@color/dark_blue"
    	    android:layout_gravity="center"/>
 

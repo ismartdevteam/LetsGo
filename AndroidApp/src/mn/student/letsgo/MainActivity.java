@@ -39,7 +39,7 @@ public class MainActivity extends ActionBarActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		if (!Utils.isNetworkAvailable(this)) {
-			Toast.makeText(this, getString(R.string.no_internet_connection),
+			Toast.makeText(this, getString(R.string.noNet),
 					Toast.LENGTH_SHORT).show();
 			finish();
 		}
@@ -80,7 +80,7 @@ public class MainActivity extends ActionBarActivity implements
 	public void onSectionAttached(int number) {
 		switch (number) {
 		case 1:
-			mTitle = getString(R.string.title_section1);
+			mTitle = getString(R.string.app_name);
 			break;
 //		case 2:
 //			mTitle = getString(R.string.title_section2);

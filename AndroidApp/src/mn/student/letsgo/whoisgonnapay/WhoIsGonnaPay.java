@@ -13,6 +13,7 @@ import mn.student.letsgo.common.ShakeListener.OnShakeListener;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnKeyListener;
@@ -95,7 +96,7 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 		    public void run() {
 		        showDialog();
 		    }
-		}, 500);
+		}, 200);
 		return v;
 	}
 	
@@ -292,6 +293,7 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 		}
 		@Override
 		public void onShake() {
+			vibrator.vibrate(500);
 			circleLayout.rotateView();
 		}
 		
@@ -301,20 +303,19 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 		
 		@Override
 		public void onRotationFinished(View view, String name) {	
-			//Toast.makeText(getActivity(), name, Toast.LENGTH_SHORT).show();
-			AlertDialog.Builder builder = 
-		            new AlertDialog.Builder( getActivity(), R.style.MyCustomTheme );
 			
-		    builder  
-		        .setTitle(getResources().getString(R.string.title_section3))
-		        .setMessage(name)
-		        .setPositiveButton( "OK" , new DialogInterface.OnClickListener() {      
-		              @Override
-		              public void onClick(DialogInterface dialog, int which) {
-		            	  dialog.dismiss();
-		            }
-		        });
-		    builder.show();
+			final Builder dialog = new AlertDialog.Builder(getActivity());
+			dialog.setMessage(getResources().getString(R.string.title_section3) + "\n\n\t" +name);
+			dialog.setPositiveButton(getActivity().getString(R.string.yes),
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(
+								DialogInterface paramDialogInterface,
+								int paramInt) {
+						}
+					});
+			dialog.show();
 		}
 		
 		@Override
@@ -375,19 +376,18 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 
 		@Override
 		public void onRotationFinished(View view, String name) {	
-			AlertDialog.Builder builder = 
-		            new AlertDialog.Builder( getActivity(), R.style.MyCustomTheme );
-			
-		    builder  
-		        .setTitle(getResources().getString(R.string.title_section3))
-		        .setMessage(name)
-		        .setPositiveButton( "OK" , new DialogInterface.OnClickListener() {      
-		              @Override
-		              public void onClick(DialogInterface dialog, int which) {
-		            	  dialog.dismiss();
-		            }
-		        });
-		    builder.show();
+			final Builder dialog = new AlertDialog.Builder(getActivity());
+			dialog.setMessage(getResources().getString(R.string.title_section3) + "\n\n\t" +name);
+			dialog.setPositiveButton(getActivity().getString(R.string.yes),
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(
+								DialogInterface paramDialogInterface,
+								int paramInt) {
+						}
+					});
+			dialog.show();
 		}
 
 		@Override
@@ -450,19 +450,18 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 
 		@Override
 		public void onRotationFinished(View view, String name) {	
-			AlertDialog.Builder builder = 
-		            new AlertDialog.Builder( getActivity(), R.style.MyCustomTheme );
-			
-		    builder  
-		        .setTitle(getResources().getString(R.string.title_section3))
-		        .setMessage(name)
-		        .setPositiveButton( "OK" , new DialogInterface.OnClickListener() {      
-		              @Override
-		              public void onClick(DialogInterface dialog, int which) {
-		            	  dialog.dismiss();
-		            }
-		        });
-		    builder.show();
+			final Builder dialog = new AlertDialog.Builder(getActivity());
+			dialog.setMessage(getResources().getString(R.string.title_section3) + "\n\n\t" +name);
+			dialog.setPositiveButton(getActivity().getString(R.string.yes),
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(
+								DialogInterface paramDialogInterface,
+								int paramInt) {
+						}
+					});
+			dialog.show();
 		}
 
 		@Override
@@ -529,19 +528,18 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 
 		@Override
 		public void onRotationFinished(View view, String name) {	
-			AlertDialog.Builder builder = 
-		            new AlertDialog.Builder( getActivity(), R.style.MyCustomTheme );
-			
-		    builder  
-		        .setTitle(getResources().getString(R.string.title_section3))
-		        .setMessage(name)
-		        .setPositiveButton( "OK" , new DialogInterface.OnClickListener() {      
-		              @Override
-		              public void onClick(DialogInterface dialog, int which) {
-		            	  dialog.dismiss();
-		            }
-		        });
-		    builder.show();
+			final Builder dialog = new AlertDialog.Builder(getActivity());
+			dialog.setMessage(getResources().getString(R.string.title_section3) + "\n\n\t" +name);
+			dialog.setPositiveButton(getActivity().getString(R.string.yes),
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(
+								DialogInterface paramDialogInterface,
+								int paramInt) {
+						}
+					});
+			dialog.show();
 		}
 
 		@Override
@@ -608,19 +606,18 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 
 		@Override
 		public void onRotationFinished(View view, String name) {	
-			AlertDialog.Builder builder = 
-		            new AlertDialog.Builder( getActivity(), R.style.MyCustomTheme );
-			
-		    builder  
-		        .setTitle(getResources().getString(R.string.title_section3))
-		        .setMessage(name)
-		        .setPositiveButton( "OK" , new DialogInterface.OnClickListener() {      
-		              @Override
-		              public void onClick(DialogInterface dialog, int which) {
-		            	  dialog.dismiss();
-		            }
-		        });
-		    builder.show();
+			final Builder dialog = new AlertDialog.Builder(getActivity());
+			dialog.setMessage(getResources().getString(R.string.title_section3) + "\n\n\t" +name);
+			dialog.setPositiveButton(getActivity().getString(R.string.yes),
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(
+								DialogInterface paramDialogInterface,
+								int paramInt) {
+						}
+					});
+			dialog.show();
 		}
 
 		@Override

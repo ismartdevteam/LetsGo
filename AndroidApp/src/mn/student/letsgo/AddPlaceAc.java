@@ -379,7 +379,7 @@ public class AddPlaceAc extends ActionBarActivity implements OnClickListener {
 
 			} else {
 				Toast.makeText(AddPlaceAc.this,
-						R.string.no_internet_connection, Toast.LENGTH_SHORT)
+						R.string.noNet, Toast.LENGTH_SHORT)
 						.show();
 			}
 		}
