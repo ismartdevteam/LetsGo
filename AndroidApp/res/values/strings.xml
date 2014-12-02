@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- <string name="fb_appId">708810742542592</string> -->
-    <string name="fb_appId">1528422227406217</string>
+    <string name="fb_appId">708810742542592</string>
     <string name="app_name">LETS GO</string>
     <string name="letgoAndMap">Lets go and show map</string>
     <string name="showReview">Show Review</string>
@@ -53,14 +52,14 @@
     <string name="noReview">No Reviews</string>
     <string name="addErr">Error adding new place Please try again</string>
     <string name="addSuc">Successfully added your place</string>
-  <!--   <string name="mainIp">http://192.168.1.4:3000/mobile/</string>
+     <!--  <string name="mainIp">http://192.168.1.4:3000/mobile/</string>
     <string name="mainIpImage">http://192.168.1.4:3000</string>
-
     -->
-      <string name="mainIp">http://50.31.138.168:3000/mobile/</string>
-    <string name="mainIpImage">http://50.31.138.168:3000</string>
-   
-    <string name="loading">Loading#8230;</string>
+ 
+      <string name="mainIp">http://50.31.138.168:8008/mobile/</string>
+    <string name="mainIpImage">http://50.31.138.168:8008</string>
+
+    <string name="loading">Loading</string>
     <string name="name">Name</string>
     <string name="desc">Indroduction</string>
     <string name="address">Address</string>

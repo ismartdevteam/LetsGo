@@ -19,6 +19,7 @@ import mn.student.letsgo.utils.CircleImageView;
 import mn.student.letsgo.utils.CustomRequest;
 import mn.student.letsgo.utils.MySingleton;
 import mn.student.letsgo.utils.Utils;
+import mn.student.letsgo.walkthrough.Login;
 import net.danlew.android.joda.DateUtils;
 import net.danlew.android.joda.JodaTimeAndroid;
 
@@ -37,6 +38,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -152,9 +154,8 @@ public class PlaceDet extends ActionBarActivity implements OnClickListener,
 			send.setOnClickListener(this);
 		} else {
 
-			profileView = getLayoutInflater().inflate(R.layout.no_profile,
+			profileView = getLayoutInflater().inflate(R.layout.login_first,
 					mListView, false);
-			profileView.setOnClickListener(this);
 
 		}
 
@@ -204,6 +205,11 @@ public class PlaceDet extends ActionBarActivity implements OnClickListener,
 							}
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
+							progress.dismiss();
+							Toast.makeText(PlaceDet.this,
+									getString(R.string.noData),
+									Toast.LENGTH_SHORT).show();
+							finish();
 							e.printStackTrace();
 						}
 					}
@@ -378,10 +384,7 @@ public class PlaceDet extends ActionBarActivity implements OnClickListener,
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		if (v == profileView) {
 
-			startActivity(new Intent(PlaceDet.this, UserAc.class));
-		}
 		if (v == photo) {
 			Intent intent = new Intent();
 			intent.setType("image/*");

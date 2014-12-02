@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -93,9 +94,10 @@ public class MapsFrag extends Fragment implements OnInfoWindowClickListener,
 											.getDouble("lat"), item
 											.getDouble("lng"));
 									int markerIcon = markers[item
-											.getInt("mood_id")-1];
+											.getInt("mood_id") - 1];
 									mMap.addMarker(new MarkerOptions()
-											.title(item.getString("name"))
+											.title(item.getString("name") + "-"
+													+ item.getInt("id"))
 											.icon(BitmapDescriptorFactory
 													.fromResource(markerIcon))
 											.snippet(
@@ -103,6 +105,7 @@ public class MapsFrag extends Fragment implements OnInfoWindowClickListener,
 															+ " "
 															+ item.getString("phone"))
 											.position(loc));
+
 								}
 							}
 						} catch (JSONException e) {
@@ -177,7 +180,6 @@ public class MapsFrag extends Fragment implements OnInfoWindowClickListener,
 			}
 		}
 
-
 	}
 
 	private void setUpMap() {
@@ -189,7 +191,7 @@ public class MapsFrag extends Fragment implements OnInfoWindowClickListener,
 
 		mUiSettings = mMap.getUiSettings();
 		mMap.setMyLocationEnabled(true);
-
+		mMap.setOnInfoWindowClickListener(this);
 		mUiSettings.setMyLocationButtonEnabled(true);
 
 		locationManager = (LocationManager) getActivity().getSystemService(
@@ -202,7 +204,12 @@ public class MapsFrag extends Fragment implements OnInfoWindowClickListener,
 	@Override
 	public void onInfoWindowClick(Marker arg0) {
 		// TODO Auto-generated method stub
+		Bundle b = new Bundle();
 
+		b.putString("id", arg0.getTitle().split("-")[1]);
+		Intent adIntent = new Intent(getActivity(), PlaceDet.class);
+		adIntent.putExtras(b);
+		startActivity(adIntent);
 	}
 
 	@Override

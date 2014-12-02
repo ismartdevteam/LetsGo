@@ -27,6 +27,7 @@ public final static String MODE_WALKING = "walking";
 public GMapV2Direction() { }
 
 public Document getDocument(LatLng start, LatLng end, String mode) {
+	Log.i("direction", mode);
     String url = "http://maps.googleapis.com/maps/api/directions/xml?" 
             + "origin=" + start.latitude + "," + start.longitude  
             + "&destination=" + end.latitude + "," + end.longitude 

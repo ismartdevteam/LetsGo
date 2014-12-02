@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.gcm.GCMBaseIntentService;
@@ -42,8 +43,8 @@ public class GCMIntentService extends GCMBaseIntentService {
 	protected void onMessage(final Context context, Intent intent) {
 		Log.i("message GCM", "yes");
 		final String message = intent.getExtras().getString("message");
-
-		generateNotification(context, message);
+		final String id = intent.getExtras().getString("id");
+		generateNotification(context, message, id);
 
 	}
 
@@ -55,7 +56,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 
 		String message = "deleted";
 		// notifies user
-		generateNotification(context, message);
+		generateNotification(context, message, "");
 	}
 
 	/**
@@ -80,16 +81,18 @@ public class GCMIntentService extends GCMBaseIntentService {
 	 * Issues a notification to inform the user that server has sent a message.
 	 */
 	@SuppressWarnings("deprecation")
-	private static void generateNotification(Context context, String message) {
+	private static void generateNotification(Context context, String message,
+			String id) {
 		long when = System.currentTimeMillis();
 		NotificationManager notificationManager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
 		Notification notification = new Notification(R.drawable.ic_launcher,
 				message, when);
 		Intent notificationIntent;
-
-		notificationIntent = new Intent(context, MainActivity.class);
-
+		Bundle b = new Bundle();
+		b.putString("id", id);
+		notificationIntent = new Intent(context, PlaceDet.class);
+		notificationIntent.putExtras(b);
 		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
 				| Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		PendingIntent intent = PendingIntent.getActivity(context, 0,

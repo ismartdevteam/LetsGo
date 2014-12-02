@@ -576,7 +576,6 @@ public class AddPlaceAc extends ActionBarActivity implements OnClickListener {
 	public static String multipartRequest(String urlTo, String post,
 			String filepath, String filefield) throws ParseException,
 			IOException {
-		Log.wtf("imagePath", filepath);
 		HttpURLConnection connection = null;
 		DataOutputStream outputStream = null;
 		InputStream inputStream = null;

@@ -17,6 +17,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,13 +74,13 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener,
 		try {
 
 			view = inflater.inflate(R.layout.show_place, container, false);
-			walking = (ImageView) view.findViewById(R.id.map_walk);
-			driving = (ImageView) view.findViewById(R.id.map_drive);
-			walking.setOnClickListener(this);
-			driving.setOnClickListener(this);
+		
 		} catch (InflateException e) {
 		}
-
+		walking = (ImageView) view.findViewById(R.id.map_walk);
+		driving = (ImageView) view.findViewById(R.id.map_drive);
+		walking.setOnClickListener(this);
+		driving.setOnClickListener(this);
 		return view;
 
 	}
@@ -266,12 +267,13 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener,
 				14);
 		mMap.animateCamera(cameraUpdate);
 		this.location = location;
-		makeMap(1);
+		makeMap(2);
 		locationManager.removeUpdates(this);
 
 	}
 
 	private void makeMap(int status) {
+		Log.i("status", status+"");
 		LatLng loc = new LatLng(lat, lng);
 		BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory
 				.defaultMarker(BitmapDescriptorFactory.HUE_AZURE);
@@ -280,18 +282,18 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener,
 					.fromResource(markers[mood - 1]);
 
 		mMap.addMarker(new MarkerOptions().position(loc).icon(bitmapDescriptor));
-		if (status == 1) {
-			walking.setBackgroundResource(R.drawable.blue_but);
-			driving.setBackgroundResource(R.drawable.red_but);
-			findDirections(location.getLatitude(), location.getLongitude(),
-					loc.latitude, loc.longitude, "driving");
-		}
-
-		else {
+		if (status ==2) {
 			walking.setBackgroundResource(R.drawable.red_but);
 			driving.setBackgroundResource(R.drawable.blue_but);
 			findDirections(location.getLatitude(), location.getLongitude(),
-					loc.latitude, loc.longitude, "walking");
+					loc.latitude, loc.longitude, GMapV2Direction.MODE_DRIVING);
+		}
+
+		else {
+			walking.setBackgroundResource(R.drawable.blue_but);
+			driving.setBackgroundResource(R.drawable.red_but);
+			findDirections(location.getLatitude(), location.getLongitude(),
+					loc.latitude, loc.longitude, GMapV2Direction.MODE_WALKING);
 		}
 	}
 

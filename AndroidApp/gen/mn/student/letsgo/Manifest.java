@@ -9,8 +9,6 @@ package mn.student.letsgo;
 
 public final class Manifest {
     public static final class permission {
-        /**  NOTIFICATION 
-         */
         public static final String C2D_MESSAGE="mn.student.letsgo.permission.C2D_MESSAGE";
     }
 }

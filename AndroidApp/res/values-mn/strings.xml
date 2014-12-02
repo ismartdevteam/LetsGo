@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- <string name="fb_appId">708810742542592</string> -->
-    <string name="fb_appId">1528422227406217</string>
+
     <string name="app_name">LETS GO</string>
     <string name="letgoAndMap">Явцгаая, газрын зураг харуул</string>
     <string name="showReview">Шүүмж харуул</string>
@@ -53,13 +52,7 @@
     <string name="noReview">Шүүмж байхгүй</string>
     <string name="addErr">Газар нэмэхэд алдаа гарлаа. Дахин оролдоно уу</string>
     <string name="addSuc">Таны газрыг амжилттай нэмлээ</string>
-  <!--   <string name="mainIp">http://192.168.1.4:3000/mobile/</string>
-    <string name="mainIpImage">http://192.168.1.4:3000</string>
 
-    -->
-      <string name="mainIp">http://50.31.138.168:3000/mobile/</string>
-    <string name="mainIpImage">http://50.31.138.168:3000</string>
-   
     <string name="loading">Уншиж байна#8230;</string>
     <string name="name">Нэр</string>
     <string name="desc">Танилцуулга</string>

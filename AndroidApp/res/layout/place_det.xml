@@ -103,7 +103,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
-                        android:singleLine="true"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="@color/dark_red" />
 
@@ -125,7 +124,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
-                        android:singleLine="true"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="@color/dark_red" />
 
@@ -147,7 +145,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
-                        android:singleLine="true"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="@color/dark_red" />
 
@@ -169,7 +166,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
-                        android:singleLine="true"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="@color/dark_red" />
 
@@ -191,7 +187,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
-                        android:singleLine="true"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="@color/dark_red" />
 
@@ -206,7 +201,6 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:singleLine="true"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="@color/dark_red" />
                 </LinearLayout>
@@ -245,15 +239,11 @@
                     android:textColor="@android:color/white" />
             </LinearLayout>
 
-
-                
-
-                <ListView
-                    android:id="@+id/place_det_reviewList"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-                </ListView>
-         
+            <ListView
+                android:id="@+id/place_det_reviewList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+            </ListView>
         </LinearLayout>
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 

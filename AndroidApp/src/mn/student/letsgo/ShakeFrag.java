@@ -132,15 +132,7 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 		v = inflater.inflate(R.layout.shake, container, false);
 		spin = (Spinner) v.findViewById(R.id.mood_spinner);
 		seekDistance = (SeekBar) v.findViewById(R.id.seekDistance);
-		// shake = (ImageView) v.findViewById(R.id.shake_img);
-		// shake.setOnClickListener(new OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View v) {
-		// // TODO Auto-generated method stub
-		// onShake();
-		// }
-		// });
+
 		shake = new ShakeListener(getActivity());
 		seekDistance.setOnSeekBarChangeListener(this);
 
@@ -214,8 +206,194 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 	@Override
 	public void onShake() {
 		// TODO Auto-generated method stub
-		setupLoc();
+		if (placeDialog != null)
+			placeDialog.dismiss();
 		vibrator.vibrate(500);
+		setupLoc();
+
+	}
+
+	private void showPlace(final Places place) {
+		placeDialog = new Dialog(getActivity(), R.style.CustomDialogTheme);
+		placeDialog.setContentView(R.layout.choosenplace);
+		CircleImageView image = (CircleImageView) placeDialog
+				.findViewById(R.id.place_img);
+		Button go = (Button) placeDialog.findViewById(R.id.place_letsgo);
+		go.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				placeDialog.dismiss();
+				sendLetGo(place);
+			}
+		});
+		Button det = (Button) placeDialog.findViewById(R.id.place_detail);
+		det.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Bundle b = new Bundle();
+				b.putString("id", place.id + "");
+				Intent det = new Intent(getActivity(), PlaceDet.class);
+				det.putExtras(b);
+				getActivity().startActivity(det);
+			}
+		});
+		ImageLoader loader = MySingleton.getInstance(getActivity())
+				.getImageLoader();
+		Regular name = (Regular) placeDialog.findViewById(R.id.place_name);
+		Regular cat = (Regular) placeDialog.findViewById(R.id.place_cat);
+		Bold distance = (Bold) placeDialog.findViewById(R.id.place_distance);
+		Light mood = (Light) placeDialog.findViewById(R.id.place_mood);
+		Light visit = (Light) placeDialog.findViewById(R.id.place_visit);
+		CircleImageView user_image = (CircleImageView) placeDialog
+				.findViewById(R.id.place_user_img);
+		Light username = (Light) placeDialog.findViewById(R.id.place_username);
+		cat.setText(place.category.replace("_", " ").toUpperCase());
+		distance.setText(Utils.numberToFormat((int) (place.distance * 1000))
+				+ "m");
+
+		mood.setText(place.mood);
+		visit.setText(place.visits + " " + getString(R.string.visited));
+		user_image.setImageUrl(place.user_img, loader);
+
+		username.setText(place.username);
+		Log.i("image", place.image.replace("/public", ""));
+		image.setImageUrl(getActivity().getString(R.string.mainIpImage)
+				+ place.image.replace("/public", ""), loader);
+
+		name.setText(place.name);
+		placeDialog.show();
+	}
+
+	private void showPlace(final PlaceGoogle place) {
+		placeDialog = new Dialog(getActivity(), R.style.CustomDialogTheme);
+		placeDialog.setContentView(R.layout.choosenplace);
+		CircleImageView image = (CircleImageView) placeDialog
+				.findViewById(R.id.place_img);
+		Button go = (Button) placeDialog.findViewById(R.id.place_letsgo);
+		Button det = (Button) placeDialog.findViewById(R.id.place_detail);
+
+		go.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				placeDialog.dismiss();
+				getActivity()
+						.getSupportFragmentManager()
+						.beginTransaction()
+						.replace(R.id.container,
+								ShowMap.newInstance(place.lat, place.lng, 0))
+						.addToBackStack(place.name).commit();
+
+			}
+		});
+		ImageLoader loader = MySingleton.getInstance(getActivity())
+				.getImageLoader();
+		Regular name = (Regular) placeDialog.findViewById(R.id.place_name);
+		Regular cat = (Regular) placeDialog.findViewById(R.id.place_cat);
+		Bold distance = (Bold) placeDialog.findViewById(R.id.place_distance);
+		Light mood = (Light) placeDialog.findViewById(R.id.place_mood);
+		CircleImageView user_image = (CircleImageView) placeDialog
+				.findViewById(R.id.place_user_img);
+		Light username = (Light) placeDialog.findViewById(R.id.place_username);
+		cat.setText(place.name);
+		distance.setText(place.rating + place.ratedPeople
+				+ getActivity().getString(R.string.rated));
+
+		mood.setText(place.category.replace("_", " "));
+
+		user_image.setImageUrl(place.icon, loader);
+
+		username.setText(" Google Places API");
+
+		image.setImageUrl(place.image, loader);
+		if (place.website != null && place.website.length() > 1) {
+			det.setText(getActivity().getString(R.string.showWebSite));
+			det.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					Utils.openWebIntent(getActivity(), place.website);
+				}
+			});
+
+		} else {
+			det.setVisibility(View.GONE);
+		}
+		name.setText(place.name);
+		placeDialog.show();
+	}
+
+	@Override
+	public void onDetach() {
+		// TODO Auto-generated method stub
+		super.onDetach();
+		((MainActivity) getActivity()).onSectionAttached(getArguments().getInt(
+				ARG_SECTION_NUMBER));
+	}
+
+	private void sendLetGo(final Places place) {
+
+		if (proSp.getBoolean("login", false)) {
+			CustomRequest letgoReq = new CustomRequest(Method.POST,
+					getActivity().getString(R.string.mainIp) + "letsgo", null,
+					new Response.Listener<JSONObject>() {
+
+						@Override
+						public void onResponse(JSONObject response) {
+							Log.e("place responce", response.toString());
+
+						}
+					}, new Response.ErrorListener() {
+
+						@Override
+						public void onErrorResponse(VolleyError error) {
+							Log.e("place responce", error.getMessage());
+						}
+					}) {
+
+				@Override
+				protected Map<String, String> getParams() {
+					Map<String, String> params = new HashMap<String, String>();
+					params.put("user_id", proSp.getString("my_id", "0") + "");
+					params.put("place_id", place.id + "");
+					return params;
+				}
+			};
+			MySingleton.getInstance(getActivity()).addToRequestQueue(letgoReq);
+		}
+		getActivity()
+				.getSupportFragmentManager()
+				.beginTransaction()
+				.replace(
+						R.id.container,
+						ShowMap.newInstance(place.lat, place.lng, place.mood_id))
+				.addToBackStack(place.name).commit();
+
+	}
+
+	public void setupLoc() {
+		// Get the current location's latitude & longitude
+
+		Location currentLocation = mLocationClient.getLastLocation();
+		if (currentLocation == null) {
+			LocationCheck();
+		} else {
+
+			lat = Double.toString(currentLocation.getLatitude());
+			lng = Double.toString(currentLocation.getLongitude());
+			makeReq();
+		}
+
+	}
+
+	private void makeReq() {
+
 		progress = ProgressDialog.show(getActivity(), "",
 				getString(R.string.loading));
 		CustomRequest loginReq = new CustomRequest(Method.POST, getActivity()
@@ -360,182 +538,6 @@ public class ShakeFrag extends Fragment implements OnShakeListener,
 			}
 		};
 		MySingleton.getInstance(getActivity()).addToRequestQueue(loginReq);
-
-	}
-
-	private void showPlace(final Places place) {
-		placeDialog = new Dialog(getActivity(), R.style.CustomDialogTheme);
-		placeDialog.setContentView(R.layout.choosenplace);
-		CircleImageView image = (CircleImageView) placeDialog
-				.findViewById(R.id.place_img);
-		Button go = (Button) placeDialog.findViewById(R.id.place_letsgo);
-		go.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				placeDialog.dismiss();
-				sendLetGo(place);
-			}
-		});
-		Button det = (Button) placeDialog.findViewById(R.id.place_detail);
-		det.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Bundle b = new Bundle();
-				b.putString("id", place.id + "");
-				Intent det = new Intent(getActivity(), PlaceDet.class);
-				det.putExtras(b);
-				getActivity().startActivity(det);
-			}
-		});
-		ImageLoader loader = MySingleton.getInstance(getActivity())
-				.getImageLoader();
-		Regular name = (Regular) placeDialog.findViewById(R.id.place_name);
-		Regular cat = (Regular) placeDialog.findViewById(R.id.place_cat);
-		Bold distance = (Bold) placeDialog.findViewById(R.id.place_distance);
-		Light mood = (Light) placeDialog.findViewById(R.id.place_mood);
-		Light visit = (Light) placeDialog.findViewById(R.id.place_visit);
-		CircleImageView user_image = (CircleImageView) placeDialog
-				.findViewById(R.id.place_user_img);
-		Light username = (Light) placeDialog.findViewById(R.id.place_username);
-		cat.setText(place.category.replace("_", " ").toUpperCase());
-		distance.setText(Utils.numberToFormat((int) (place.distance * 1000))
-				+ "m");
-
-		mood.setText(place.mood);
-		visit.setText(place.visits + " " + getString(R.string.visited));
-		user_image.setImageUrl(place.user_img, loader);
-
-		username.setText(place.username);
-
-		image.setImageUrl(getActivity().getString(R.string.mainIpImage)
-				+ place.image.replace("/public", ""), loader);
-
-		name.setText(place.name);
-		placeDialog.show();
-	}
-
-	private void showPlace(final PlaceGoogle place) {
-		placeDialog = new Dialog(getActivity(), R.style.CustomDialogTheme);
-		placeDialog.setContentView(R.layout.choosenplace);
-		CircleImageView image = (CircleImageView) placeDialog
-				.findViewById(R.id.place_img);
-		Button go = (Button) placeDialog.findViewById(R.id.place_letsgo);
-		Button det = (Button) placeDialog.findViewById(R.id.place_detail);
-
-		go.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				placeDialog.dismiss();
-				getActivity()
-						.getSupportFragmentManager()
-						.beginTransaction()
-						.replace(R.id.container,
-								ShowMap.newInstance(place.lat, place.lng, 0))
-						.addToBackStack(place.name).commit();
-
-			}
-		});
-		ImageLoader loader = MySingleton.getInstance(getActivity())
-				.getImageLoader();
-		Regular name = (Regular) placeDialog.findViewById(R.id.place_name);
-		Regular cat = (Regular) placeDialog.findViewById(R.id.place_cat);
-		Bold distance = (Bold) placeDialog.findViewById(R.id.place_distance);
-		Light mood = (Light) placeDialog.findViewById(R.id.place_mood);
-		CircleImageView user_image = (CircleImageView) placeDialog
-				.findViewById(R.id.place_user_img);
-		Light username = (Light) placeDialog.findViewById(R.id.place_username);
-		cat.setText(place.name);
-		distance.setText(place.rating + place.ratedPeople
-				+ getActivity().getString(R.string.rated));
-
-		mood.setText(place.category.replace("_", " "));
-
-		user_image.setImageUrl(place.icon, loader);
-
-		username.setText(" Google Places API");
-
-		image.setImageUrl(place.image, loader);
-		if (place.website != null && place.website.length() > 1) {
-			det.setText(getActivity().getString(R.string.showWebSite));
-			det.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					Utils.openWebIntent(getActivity(), place.website);
-				}
-			});
-
-		} else {
-			det.setVisibility(View.GONE);
-		}
-		name.setText(place.name);
-		placeDialog.show();
-	}
-
-	@Override
-	public void onDetach() {
-		// TODO Auto-generated method stub
-		super.onDetach();
-		((MainActivity) getActivity()).onSectionAttached(getArguments().getInt(
-				ARG_SECTION_NUMBER));
-	}
-
-	private void sendLetGo(final Places place) {
-
-		if (proSp.getBoolean("login", false)) {
-			CustomRequest letgoReq = new CustomRequest(Method.POST,
-					getActivity().getString(R.string.mainIp) + "letsgo", null,
-					new Response.Listener<JSONObject>() {
-
-						@Override
-						public void onResponse(JSONObject response) {
-							Log.e("place responce", response.toString());
-
-						}
-					}, new Response.ErrorListener() {
-
-						@Override
-						public void onErrorResponse(VolleyError error) {
-							Log.e("place responce", error.getMessage());
-						}
-					}) {
-
-				@Override
-				protected Map<String, String> getParams() {
-					Map<String, String> params = new HashMap<String, String>();
-					params.put("user_id", proSp.getString("my_id", "0") + "");
-					params.put("place_id", place.id + "");
-					return params;
-				}
-			};
-			MySingleton.getInstance(getActivity()).addToRequestQueue(letgoReq);
-		}
-		getActivity()
-				.getSupportFragmentManager()
-				.beginTransaction()
-				.replace(
-						R.id.container,
-						ShowMap.newInstance(place.lat, place.lng, place.mood_id))
-				.addToBackStack(place.name).commit();
-
-	}
-
-	public void setupLoc() {
-		// Get the current location's latitude & longitude
-		Location currentLocation = mLocationClient.getLastLocation();
-
-		lat = Double.toString(currentLocation.getLatitude());
-		lng = Double.toString(currentLocation.getLongitude());
-		Log.v("long", lng + "");
-		Log.v("lat", lat + "");
-
 	}
 
 	@Override

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- <string name="fb_appId">708810742542592</string> -->
-    <string name="fb_appId">1528422227406217</string>
+
     <string name="app_name">LETS GO</string>
     <string name="letgoAndMap">Lass uns gehen und Landkarte anzeigen</string>
     <string name="showReview">Zeige Kundenmeinung</string>
@@ -53,12 +52,7 @@
     <string name="noReview">Keine Bewertungen</string>
     <string name="addErr">Fehler beim Hinzufügen einer neuen Stelle. Bitte versuchen Sie es erneut</string>
     <string name="addSuc">Erfolgreich in Ihren Platz</string>
-  <!--   <string name="mainIp">http://192.168.1.4:3000/mobile/</string>
-    <string name="mainIpImage">http://192.168.1.4:3000</string>
 
-    -->
-      <string name="mainIp">http://50.31.138.168:3000/mobile/</string>
-    <string name="mainIpImage">http://50.31.138.168:3000</string>
    
     <string name="loading">Laden...</string>
     <string name="name">Name</string>

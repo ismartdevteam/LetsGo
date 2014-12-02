@@ -76,7 +76,7 @@ public class UserPlaceAdapter extends ArrayAdapter<Places> {
 				Integer.parseInt(dates[3]), Integer.parseInt(dates[4]),
 				Integer.parseInt(dates[5]));
 		hol.rated
-				.setText(item.ratedPeople + mContext.getString(R.string.rated));
+				.setText(item.ratedPeople + "-"+mContext.getString(R.string.rated));
 		hol.date.setText(DateUtils.getRelativeTimeSpanString(mContext, time)
 				+ "");
 		hol.image.setImageUrl(imageIp

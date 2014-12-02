@@ -267,7 +267,7 @@ public class UserAc extends ActionBarActivity {
 						int position, long id) {
 					// TODO Auto-generated method stub
 					Bundle b = new Bundle();
-					b.putInt("od", mListItems.get(position - 1).id);
+					b.putString("id", mListItems.get(position).id + "");
 					Intent adIntent = new Intent(getActivity(), PlaceDet.class);
 					adIntent.putExtras(b);
 					startActivity(adIntent);
@@ -468,7 +468,7 @@ public class UserAc extends ActionBarActivity {
 						int position, long id) {
 					// TODO Auto-generated method stub
 					Bundle b = new Bundle();
-					b.putInt("id", mListItems.get(position - 1).id);
+					b.putString("id", mListItems.get(position).id + "");
 					Intent adIntent = new Intent(getActivity(), PlaceDet.class);
 					adIntent.putExtras(b);
 					startActivity(adIntent);

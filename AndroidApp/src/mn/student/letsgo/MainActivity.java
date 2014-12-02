@@ -28,10 +28,7 @@ public class MainActivity extends ActionBarActivity implements
 	 */
 	public static NavigationDrawerFragment mNavigationDrawerFragment;
 	private SharedPreferences proSp;
-	/**
-	 * Used to store the last screen title. For use in
-	 * {@link #restoreActionBar()}.
-	 */
+
 	private CharSequence mTitle;
 
 	@Override
