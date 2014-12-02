@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Who Is Gonna Pay strings -->
+    <string name="settings">설정</string>
+    <string name="user_number">사용자 수</string>
+	<string name="dialog_continue">계속</string>
+	<string name="dialog_back">뒤로 가기</string>
+	<string name="dialog_save">저장</string>
+	<string name="dialog_insert_nickname">이름 입력</string>
+	<string name="dialog_users_color">사용자 색</string>
+	<string name="pay_description">누가 지불할 것입니까?</string>
+
+</resources>

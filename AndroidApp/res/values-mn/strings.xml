@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- <string name="fb_appId">708810742542592</string> -->
+    <string name="fb_appId">1528422227406217</string>
+    <string name="app_name">LETS GO</string>
+    <string name="letgoAndMap">Явцгаая, газрын зураг харуул</string>
+    <string name="showReview">Шүүмж харуул</string>
+    <string name="showDetPlace">Дэлгэрэнгүй харуул</string>
+    <string name="title_section1">Shake</string>
+    <string name="title_section3">Хэн төлөх вэ</string>
+    <string name="showWebSite">Веб хуудас харуул</string>
+    <string name="writeReview">Шүүмж бичих</string>
+    <string name="title_section2">Харьцуул</string>
+    <string name="title_section4">Газрын зураг</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="addComment">Сэтгэгдэл бичих</string>
+    <string name="logout_title">Гарах</string>
+    <string name="addPhoto">Зураг нэмэх</string>
+    <string name="send">Илгээх</string>
+    <string name="logout_not">Та үнэхээр гармаар байна уу?</string>
+    <string name="pleaseLogin">Эхэлж нэвтэрнэ үү</string>
+    <string name="onGPS">GPS-ээ идэвхижүүлнэ үү</string>
+    <string name="skip">алгасах</string>
+    <string name="profile">Хэрэглэгч</string>
+    <string name="visited">зочилсон</string>
+    <string name="by">-аар</string>
+    <string name="yes">Тийм</string>
+    <string name="done">Дууссан</string>
+    <string name="all">Бүгд</string>
+    <string name="selectMood">Төлөв сонгох</string>
+    <string name="shakeToStart">Эхлэхийн тулд 3 удаа сэгсэрнэ</string>
+    <string name="selectYourMood">Төлөвөө сонгоно уу</string>
+    <string name="selectDistance"><b>Байршлын зайг сонгох</b> (километр)</string>
+    <string name="action_add">Газар нэмэх</string>
+    <string name="no">Үгүй</string>
+    <string name="mood">Төлөв</string>
+    <string name="chooseLoc">Газрын зураг дээр дарна уу</string>
+    <string name="chooseImage">Зургийн сангаас зураг сонгох</string>
+    <string name="noNet">Интернэт холболт байхгүй</string>
+    <string name="visitedPlace">Зочилсон газар</string>
+    <string name="myActivity">Миний үйлдлүүд</string>
+    <string name="myPlace">Миний газрууд</string>
+    <string name="login">Нэвтрэхийн тулд энд дар</string>
+    <string name="action_settings">Тохиргоо</string>
+    <string name="walk_one">ТАНЫ БАЙГУУЛЛАГЫН СУРТАЛЧИЛГАА</string>
+    <string name="walk_two">ҮЛ МЭДЭХ ГАЗРЫГ АНГИЛЖ ХЯЛБАРХАН ОЛНО</string>
+    <string name="walk_three">НАЙЗУУДТАЙГАА ЦАГИЙГ ХӨГЖИЛТЭЙ ӨНГӨРӨӨ</string>
+    <string name="add_fill">Талбарыг бөглөнө үү:</string>
+    <string name="noData_Mood">Үр дүн олдсонгүй. Төлөв өөрчилж дахин оролдоно уу</string>
+    <string name="noData">Үр дүн байхгүй</string>
+    <string name="noReview">Шүүмж байхгүй</string>
+    <string name="addErr">Газар нэмэхэд алдаа гарлаа. Дахин оролдоно уу</string>
+    <string name="addSuc">Таны газрыг амжилттай нэмлээ</string>
+  <!--   <string name="mainIp">http://192.168.1.4:3000/mobile/</string>
+    <string name="mainIpImage">http://192.168.1.4:3000</string>
+
+    -->
+      <string name="mainIp">http://50.31.138.168:3000/mobile/</string>
+    <string name="mainIpImage">http://50.31.138.168:3000</string>
+   
+    <string name="loading">Уншиж байна#8230;</string>
+    <string name="name">Нэр</string>
+    <string name="desc">Танилцуулга</string>
+    <string name="address">Хаяг</string>
+    <string name="service">Үйлчилгээ</string>
+    <string name="rated">  хүн үнэлсэн</string>
+    <string name="phone">Утас</string>
+    <string name="timetable">Цагийн хуваарь</string>
+    <string name="addPlace">Газар нэмэх</string>
+
+</resources>

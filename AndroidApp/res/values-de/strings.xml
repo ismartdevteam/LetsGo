@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- <string name="fb_appId">708810742542592</string> -->
+    <string name="fb_appId">1528422227406217</string>
+    <string name="app_name">LETS GO</string>
+    <string name="letgoAndMap">Lass uns gehen und Landkarte anzeigen</string>
+    <string name="showReview">Zeige Kundenmeinung</string>
+    <string name="showDetPlace">Detailansicht</string>
+    <string name="title_section1">Shake</string>
+    <string name="title_section3">Wer soll zahlen</string>
+    <string name="showWebSite">Website anzeigen</string>
+    <string name="writeReview">Beitrag schreiben</string>
+    <string name="title_section2">vergleichen</string>
+    <string name="title_section4">Landkarte</string>
+    <string name="navigation_drawer_open">Öffnen Navigation Schublade</string>
+    <string name="navigation_drawer_close">Schließen Navigation Schublade</string>
+    <string name="addComment">Kommentar hinzufügen</string>
+    <string name="logout_title">abmelden</string>
+    <string name="addPhoto">Foto hinzufügen</string>
+    <string name="send">senden</string>
+    <string name="logout_not">Wollen Sie wirklich abmelden?</string>
+    <string name="pleaseLogin">Bitte logge Dich zuerst</string>
+    <string name="onGPS">Bitte auf GPS drehen</string>
+    <string name="skip">überspringen</string>
+    <string name="profile">Profil</string>
+    <string name="visited">Besuche</string>
+    <string name="by">von</string>
+    <string name="yes">Ja</string>
+    <string name="done">Gemacht</string>
+    <string name="all">alle</string>
+    <string name="selectMood">Wählen Sie die Stimmung</string>
+    <string name="shakeToStart">Schütteln Sie 3 mal zu starten</string>
+    <string name="selectYourMood">Wählen Sie Ihre Stimmung</string>
+    <string name="selectDistance"><b>Wählen Sie Abstand zu Ort</b> (Kilometer)</string>
+    <string name="action_add">Ort hinzufügen</string>
+    <string name="no">Nein</string>
+    <string name="mood">Stimmung</string>
+    <string name="chooseLoc">Klicken Sie auf einer Landkarte</string>
+    <string name="chooseImage">Wählen Sie ein Bild aus der Galerie</string>
+    <string name="noNet">Keine Netzwerkverbindung</string>
+    <string name="visitedPlace">besuchte Ort</string>
+    <string name="myActivity">Meine Aktivitäten</string>
+    <string name="myPlace">Mein Platz</string>
+    <string name="login">Klicken Sie auf Anmelden</string>
+    <string name="action_settings">Einstellungen</string>
+    <string name="walk_one">WERBUNG Ihrer Organisation</string>
+  	<string name="walk_two">EINFACHE unbekannten Ort nach Kategorie Suchen</string>
+  	<string name="walk_three">Haben SPAß MIT DEINEN FREUNDEN</string>
+    <string name="add_fill">Bitte füllen Sie dieses Feld:</string>
+    <string name="noData_Mood">Kein Ergebnis. Bitte versuchen Sie es auf andere Stimmungs</string>
+    <string name="noData">Kein Ergebnis</string>
+    <string name="noReview">Keine Bewertungen</string>
+    <string name="addErr">Fehler beim Hinzufügen einer neuen Stelle. Bitte versuchen Sie es erneut</string>
+    <string name="addSuc">Erfolgreich in Ihren Platz</string>
+  <!--   <string name="mainIp">http://192.168.1.4:3000/mobile/</string>
+    <string name="mainIpImage">http://192.168.1.4:3000</string>
+
+    -->
+      <string name="mainIp">http://50.31.138.168:3000/mobile/</string>
+    <string name="mainIpImage">http://50.31.138.168:3000</string>
+   
+    <string name="loading">Laden...</string>
+    <string name="name">Name</string>
+    <string name="desc">Einführung</string>
+    <string name="address">Anschrift</string>
+    <string name="service">Dienstleistungen</string>
+    <string name="rated">  Menschen bewertet</string>
+    <string name="phone">Telefon</string>
+    <string name="timetable">Zeitplan</string>
+    <string name="addPlace">Ort hinzufügen</string>
+
+</resources>

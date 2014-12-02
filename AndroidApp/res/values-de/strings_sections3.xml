@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Who Is Gonna Pay strings -->
+    <string name="settings">Einstellungen</string>
+    <string name="user_number">Benutzernummer</string>
+	<string name="dialog_continue">fortsetzen</string>
+	<string name="dialog_back">zurücksetzen</string>
+	<string name="dialog_save">sparen</string>
+	<string name="dialog_insert_nickname">fügen Sie den Namen</string>
+	<string name="dialog_users_color">Benutzer Farbe</string>
+	<string name="pay_description">die du bezahlen ist?</string>
+
+</resources>

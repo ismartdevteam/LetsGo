@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Who Is Gonna Pay strings -->
+    <string name="settings">設定</string>
+    <string name="user_number">利用者番号</string>
+	<string name="dialog_continue">続ける</string>
+	<string name="dialog_back">禿上がる</string>
+	<string name="dialog_save">セーブ</string>
+	<string name="dialog_insert_nickname">ニックネームを挿入</string>
+	<string name="dialog_users_color">ユーザーの色</string>
+	<string name="pay_description">誰が支払うとしている?</string>
+
+</resources>

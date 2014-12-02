@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- <string name="fb_appId">708810742542592</string> -->
+    <string name="fb_appId">1528422227406217</string>
+    <string name="app_name">LETS GO</string>
+    <string name="letgoAndMap">갑시다, 지도 보기</string>
+    <string name="showReview">리뷰 보기</string>
+    <string name="showDetPlace">자세히 보기</string>
+    <string name="title_section1">Shake</string>
+    <string name="title_section3">누가 지불할 것입니까</string>
+    <string name="showWebSite">웹사이트 보기</string>
+    <string name="writeReview">리뷰 쓰기</string>
+    <string name="title_section2">비교하기</string>
+    <string name="title_section4">지도</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="addComment">댓글 달기</string>
+    <string name="logout_title">로그아웃</string>
+    <string name="addPhoto">그림 삽입</string>
+    <string name="send">보내기</string>
+    <string name="logout_not">당신이 로그아웃하시겠습니까?</string>
+    <string name="pleaseLogin">먼저 로그인하십시오</string>
+    <string name="onGPS">GPS를 켜주십시오</string>
+    <string name="skip">건너뛰기</string>
+    <string name="profile">사용자</string>
+    <string name="visited">방문</string>
+    <string name="by">로</string>
+    <string name="yes">예</string>
+    <string name="done">완료</string>
+    <string name="all">모두</string>
+    <string name="selectMood">모드 선택</string>
+    <string name="shakeToStart">시작하려면 3번 흔들어 주십시오</string>
+    <string name="selectYourMood">모드를 선택하십시오</string>
+    <string name="selectDistance"><b>위치 선택 </b> (킬로미터)</string>
+    <string name="action_add">장소 추가 </string>
+    <string name="no">아니오</string>
+    <string name="mood">모드</string>
+    <string name="chooseLoc">지도를 클릭하십시오</string>
+    <string name="chooseImage">갤러리에서 사진을 선택하기</string>
+    <string name="noNet">인터넷에 연결되어 있지 않습니다</string>
+    <string name="visitedPlace">방문 기록</string>
+    <string name="myActivity">나의 활동</string>
+    <string name="myPlace">내 위치</string>
+    <string name="login">여기를 클릭하여 로그인하십시오</string>
+    <string name="action_settings">설정</string>
+    <string name="walk_one">광고</string>
+    <string name="walk_two">모르는 장소를 쉽게 찾기</string>
+    <string name="walk_three">친구와 함께 시간을 재미있게 보내십시오</string>
+    <string name="add_fill">작성하십시오:</string>
+    <string name="noData_Mood">검색결과가 없습니다. 모드를 변경하여 다시 시도하십시오</string>
+    <string name="noData">검색결과가 없습니다</string>
+    <string name="noReview">리뷰가 없습니다</string>
+    <string name="addErr">장소를 추가하는데 오류가 발생하였습니다. 다시 시도하십시오</string>
+    <string name="addSuc">장소를 성공적으로 추가하였습니다</string>
+  <!--   <string name="mainIp">http://192.168.1.4:3000/mobile/</string>
+    <string name="mainIpImage">http://192.168.1.4:3000</string>
+
+    -->
+      <string name="mainIp">http://50.31.138.168:3000/mobile/</string>
+    <string name="mainIpImage">http://50.31.138.168:3000</string>
+   
+    <string name="loading">로딩...</string>
+    <string name="name">이름</string>
+    <string name="desc">소개</string>
+    <string name="address">주소</string>
+    <string name="service">서비스</string>
+    <string name="rated">  명이 평가하였습니다</string>
+    <string name="phone">전화번호</string>
+    <string name="timetable">시간표</string>
+    <string name="addPlace">장소 추가 </string>
+
+</resources>

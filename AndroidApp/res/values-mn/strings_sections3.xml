@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Who Is Gonna Pay strings -->
+    <string name="settings">Тохиргоо</string>
+    <string name="user_number">Хэрэглэгчдийн тоо</string>
+	<string name="dialog_continue">Үргэлжлүүлэх</string>
+	<string name="dialog_back">Буцах</string>
+	<string name="dialog_save">Хадгалах</string>
+	<string name="dialog_insert_nickname">Хоч/Нэр оруулна уу</string>
+	<string name="dialog_users_color">Хэрэглэгчийн өнгө</string>
+	<string name="pay_description">Хэн төлөх вэ?</string>
+
+</resources>

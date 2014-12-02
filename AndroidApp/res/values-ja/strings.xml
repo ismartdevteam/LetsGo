@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- <string name="fb_appId">708810742542592</string> -->
+    <string name="fb_appId">1528422227406217</string>
+    <string name="app_name">LETS GO</string>
+    <string name="letgoAndMap">行きましょうと 地図を示す</string>
+    <string name="showReview">見直し示す</string>
+    <string name="showDetPlace">委細 示す</string>
+    <string name="title_section1">振る</string>
+    <string name="title_section3">Who Is Gonna Pay</string>
+    <string name="showWebSite">ウェブサイトを示す</string>
+    <string name="writeReview">見直しを書く</string>
+    <string name="title_section2">比べる</string>
+    <string name="title_section4">地図</string>
+    <string name="navigation_drawer_open">ナビゲーションを描く</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="addComment">コメントの追加</string>
+    <string name="logout_title">ログアウト</string>
+    <string name="addPhoto">写真を着ける</string>
+    <string name="send">送る</string>
+    <string name="logout_not">Do you really wanna logout?</string>
+    <string name="pleaseLogin">Please login first</string>
+    <string name="onGPS">GPSをかける</string>
+    <string name="skip">跳躍</string>
+    <string name="profile">プロフィール</string>
+    <string name="visited">訪問</string>
+    <string name="by">によって</string>
+    <string name="yes">はい</string>
+    <string name="done">終わった</string>
+    <string name="all">各</string>
+    <string name="selectMood">気分を撰ぶ</string>
+    <string name="shakeToStart">Shake 3 times to Start</string>
+    <string name="selectYourMood">Select your mood</string>
+    <string name="selectDistance"><b>Select distance to place</b> (kilometer)</string>
+    <string name="action_add">場所を着ける</string>
+    <string name="no">いいえ</string>
+    <string name="mood">気分</string>
+    <string name="chooseLoc">Click on the map</string>
+    <string name="chooseImage">ギャラリーから 写真を撰ぶChoose image from gallery</string>
+    <string name="noNet">網がありません</string>
+    <string name="visitedPlace">visited place</string>
+    <string name="myActivity">私の活動</string>
+    <string name="myPlace">私の場所</string>
+    <string name="login">Click to Login</string>
+    <string name="action_settings">Settings</string>
+    <string name="walk_one">ADVERTISEMENT OF YOUR ORGANIZATION</string>
+    <string name="walk_two">EASY TO FIND UNKNOWN PLACE BY CATEGORY</string>
+    <string name="walk_three">HAVING FUN WITH YOUR FRIENDS</string>
+    <string name="add_fill">Please fill this field:</string>
+    <string name="noData_Mood">結果がありません もう気分を撰ぶ</string>
+    <string name="noData">結果がありません</string>
+    <string name="noReview">見直しがありません</string>
+    <string name="addErr">所は誤り 着ける 再試行する</string>
+    <string name="addSuc">所はうまく 着ける</string>
+
+   
+    <string name="loading">充填...</string>
+    <string name="name">地名</string>
+    <string name="desc">導入</string>
+    <string name="address">所</string>
+    <string name="service">サービス</string>
+    <string name="rated">  人々はレート</string>
+    <string name="phone">電話</string>
+    <string name="timetable">時刻表</string>
+    <string name="addPlace">場所を着ける</string>
+
+</resources>
