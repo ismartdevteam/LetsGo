@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -644,7 +645,7 @@ public class AddPlaceAc extends ActionBarActivity implements OnClickListener {
 								+ kv[0] + "\"" + lineEnd);
 				outputStream.writeBytes("Content-Type: text/plain" + lineEnd);
 				outputStream.writeBytes(lineEnd);
-				outputStream.writeBytes(kv[1]);
+				outputStream.writeBytes(URLEncoder.encode(kv[1], "UTF-8"));
 				outputStream.writeBytes(lineEnd);
 			}
 
@@ -668,8 +669,8 @@ public class AddPlaceAc extends ActionBarActivity implements OnClickListener {
 		}
 	}
 
-	public static String multipartRequest(String urlTo, String post
-			) throws ParseException, IOException {
+	public static String multipartRequest(String urlTo, String post)
+			throws ParseException, IOException {
 
 		HttpURLConnection connection = null;
 		DataOutputStream outputStream = null;
@@ -682,10 +683,10 @@ public class AddPlaceAc extends ActionBarActivity implements OnClickListener {
 
 		String result = "";
 
-
 		try {
 
 			URL url = new URL(urlTo);
+
 			connection = (HttpURLConnection) url.openConnection();
 
 			connection.setDoInput(true);
@@ -693,15 +694,14 @@ public class AddPlaceAc extends ActionBarActivity implements OnClickListener {
 			connection.setUseCaches(false);
 
 			connection.setRequestMethod("POST");
+
 			connection.setRequestProperty("Connection", "Keep-Alive");
 			connection.setRequestProperty("User-Agent",
 					"Android Multipart HTTP Client 1.0");
 			connection.setRequestProperty("Content-Type",
 					"multipart/form-data; boundary=" + boundary);
 
-			 outputStream = new
-			 DataOutputStream(connection.getOutputStream());
-	
+			outputStream = new DataOutputStream(connection.getOutputStream());
 
 			// Upload POST Data
 			String[] posts = post.split("&");
@@ -714,7 +714,7 @@ public class AddPlaceAc extends ActionBarActivity implements OnClickListener {
 								+ kv[0] + "\"" + lineEnd);
 				outputStream.writeBytes("Content-Type: text/plain" + lineEnd);
 				outputStream.writeBytes(lineEnd);
-				outputStream.writeBytes(kv[1]);
+				outputStream.writeBytes(URLEncoder.encode(kv[1], "UTF-8"));
 				outputStream.writeBytes(lineEnd);
 			}
 

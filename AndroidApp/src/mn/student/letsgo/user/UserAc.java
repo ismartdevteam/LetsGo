@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import mn.student.letsgo.PlaceDet;
 import mn.student.letsgo.R;
 import mn.student.letsgo.model.Places;
 import mn.student.letsgo.text.Bold;
@@ -265,13 +266,11 @@ public class UserAc extends ActionBarActivity {
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
 					// TODO Auto-generated method stub
-					// Bundle b = new Bundle();
-					// b.putInt("ad_id", mListItems.get(position - 1).id);
-
-					// Intent adIntent = new Intent(getActivity(),
-					// AdDetail.class);
-					// adIntent.putExtras(b);
-					// startActivity(adIntent);
+					Bundle b = new Bundle();
+					b.putInt("od", mListItems.get(position - 1).id);
+					Intent adIntent = new Intent(getActivity(), PlaceDet.class);
+					adIntent.putExtras(b);
+					startActivity(adIntent);
 				}
 			});
 		}
@@ -468,13 +467,11 @@ public class UserAc extends ActionBarActivity {
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
 					// TODO Auto-generated method stub
-					// Bundle b = new Bundle();
-					// b.putInt("ad_id", mListItems.get(position - 1).id);
-
-					// Intent adIntent = new Intent(getActivity(),
-					// AdDetail.class);
-					// adIntent.putExtras(b);
-					// startActivity(adIntent);
+					Bundle b = new Bundle();
+					b.putInt("id", mListItems.get(position - 1).id);
+					Intent adIntent = new Intent(getActivity(), PlaceDet.class);
+					adIntent.putExtras(b);
+					startActivity(adIntent);
 				}
 			});
 		}

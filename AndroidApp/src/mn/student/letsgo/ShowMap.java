@@ -20,7 +20,9 @@ import android.support.v4.app.Fragment;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -38,7 +40,7 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 public class ShowMap extends Fragment implements OnInfoWindowClickListener,
-		LocationListener {
+		LocationListener, OnClickListener {
 	private GoogleMap mMap;
 	private static View view;
 	private UiSettings mUiSettings;
@@ -54,6 +56,9 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener,
 	private LocationManager locationManager;
 	private static final long MIN_TIME = 400;
 	private static final float MIN_DISTANCE = 1000;
+	private ImageView walking;
+	private ImageView driving;
+	private Location location;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -68,7 +73,10 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener,
 		try {
 
 			view = inflater.inflate(R.layout.show_place, container, false);
-
+			walking = (ImageView) view.findViewById(R.id.map_walk);
+			driving = (ImageView) view.findViewById(R.id.map_drive);
+			walking.setOnClickListener(this);
+			driving.setOnClickListener(this);
 		} catch (InflateException e) {
 		}
 
@@ -128,7 +136,7 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener,
 
 		mUiSettings = mMap.getUiSettings();
 		mMap.setMyLocationEnabled(true);
-
+		mMap.clear();
 		mUiSettings.setMyLocationButtonEnabled(true);
 
 		locationManager = (LocationManager) getActivity().getSystemService(
@@ -257,18 +265,34 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener,
 		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng,
 				14);
 		mMap.animateCamera(cameraUpdate);
+		this.location = location;
+		makeMap(1);
+		locationManager.removeUpdates(this);
+
+	}
+
+	private void makeMap(int status) {
 		LatLng loc = new LatLng(lat, lng);
 		BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory
 				.defaultMarker(BitmapDescriptorFactory.HUE_AZURE);
 		if (mood > 0)
 			bitmapDescriptor = BitmapDescriptorFactory
-					.fromResource(markers[mood-1]);
+					.fromResource(markers[mood - 1]);
 
 		mMap.addMarker(new MarkerOptions().position(loc).icon(bitmapDescriptor));
-		findDirections(location.getLatitude(), location.getLongitude(),
-				loc.latitude, loc.longitude, "driving");
-		locationManager.removeUpdates(this);
+		if (status == 1) {
+			walking.setBackgroundResource(R.drawable.blue_but);
+			driving.setBackgroundResource(R.drawable.red_but);
+			findDirections(location.getLatitude(), location.getLongitude(),
+					loc.latitude, loc.longitude, "driving");
+		}
 
+		else {
+			walking.setBackgroundResource(R.drawable.red_but);
+			driving.setBackgroundResource(R.drawable.blue_but);
+			findDirections(location.getLatitude(), location.getLongitude(),
+					loc.latitude, loc.longitude, "walking");
+		}
 	}
 
 	@Override
@@ -287,6 +311,21 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener,
 	public void onProviderDisabled(String provider) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		if (v == walking) {
+
+			mMap.clear();
+			makeMap(2);
+		}
+		if (v == driving) {
+
+			mMap.clear();
+			makeMap(1);
+		}
 	}
 
 }
