@@ -111,6 +111,7 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 	@Override
 	public void onDetach() {
 		super.onDetach();
+		shake.pause();
 		((MainActivity) getActivity()).onSectionAttached(getArguments().getInt(
 				ARG_SECTION_NUMBER));
 	}
@@ -367,6 +368,7 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 		}
 		@Override
 		public void onShake() {
+			vibrator.vibrate(500);
 			circleLayout.rotateView();
 		}
 
@@ -441,6 +443,7 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 		}
 		@Override
 		public void onShake() {
+			vibrator.vibrate(500);
 			circleLayout.rotateView();
 		}
 
@@ -519,6 +522,7 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 		}
 		@Override
 		public void onShake() {
+			vibrator.vibrate(500);
 			circleLayout.rotateView();
 		}
 
@@ -597,6 +601,7 @@ public class WhoIsGonnaPay extends Fragment implements OnClickListener,
 		}
 		@Override
 		public void onShake() {
+			vibrator.vibrate(500);
 			circleLayout.rotateView();
 		}
 

@@ -53,7 +53,7 @@
     <string name="addErr">Газар нэмэхэд алдаа гарлаа. Дахин оролдоно уу</string>
     <string name="addSuc">Таны газрыг амжилттай нэмлээ</string>
 
-    <string name="loading">Уншиж байна#8230;</string>
+    <string name="loading">Уншиж байна...</string>
     <string name="name">Нэр</string>
     <string name="desc">Танилцуулга</string>
     <string name="address">Хаяг</string>
