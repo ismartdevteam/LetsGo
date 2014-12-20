@@ -644,7 +644,8 @@ public class AddPlaceAc extends ActionBarActivity implements OnClickListener {
 								+ kv[0] + "\"" + lineEnd);
 				outputStream.writeBytes("Content-Type: text/plain" + lineEnd);
 				outputStream.writeBytes(lineEnd);
-				outputStream.writeBytes(URLEncoder.encode(kv[1], "UTF-8"));
+//				outputStream.writeBytes(URLEncoder.encode(kv[1], "UTF-8"));
+				outputStream.writeUTF(kv[1]);
 				outputStream.writeBytes(lineEnd);
 			}
 
@@ -713,7 +714,7 @@ public class AddPlaceAc extends ActionBarActivity implements OnClickListener {
 								+ kv[0] + "\"" + lineEnd);
 				outputStream.writeBytes("Content-Type: text/plain" + lineEnd);
 				outputStream.writeBytes(lineEnd);
-				outputStream.writeBytes(URLEncoder.encode(kv[1], "UTF-8"));
+				outputStream.writeUTF(kv[1]);
 				outputStream.writeBytes(lineEnd);
 			}
 

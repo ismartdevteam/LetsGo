@@ -3329,16 +3329,14 @@ containing a value of this type.
         public static final int done=0x7f0b0067;
         public static final int fb_appId=0x7f0b004e;
         public static final int letgoAndMap=0x7f0b0050;
-        /** 
-      <string name="mainIp">http://50.31.138.168:3000/mobile/</string>
-    <string name="mainIpImage">http://50.31.138.168:3000</string>
-
-    
-         */
         public static final int loading=0x7f0b0083;
         public static final int login=0x7f0b0076;
         public static final int logout_not=0x7f0b005f;
         public static final int logout_title=0x7f0b005c;
+        /**   <string name="mainIp">http://192.168.1.4:3000/mobile/</string>
+    <string name="mainIpImage">http://192.168.1.4:3000</string>
+    
+         */
         public static final int mainIp=0x7f0b0081;
         public static final int mainIpImage=0x7f0b0082;
         public static final int mood=0x7f0b006f;

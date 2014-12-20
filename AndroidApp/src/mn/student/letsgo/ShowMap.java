@@ -74,7 +74,7 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener,
 		try {
 
 			view = inflater.inflate(R.layout.show_place, container, false);
-		
+
 		} catch (InflateException e) {
 		}
 		walking = (ImageView) view.findViewById(R.id.map_walk);
@@ -267,13 +267,13 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener,
 				14);
 		mMap.animateCamera(cameraUpdate);
 		this.location = location;
-		makeMap(2);
+		makeMap(1);
 		locationManager.removeUpdates(this);
 
 	}
 
 	private void makeMap(int status) {
-		Log.i("status", status+"");
+		Log.i("status", status + "");
 		LatLng loc = new LatLng(lat, lng);
 		BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory
 				.defaultMarker(BitmapDescriptorFactory.HUE_AZURE);
@@ -282,16 +282,16 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener,
 					.fromResource(markers[mood - 1]);
 
 		mMap.addMarker(new MarkerOptions().position(loc).icon(bitmapDescriptor));
-		if (status ==2) {
-			walking.setBackgroundResource(R.drawable.red_but);
-			driving.setBackgroundResource(R.drawable.blue_but);
+		if (status == 2) {
+			walking.setBackgroundResource(R.drawable.blue_but);
+			driving.setBackgroundResource(R.drawable.red_but);
 			findDirections(location.getLatitude(), location.getLongitude(),
 					loc.latitude, loc.longitude, GMapV2Direction.MODE_DRIVING);
 		}
 
 		else {
-			walking.setBackgroundResource(R.drawable.blue_but);
-			driving.setBackgroundResource(R.drawable.red_but);
+			walking.setBackgroundResource(R.drawable.red_but);
+			driving.setBackgroundResource(R.drawable.blue_but);
 			findDirections(location.getLatitude(), location.getLongitude(),
 					loc.latitude, loc.longitude, GMapV2Direction.MODE_WALKING);
 		}
@@ -321,12 +321,12 @@ public class ShowMap extends Fragment implements OnInfoWindowClickListener,
 		if (v == walking) {
 
 			mMap.clear();
-			makeMap(2);
+			makeMap(1);
 		}
 		if (v == driving) {
 
 			mMap.clear();
-			makeMap(1);
+			makeMap(2);
 		}
 	}
 
